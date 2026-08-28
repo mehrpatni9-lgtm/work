@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mehr Patni — selected work</title>
+<meta name="description" content="Content strategy, creative direction and community. Dubai. Selected work by Mehr Patni — podcasts, carousels, campaigns and long-form.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fbf9f6; --paper-2:#f3efe9; --ink:#16130f; --muted:#6b6459;
+  --accent:#c8553d; --accent-soft:#f5e3dd; --line:#e5ded4; --white:#fff; --r:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;letter-spacing:-.02em;line-height:1.1;margin:0}
+a{color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding:0 26px}
+
+header{padding:72px 0 30px}
+.name{font-size:clamp(44px,7.5vw,80px);font-weight:600;letter-spacing:-.035em}
+.role{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:680px;margin:16px 0 0;line-height:1.55}
+.role b{color:var(--ink);font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.links a{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--line);
+  border-radius:999px;padding:10px 18px;font-size:14.5px;font-weight:500;text-decoration:none;
+  transition:border-color .18s ease,transform .18s ease}
+.links a:hover{border-color:var(--accent);transform:translateY(-1px)}
+.links a.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+.figures{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:38px 0 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0}
+.fig .n{font-family:Fraunces;font-size:clamp(21px,2.9vw,31px);font-weight:600;letter-spacing:-.03em;color:var(--accent)}
+.fig .c{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}
+
+section{padding:46px 0 10px}
+.shead{margin-bottom:22px;max-width:720px}
+h2{font-size:clamp(25px,3.6vw,35px)}
+.shead p{margin:10px 0 0;color:var(--muted);font-size:15.5px}
+.shead p em{font-style:italic;color:var(--ink)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
+.grid.two{grid-template-columns:repeat(auto-fill,minmax(430px,1fr))}
+.grid.ig{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -26px rgba(22,19,15,.4)}
+.frame{position:relative;width:100%;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#fff}
+.ar-16x9{padding-top:56.25%} .ar-4x5{padding-top:125%} .ar-ig{padding-top:127%} .ar-1x1{padding-top:100%} .ar-a4{padding-top:129%}
+.meta{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.tag{font-size:10.6px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.card h3{font-size:18.5px}
+.card p{margin:0;font-size:14.6px;color:var(--muted)}
+.card .open{margin-top:auto;padding-top:12px;font-size:13.6px;font-weight:600;text-decoration:none}
+.card .open span{color:var(--accent)}
+
+/* plain link tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.tile{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 20px;
+  text-decoration:none;display:flex;flex-direction:column;gap:5px;transition:border-color .18s ease,transform .18s ease}
+.tile:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tile .t{font-weight:600;font-size:15.4px}
+.tile .s{font-size:13.4px;color:var(--muted)}
+
+blockquote{margin:0;padding:26px 30px;background:var(--accent-soft);border-radius:var(--r);
+  font-family:Fraunces;font-size:clamp(19px,2.6vw,25px);line-height:1.35;letter-spacing:-.02em}
+
+footer{padding:46px 0 70px;border-top:1px solid var(--line);margin-top:44px;color:var(--muted);font-size:14.4px}
+.frow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.trivia{margin-top:20px;font-style:italic;color:var(--accent)}
+
+@media(max-width:860px){.figures{grid-template-columns:repeat(2,1fr)} .grid.two{grid-template-columns:1fr}}
+@media(max-width:760px){header{padding:48px 0 22px} section{padding:34px 0 6px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1 class="name">Mehr Patni</h1>
+    <p class="role">Content strategy, creative direction and community — <b>Dubai</b>.
+    I work at the intersection of creativity, data and execution, with a high bar for what counts as
+    good marketing. <b>I think in systems, not just campaigns</b> — and I'm hands-on by instinct:
+    editing the video, shaping the visual, refining the copy until it feels right.</p>
+    <div class="links">
+      <a class="primary" href="https://www.canva.com/design/DAG9XrE2nl0/view" target="_blank" rel="noopener">Full portfolio deck →</a>
+      <a href="https://www.linkedin.com/in/mehrpatni/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://medium.com/@mehr.patni" target="_blank" rel="noopener">Medium</a>
+      <a href="mailto:mehrpatni9@gmail.com">mehrpatni9@gmail.com</a>
+    </div>
+
+    <div class="figures">
+      <div class="fig"><div class="n">710k</div><div class="c">views on my best-performing reel, 2,360 likes</div></div>
+      <div class="fig"><div class="n">2k → 31k</div><div class="c">followers grown, 70% organic</div></div>
+      <div class="fig"><div class="n">100M+</div><div class="c">views across two years</div></div>
+      <div class="fig"><div class="n">4.5% → 30%</div><div class="c">brand awareness, via a podcast I launched</div></div>
+      <div class="fig"><div class="n">$1M</div><div class="c">raised on Shark Tank India &amp; Meet the Drapers</div></div>
+    </div>
+  </header>
+
+  <!-- ─────────── podcasts & film ─────────── -->
+  <section>
+    <div class="shead">
+      <h2>Podcasts &amp; film</h2>
+      <p>Two podcasts taken from idea to published. The first lifted global brand awareness from
+      4.5% to 30%.</p>
+    </div>
+    <div class="grid two">
+
+      <article class="card">
+        <div class="frame ar-16x9">
+          <iframe loading="lazy" src="https://www.youtube.com/embed/5ZsnDE9JfVs"
+                  title="The Muslim Money Experts Ep.3: Paul Pogba" allowfullscreen
+                  allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+        </div>
+        <div class="meta">
+          <span class="tag">Wahed · podcast</span>
+          <h3>The Muslim Money Experts — Ep.3, Paul Pogba</h3>
+          <p>Launched the series for a halal-investing platform serving 400,000+ users across four
+          SEC-regulated markets. Brand awareness went from 4.5% to 30%.</p>
+          <a class="open" href="https://www.youtube.com/watch?v=5ZsnDE9JfVs" target="_blank" rel="noopener">Watch <span>→</span></a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="frame ar-16x9">
+          <iframe loading="lazy" src="https://www.youtube.com/embed/videoseries?list=PL_1RmXudmaqJ9MfypUM-391f6Il-uMpp1"
+                  title="The Healthy Ageing Podcast — Ivory" allowfullscreen
+                  allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+        </div>
+        <div class="meta">
+          <span class="tag">Ivory · podcast series</span>
+          <h3>The Healthy Ageing Podcast</h3>
+          <p>Built for a brain-wellness app — translating cognitive neuroscience into something people
+          actually want to listen to.</p>
+          <a class="open" href="https://www.youtube.com/playlist?list=PL_1RmXudmaqJ9MfypUM-391f6Il-uMpp1" target="_blank" rel="noopener">Open playlist <span>→</span></a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─────────── reels ─────────── -->
+  <section>
+    <div class="shead">
+      <h2>Reels</h2>
+      <p>Short-form that actually travelled. <em>&ldquo;I&rsquo;m hands-on by instinct — editing videos,
+      shaping visuals, refining copy until it feels right.&rdquo;</em></p>
+    </div>
+
+    <div class="grid ig">
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DMP0cqNyGUa/embed/" title="Reel — 710k views" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel · 710k views · 2,360 likes</span><h3>Best performer</h3>
+        <p>The one that travelled furthest. Written, shot and cut by me.</p>
+        <a class="open" href="https://www.instagram.com/reel/DMP0cqNyGUa/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/C_9-xcRyCA2/embed/" title="Reel — 517k views" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel · 517k views · 1,367 likes</span><h3>Second highest reach</h3>
+        <p>Short-form built for the scroll, not the brief.</p>
+        <a class="open" href="https://www.instagram.com/reel/C_9-xcRyCA2/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DOyO5Ekk3Zk/embed/" title="Reel — 412k views" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel · 412k views · 500 likes</span><h3>Reach without spend</h3>
+        <p>Part of the 70% organic engine.</p>
+        <a class="open" href="https://www.instagram.com/reel/DOyO5Ekk3Zk/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DHlaaOMo5Rm/embed/" title="Reel — 78k views" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel · 78k views · 250 likes</span><h3>Format test</h3>
+        <p>Not every one lands the same. Kept in because the learning was the point.</p>
+        <a class="open" href="https://www.instagram.com/reel/DHlaaOMo5Rm/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+    </div>
+  </section>
+
+  <!-- ─────────── carousels ─────────── -->
+  <section>
+    <div class="shead">
+      <h2>Carousels &amp; campaigns</h2>
+      <p><em>&ldquo;Keep them concise and catchy. The first slide is the most important — it should
+      immediately intrigue the viewer.&rdquo;</em> Minimal and clean, or raw and authentic, depending on
+      the subject.</p>
+    </div>
+
+    <div class="grid ig">
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DQOJAW4iFrZ/embed/" title="Company's journey carousel" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Carousel</span><h3>Company's journey</h3>
+        <p>The origin story, told in swipes.</p>
+        <a class="open" href="https://www.instagram.com/p/DQOJAW4iFrZ/?img_index=1" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DR4lHjciFbV/embed/" title="IndiGo targeted ad" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Targeted campaign</span><h3>An ad aimed at IndiGo passengers</h3>
+        <p>Right message, right cabin. Audience-specific creative rather than a broadcast.</p>
+        <a class="open" href="https://www.instagram.com/p/DR4lHjciFbV/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DO3ov_3iDLS/embed/" title="Nostalgic marketing" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Nostalgia</span><h3>Nostalgic marketing</h3>
+        <p>Borrowing memory to earn attention.</p>
+        <a class="open" href="https://www.instagram.com/p/DO3ov_3iDLS/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DOnte3tlINr/embed/" title="Research-based content" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Research-led</span><h3>Research-based</h3>
+        <p>Educational and credible, grounded in deep research — the Magna approach.</p>
+        <a class="open" href="https://www.instagram.com/p/DOnte3tlINr/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DO_LeT8iPdy/embed/" title="Format experiment" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Experiment</span><h3>Format experiment</h3>
+        <p>Trying a shape the feed hadn't seen from us yet.</p>
+        <a class="open" href="https://www.instagram.com/p/DO_LeT8iPdy/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DHBffuUSVl_/embed/" title="Community post" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Post · 233 likes</span><h3>Community content</h3>
+        <p>Brand case studies, market studies and event highlights for a 194-member founder network.</p>
+        <a class="open" href="https://www.instagram.com/p/DHBffuUSVl_/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+    </div>
+  </section>
+
+  <!-- ─────────── long form ─────────── -->
+  <section>
+    <div class="shead">
+      <h2>Long-form &amp; lead-gen</h2>
+      <p>Playbooks, reports and editorial built to carry authority — and to be downloaded.</p>
+    </div>
+    <div class="grid">
+
+      <article class="card">
+        <div class="frame ar-a4">
+          <iframe loading="lazy" src="https://drive.google.com/file/d/1P1AiDd-lfsX5_sjUX7XfBh1BNwBMYxVC/preview"
+                  title="Brain Health Playbook" allowfullscreen></iframe>
+        </div>
+        <div class="meta">
+          <span class="tag">Ivory · flagship asset</span>
+          <h3>The Brain Health Playbook</h3>
+          <p>Lead-gen asset anchoring clinical credibility in healthy ageing.</p>
+          <a class="open" href="https://drive.google.com/file/d/1P1AiDd-lfsX5_sjUX7XfBh1BNwBMYxVC/view" target="_blank" rel="noopener">Open <span>→</span></a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="frame ar-a4">
+          <iframe loading="lazy" src="https://drive.google.com/file/d/1TUU-RUxrzhNbRWMMdPgK9jrBz6-xXnK1/preview"
+                  title="E-book" allowfullscreen></iframe>
+        </div>
+        <div class="meta">
+          <span class="tag">E-book</span>
+          <h3>Brain Health Matters</h3>
+          <p>Long-form editorial turning neuroscience into something readable.</p>
+          <a class="open" href="https://drive.google.com/file/d/1TUU-RUxrzhNbRWMMdPgK9jrBz6-xXnK1/view" target="_blank" rel="noopener">Open <span>→</span></a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="frame ar-a4">
+          <iframe loading="lazy" src="https://drive.google.com/file/d/1q3Phr1YUy_two6J1oRZJslGDX9NRtQ4m/preview"
+                  title="Asian Paints magazine" allowfullscreen></iframe>
+        </div>
+        <div class="meta">
+          <span class="tag">Asian Paints · IPG Mediabrands</span>
+          <h3>Asian Paints magazine</h3>
+          <p>Editorial for India's largest paint brand, produced agency-side.</p>
+          <a class="open" href="https://drive.google.com/file/d/1q3Phr1YUy_two6J1oRZJslGDX9NRtQ4m/view" target="_blank" rel="noopener">Open <span>→</span></a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─────────── campaigns ─────────── -->
+  <section>
+    <div class="shead">
+      <h2>Campaigns, brands &amp; websites</h2>
+      <p>Work shipped for MNCs, startups and everything between.</p>
+    </div>
+    <div class="tiles">
+      <a class="tile" href="https://www.asianpaints.com/where-the-heart-is/season-3.html" target="_blank" rel="noopener">
+        <span class="t">Where the Heart Is — S3</span><span class="s">Asian Paints · branded series</span></a>
+      <a class="tile" href="https://www.asianpaints.com" target="_blank" rel="noopener">
+        <span class="t">Asian Paints</span><span class="s">Website content on Adobe Experience Manager</span></a>
+      <a class="tile" href="https://www.wahed.com" target="_blank" rel="noopener">
+        <span class="t">Wahed</span><span class="s">Halal investing · blogs, journal, rebranding</span></a>
+      <a class="tile" href="https://www.instagram.com/everestspices/" target="_blank" rel="noopener">
+        <span class="t">Everest Spices</span><span class="s">Amazon A+ content &amp; social</span></a>
+      <a class="tile" href="https://drive.google.com/drive/folders/1eDyrwcNb75qUWuG4n5Z_rqqX9adM2IAQ?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Stratos Tech</span><span class="s">Edtech · full marketing function</span></a>
+      <a class="tile" href="https://drive.google.com/drive/folders/1AZrDqWWB5tC_P-2nm-KRv_N6syAt2ULr?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Health Reports</span><span class="s">Clinical cognitive reporting</span></a>
+      <a class="tile" href="https://drive.google.com/drive/folders/1YVVs-3TGZUj1Dd3MRVHCFGiqZbOnT0sd?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Performance ads</span><span class="s">App ads across feature launches</span></a>
+      <a class="tile" href="https://drive.google.com/drive/folders/1QVVaPodOqdyf22GrW0MGn5BCWAwElqzT?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Comic mascot</span><span class="s">Character &amp; illustration</span></a>
+      <a class="tile" href="https://drive.google.com/drive/folders/1hg3bmTZrnVvdGN-7AOC4ibMitwd0WnxY?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Humour content</span><span class="s">Topical &amp; nostalgic formats</span></a>
+      <a class="tile" href="https://drive.google.com/drive/folders/1capZPr-bfMvaomaz__Od7mzBQOY9JnbE?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Fintech blogs</span><span class="s">SEC-compliant financial editorial</span></a>
+      <a class="tile" href="https://drive.google.com/drive/folders/1mfgGviW3W7e4ti4ND6HZrgKyHv3xq94U?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Brochures</span><span class="s">Print &amp; collateral</span></a>
+      <a class="tile" href="https://drive.google.com/drive/folders/1AHDtKD09p7PuoQpPcB1Doca4cfBolrdE?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Passion projects</span><span class="s">The ones nobody briefed</span></a>
+    </div>
+  </section>
+
+  <section>
+    <blockquote>From making sure financial advice sounds legal, to turning brain health into
+    binge-worthy content — I've spent years mastering the art of storytelling. I want to build
+    something people can't stop talking about.</blockquote>
+  </section>
+
+  <footer>
+    <div class="frow">
+      <span><strong>Mehr Patni</strong> · Dubai, UAE · +971 52 458 1370 · mehrpatni9@gmail.com</span>
+      <span>Creative direction · Content strategy · Community · Canva Pro · AI tools</span>
+    </div>
+    <p class="trivia">Trivia: if my portfolio were a brand, which FMCG giant would it be?</p>
+  </footer>
+</div>
+</body>
+</html>
