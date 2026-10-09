@@ -293,6 +293,23 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
   header{padding:var(--s7) 0 var(--s6)} section{padding:var(--s8) 0 0} .ghost{display:none}
   .nlinks a{padding:var(--s1) var(--s2);font-size:var(--t-micro)}
 }
+/* ── phones ─────────────────────────────────────────────────────────────── */
+@media(max-width:34rem){
+  /* The name is three centimetres below in the hero, so the bar gives its space
+     to the three labels, which are the actual navigation. */
+  .nme{display:none}
+  .nlinks{width:100%;justify-content:space-between;gap:0}
+  .nlinks a{padding:.6rem .5rem;font-size:.76rem;min-height:44px}
+  .fld{width:1rem}
+  header{padding:var(--s5) 0 0}
+  /* Portrait scales to the panel height instead of leaving blue above and below. */
+  .hshot{aspect-ratio:5/4}
+  .hshot img{width:auto;height:100%;max-width:94%;margin:0 auto}
+  /* Comfortable thumb targets. */
+  .filters button{min-height:44px;padding:var(--s2) var(--s5)}
+  .hcta a,.links a{min-height:44px}
+  .shot{width:11.5rem}
+}
 @media(max-width:27rem){
   .wrap,.nrow{padding-left:var(--s4);padding-right:var(--s4)}
   .grid,.tiles,.probs,.steps{grid-template-columns:1fr}
@@ -588,7 +605,7 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
     <div class="carousel">
       <button class="cnav prev" type="button" aria-label="Previous photos">&larr;</button>
       <div class="track" id="track">
-        <figure class="shot"><img loading="lazy" src="life/l1.jpg" alt="Mehr as a child" width="800" height="1000"><figcaption>Hopes and dreams in my eyes</figcaption></figure>
+        <figure class="shot"><img loading="lazy" src="life/l1.jpg" alt="Mehr as a child" width="800" height="1000"><figcaption>Hopes and dreams</figcaption></figure>
         <figure class="shot"><img loading="lazy" src="life/l2.jpg" alt="With children in Mumbai" width="800" height="1000"><figcaption>Building the new gen</figcaption></figure>
         <figure class="shot"><img loading="lazy" src="life/l3.jpg" alt="Tower Bridge, London" width="800" height="1000"><figcaption>While roaming the world</figcaption></figure>
         <figure class="shot"><img loading="lazy" src="life/l4.jpg" alt="A sunset walk" width="800" height="1000"><figcaption>Finding my passion</figcaption></figure>
