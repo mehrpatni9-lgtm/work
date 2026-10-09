@@ -2,320 +2,706 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mehr Patni: selected work</title>
-<meta name="description" content="Content strategy, creative direction and community. Dubai. Selected work by Mehr Patni. Podcasts, carousels, campaigns and long-form.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mehr Patni: content, community and the AI underneath</title>
+<meta name="description" content="Mehr Patni, Dubai. Content and community for products that are hard to explain, and the AI systems that keep them shipping. Selected work, live.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* Spacing and type run off one modular scale in rem, so everything reflows
+   together when someone enlarges their text. No fixed pixel rhythm. */
 :root{
-  --paper:#fbf9f6; --paper-2:#f3efe9; --ink:#16130f; --muted:#6b6459;
-  --accent:#c8553d; --accent-soft:#f5e3dd; --line:#e5ded4; --white:#fff; --r:18px;
+  --paper:#F6F8FB; --paper-2:#E9EFF7; --ink:#0F1E33; --body:#2B3C53;
+  --muted:#5C6E85; --faint:#8295AB;
+  --accent:#1A6FD4; --accent-2:#74C3F2; --accent-soft:#E4EEFC;
+  --line:#DBE3EE; --white:#fff; --wash:#EEF3FA;
+
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem;
+  --s6:2rem; --s7:3rem; --s8:4.5rem; --s9:6.5rem;
+  --r:14px;
+
+  /* Tracking is size specific: negative on display, neutral on body. */
+  --t-display:clamp(2.9rem,8.2vw,5.8rem);
+  --t-h2:clamp(1.6rem,3.2vw,2.35rem);
+  --t-h3:1.1rem;
+  --t-lede:clamp(1.05rem,1.6vw,1.3rem);
+  --t-body:1.02rem;
+  --t-small:.86rem;
+  --t-micro:.72rem;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-  font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;letter-spacing:-.02em;line-height:1.1;margin:0}
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:var(--t-body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0}
 a{color:inherit}
-.wrap{max-width:1140px;margin:0 auto;padding:0 26px}
+img{max-width:100%}
+.wrap{max-width:72rem;margin:0 auto;padding:0 var(--s5)}
 
-header{padding:72px 0 30px}
-.name{font-size:clamp(44px,7.5vw,80px);font-weight:600;letter-spacing:-.035em}
-.role{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:680px;margin:16px 0 0;line-height:1.55}
+/* ── nav: translucent, and it fades into the page instead of ruling it off ── */
+nav{position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb, var(--paper) 78%, transparent);
+  -webkit-backdrop-filter:saturate(180%) blur(14px); backdrop-filter:saturate(180%) blur(14px);
+  border-top:1px solid rgba(255,255,255,.65)}
+nav::after{content:"";position:absolute;top:100%;left:0;right:0;height:1.75rem;
+  background:linear-gradient(to bottom,var(--paper),transparent);pointer-events:none}
+.nrow{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+  max-width:72rem;margin:0 auto;padding:var(--s3) var(--s5)}
+.nme{font-family:Fraunces;font-weight:600;font-size:1rem;letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
+.nlinks{display:flex;gap:var(--s1);flex-wrap:wrap;align-items:center}
+.nlinks a{display:inline-flex;align-items:center;gap:var(--s2);
+  font-size:var(--t-small);font-weight:500;text-decoration:none;color:var(--muted);
+  padding:var(--s2) var(--s3);border-radius:10px;
+  transition:color .18s ease,background .18s ease}
+.nlinks a:hover{color:var(--ink);background:var(--paper-2)}
+.nlinks a.on{color:var(--ink);background:var(--paper-2);font-weight:600}
+/* Finder folder. Two flat tones read better at 18px than a gradient does. */
+.fld{width:1.15rem;height:auto;flex:0 0 auto;
+  transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.fld .bk{fill:#1A6FD4}
+.fld .ft{fill:#74C3F2}
+.nlinks a:hover .fld{transform:translateY(-1px) scale(1.06)}
+.nlinks a.on .fld .bk{fill:#13529E}
+.nlinks a.on .fld .ft{fill:#4FAEEA}
+
+/* ── hero: an asymmetric split. The words get the page, the photograph gets
+   the edge. Nothing is typeset on top of her face. ───────────────────────── */
+header{padding:var(--s7) 0 0;position:relative}
+.hero2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);
+  gap:var(--s8);align-items:center}
+.hcopy{max-width:34ch}
+.eyebrow{font-size:var(--t-micro);font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 var(--s4)}
+.name{font-size:clamp(2.6rem,6vw,4.4rem);font-weight:600;letter-spacing:-.04em;line-height:1}
+.role{font-size:var(--t-lede);color:var(--muted);margin:var(--s5) 0 0;line-height:1.5}
 .role b{color:var(--ink);font-weight:600}
-.links{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
-.links a{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--line);
-  border-radius:999px;padding:10px 18px;font-size:14.5px;font-weight:500;text-decoration:none;
-  transition:border-color .18s ease,transform .18s ease}
-.links a:hover{border-color:var(--accent);transform:translateY(-1px)}
-.links a.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.keys{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s6) 0 0;padding:0;list-style:none}
+.keys li{font-size:var(--t-small);font-weight:600;color:var(--ink);
+  background:var(--accent-soft);border:1px solid #D2E2F8;border-radius:999px;
+  padding:.42rem .85rem}
 
-.figures{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:38px 0 0;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0}
-.fig .n{font-family:Fraunces;font-size:clamp(21px,2.9vw,31px);font-weight:600;letter-spacing:-.03em;color:var(--accent)}
-.fig .c{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}
+/* The cutout needs a tinted ground or its white outline disappears. */
+.hshot{position:relative;margin:0;display:flex;align-items:flex-end;justify-content:center;
+  border-radius:var(--r);aspect-ratio:1/1;overflow:hidden;
+  background:radial-gradient(118% 92% at 50% 108%, #D8E8FA 0%, var(--accent-soft) 46%, var(--paper-2) 100%)}
+.hshot img{width:92%;height:auto;max-height:100%;object-fit:contain;display:block;
+  filter:drop-shadow(0 1.4rem 2rem rgba(15,30,51,.22))}
 
-section{padding:46px 0 10px}
-.shead{margin-bottom:22px;max-width:720px}
-h2{font-size:clamp(25px,3.6vw,35px)}
-.shead p{margin:10px 0 0;color:var(--muted);font-size:15.5px}
+/* ── sections ───────────────────────────────────────────────────────────── */
+section{padding:var(--s8) 0 0;scroll-margin-top:5rem}
+.shead{margin-bottom:var(--s6);max-width:54ch}
+h2{text-wrap:balance}
+.snum{display:block;font-size:var(--t-micro);font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:var(--s3)}
+h2{font-size:var(--t-h2);letter-spacing:-.025em;line-height:1.08}
+h2 em{font-style:italic;font-weight:400;color:var(--faint)}
+.shead p{margin:var(--s3) 0 0;color:var(--muted);font-size:var(--t-body)}
 .shead p em{font-style:italic;color:var(--ink)}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
-.grid.two{grid-template-columns:repeat(auto-fill,minmax(430px,1fr))}
-.grid.ig{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
-.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
-  display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease}
-.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -26px rgba(22,19,15,.4)}
-.frame{position:relative;width:100%;background:var(--paper-2);border-bottom:1px solid var(--line)}
+/* Numbers sit beside the work they describe, not in a banner of their own. */
+.statline{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;
+  gap:var(--s7);margin:var(--s5) 0 0;padding-top:var(--s5);border-top:1px solid var(--line)}
+.st .n{font-family:Fraunces;font-size:1.6rem;font-weight:600;letter-spacing:-.03em;color:var(--accent);line-height:1}
+.st .c{font-size:var(--t-small);color:var(--muted);margin-top:var(--s1)}
+
+/* ── work gallery: flat, so thirteen pieces read as a gallery not as boxes ─ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:var(--s6) var(--s5)}
+.card{display:flex;flex-direction:column;background:none;border:0}
+.frame{position:relative;width:100%;background:var(--paper-2);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease}
+.card:hover .frame{transform:translateY(-3px);box-shadow:0 1.4rem 3rem -2rem rgba(15,30,51,.45)}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#fff}
-.ar-16x9{padding-top:56.25%} .ar-4x5{padding-top:125%} .ar-ig{padding-top:127%} .ar-1x1{padding-top:100%} .ar-a4{padding-top:129%}
-.meta{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
-.tag{font-size:10.6px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
-.card h3{font-size:18.5px}
-.card p{margin:0;font-size:14.6px;color:var(--muted)}
-.card .open{margin-top:auto;padding-top:12px;font-size:13.6px;font-weight:600;text-decoration:none}
-.card .open span{color:var(--accent)}
+.ar-16x9{padding-top:56.25%} .ar-ig{padding-top:127%} .ar-a4{padding-top:129%}
+.meta{padding:var(--s4) 0 0;display:flex;flex-direction:column;gap:var(--s1)}
+.tag{font-size:var(--t-micro);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.card h3{font-size:var(--t-h3);letter-spacing:-.012em;line-height:1.25}
+.card p{margin:var(--s1) 0 0;font-size:var(--t-small);color:var(--muted)}
+.card .open{margin-top:var(--s3);font-size:var(--t-small);font-weight:600;text-decoration:none;color:var(--accent)}
 
-/* plain link tiles */
-.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-.tile{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 20px;
-  text-decoration:none;display:flex;flex-direction:column;gap:5px;transition:border-color .18s ease,transform .18s ease}
+/* ── 01: four cards, each with a line icon from the same family ─────────── */
+.grid.sys{grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:var(--s3)}
+.grid.sys .card{text-decoration:none;background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  padding:var(--s5);transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s ease}
+.grid.sys .card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.grid.sys .meta{padding:0;gap:var(--s2)}
+.ico{width:1.6rem;height:1.6rem;color:var(--accent);margin-bottom:var(--s2)}
+.grid.sys .tag{color:var(--faint)}
+.grid.sys .card p{font-size:var(--t-small);line-height:1.55}
+.grid.sys .card::after{content:"\2192";margin-top:var(--s3);font-size:1rem;color:var(--accent);
+  transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.grid.sys .card:hover::after{transform:translateX(4px)}
+
+
+/* ── filters ────────────────────────────────────────────────────────────── */
+.filters{display:flex;flex-wrap:wrap;gap:var(--s2);margin:0 0 var(--s6)}
+.filters button{font:inherit;font-size:var(--t-small);font-weight:500;cursor:pointer;
+  background:var(--white);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:var(--s2) var(--s4);
+  transition:color .16s ease,background .16s ease,border-color .16s ease}
+.filters button:hover{border-color:var(--accent);color:var(--ink)}
+.filters button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.card[hidden]{display:none!important}
+
+/* ── gtm ────────────────────────────────────────────────────────────────── */
+/* ── the funnel, drawn rather than described ────────────────────────────── */
+.funnel{margin:0 0 var(--s7);display:flex;flex-direction:column;gap:var(--s3)}
+.fstage{display:grid;grid-template-columns:5.5rem minmax(0,1fr);align-items:center;
+  gap:var(--s4);position:relative}
+.fl{font-size:var(--t-micro);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent)}
+.fb{position:relative;height:2.7rem;width:var(--w);border-radius:.5rem;
+  background:linear-gradient(90deg,var(--accent) 0%,#5FA4E8 100%);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact}
+.fv{position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);
+  font-size:var(--t-small);color:var(--white);font-weight:500;white-space:nowrap;
+  max-width:calc(100% - var(--s6));overflow:hidden;text-overflow:ellipsis}
+.fnote{margin:var(--s4) 0 0;font-size:var(--t-small);color:var(--muted);max-width:52ch}
+@media(max-width:48rem){
+  .fstage{grid-template-columns:1fr;gap:var(--s1)}
+  .fb{min-width:38%}
+  .fv{position:static;color:var(--muted);white-space:normal;max-width:none;margin-top:.25rem}
+}
+
+.probs{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:var(--s6);align-items:stretch}
+/* Equal-height columns, with the outcome and the link pinned to the bottom so
+   they line up across all three regardless of how long the copy above runs. */
+.prob{display:flex;flex-direction:column}
+.prob .m{flex:0 0 auto}
+/* Two lines' worth of room, so a one-line outcome still starts level with a
+   two-line one across the row. */
+.prob .r{margin-top:auto;padding-top:var(--s4);min-height:calc(2.5em + var(--s4))}
+.prob .cta{margin-top:var(--s3)}
+.cta{display:inline-block;margin-top:var(--s4);font-size:var(--t-small);font-weight:600;
+  color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;
+  transition:border-color .18s ease}
+.cta:hover{border-bottom-color:var(--accent)}
+.story{display:block;width:100%;height:auto;max-width:100%;margin:0 0 var(--s4);
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3)}
+.prob .p{font-size:var(--t-small);font-weight:600;color:var(--accent);margin-bottom:var(--s3)}
+.prob .m{font-size:var(--t-small);line-height:1.55;margin:0 0 var(--s4);color:var(--muted)}
+.prob .r{font-family:Fraunces;font-size:1.15rem;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+
+/* ── brands ─────────────────────────────────────────────────────────────── */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:var(--s2)}
+.tile{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  padding:var(--s4) var(--s5);text-decoration:none;display:flex;flex-direction:column;gap:var(--s1);
+  transition:border-color .18s ease,transform .18s ease}
 .tile:hover{border-color:var(--accent);transform:translateY(-2px)}
-.tile .t{font-weight:600;font-size:15.4px}
-.tile .s{font-size:13.4px;color:var(--muted)}
+.tile .t{font-weight:600;font-size:var(--t-small)}
+.tile .s{font-size:var(--t-small);color:var(--muted);line-height:1.45}
 
-blockquote{margin:0;padding:26px 30px;background:var(--accent-soft);border-radius:var(--r);
-  font-family:Fraunces;font-size:clamp(19px,2.6vw,25px);line-height:1.35;letter-spacing:-.02em}
+/* ── floating brand field ───────────────────────────────────────────────── */
+/* Tiles drift as you scroll. Only transform moves, so it stays on the
+   compositor. Swap .chip's text for <img> when real logo files arrive. */
+.float{position:relative;display:grid;place-items:center;
+  min-height:clamp(22rem,42vw,30rem);margin:var(--s8) 0 var(--s7);isolation:isolate}
+.float .fh{position:relative;z-index:2;text-align:center;max-width:26ch;margin:0 auto}
+.float .fh h2{font-size:clamp(1.9rem,5vw,3.4rem)}
+.float .fh p{margin:var(--s4) 0 0;color:var(--muted);font-size:var(--t-small);max-width:34ch;
+  margin-left:auto;margin-right:auto}
+.chip{position:absolute;z-index:1;display:grid;place-items:center;text-align:center;
+  width:clamp(5rem,8vw,6.6rem);aspect-ratio:1;padding:var(--s2);
+  background:var(--white);border:1px solid var(--line);border-radius:22%;
+  font-size:var(--t-micro);font-weight:600;letter-spacing:.01em;line-height:1.2;color:var(--ink);
+  box-shadow:0 1.1rem 2.2rem -1.4rem rgba(15,30,51,.4);
+  will-change:transform}
+.chip img{width:64%;height:64%;object-fit:contain}
+.chip.fill{padding:0;overflow:hidden;background:none}
+.chip.fill img{width:100%;height:100%;object-fit:cover}
+.chip{text-decoration:none;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+a.chip:hover{border-color:var(--accent)}
+.chip:hover{z-index:3}
+.chip::after{content:"";position:absolute;inset:0;border-radius:inherit;
+  box-shadow:0 1.8rem 3rem -1.6rem rgba(15,30,51,.5);opacity:0;transition:opacity .22s ease}
+.chip:hover::after{opacity:1}
+@media(max-width:48rem){
+  .float{min-height:0;display:block;margin-bottom:var(--s6)}
+  .float .fh{text-align:left;max-width:none}
+  .float .fh p{margin-left:0;margin-right:0}
+  .chiprow{display:flex;flex-wrap:wrap;gap:var(--s2);margin:0 0 var(--s5)}
+  .chip{position:static!important;transform:none!important;width:auto;aspect-ratio:auto;
+    padding:var(--s2) var(--s3);border-radius:999px;box-shadow:none}
+}
+@media(prefers-reduced-motion:reduce){.chip{transform:none!important}}
 
-footer{padding:46px 0 70px;border-top:1px solid var(--line);margin-top:44px;color:var(--muted);font-size:14.4px}
-.frow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+/* ── outside work: a scroll-snapped strip, tilted just enough to feel human ── */
+.carousel{position:relative}
+.track{display:flex;gap:var(--s4);overflow-x:auto;padding:var(--s4) var(--s1) var(--s5);
+  scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}
+.shot{flex:0 0 auto;margin:0;width:clamp(9.5rem,15vw,12rem);scroll-snap-align:center;
+  background:var(--white);padding:.55rem .55rem .5rem;border-radius:5px;
+  box-shadow:0 .9rem 2rem -1.1rem rgba(15,30,51,.45);
+  transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s ease}
+/* height:auto is load bearing. Without it the width/height attributes on the
+   img win over aspect-ratio and every card renders three times too tall. */
+.shot img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;
+  object-position:50% 42%;border-radius:2px;background:var(--paper-2)}
+/* The caption lives in the polaroid's own white margin, never over the photo. */
+.shot figcaption{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:400;
+  font-size:.78rem;line-height:1.3;color:var(--ink);text-align:center;
+  min-height:2.8em;display:flex;align-items:center;justify-content:center;
+  padding:.55rem .25rem .15rem}
+.shot:nth-child(odd){transform:rotate(-1.2deg)}
+.shot:nth-child(even){transform:rotate(1deg)}
+.shot:hover{transform:rotate(0) translateY(-5px) scale(1.02);
+  box-shadow:0 1.8rem 3rem -1.4rem rgba(15,30,51,.5);z-index:2}
+.cnav{position:absolute;top:42%;z-index:3;width:2.4rem;height:2.4rem;border-radius:50%;
+  border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;
+  font:inherit;font-size:1rem;line-height:1;display:grid;place-items:center;
+  box-shadow:0 .6rem 1.4rem -.8rem rgba(15,30,51,.5);transition:border-color .18s ease}
+.cnav:hover{border-color:var(--accent);color:var(--accent)}
+.cnav.prev{left:-.6rem} .cnav.next{right:-.6rem}
+@media(max-width:48rem){.cnav{display:none}}
 
+blockquote{margin:0;padding:var(--s6) var(--s7);background:var(--accent-soft);border-radius:var(--r);
+  font-family:Fraunces;font-size:clamp(1.2rem,2.6vw,1.75rem);line-height:1.3;letter-spacing:-.022em}
+.links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s6)}
+.hcta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-top:var(--s5)}
+.hcta a{display:inline-flex;align-items:center;gap:var(--s2);background:var(--white);border:1px solid var(--line);
+  border-radius:999px;padding:var(--s3) var(--s5);font-size:var(--t-small);font-weight:600;
+  text-decoration:none;transition:border-color .18s ease,transform .18s ease}
+.hcta a:hover{border-color:var(--accent);transform:translateY(-1px)}
+.hcta a.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.links a{display:inline-flex;align-items:center;gap:var(--s2);background:var(--white);
+  border:1px solid var(--line);border-radius:999px;padding:var(--s3) var(--s5);
+  font-size:var(--t-small);font-weight:500;text-decoration:none;
+  transition:border-color .18s ease,transform .18s ease}
+.links a:hover{border-color:var(--accent);transform:translateY(-1px)}
+.bi{width:1.05rem;height:1.05rem;flex:0 0 auto}
+.links a.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 
-@media(max-width:860px){.figures{grid-template-columns:repeat(2,1fr)} .grid.two{grid-template-columns:1fr}}
-@media(max-width:760px){header{padding:48px 0 22px} section{padding:34px 0 6px}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top:var(--s9);
+  color:var(--muted);font-size:var(--t-small)}
+.frow{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
+
+/* Only transform and opacity animate, so this stays on the compositor. */
+.js .rv{opacity:0;transform:translateY(.9rem);
+  transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+@media(max-width:60rem){
+  .steps{grid-template-columns:1fr;gap:var(--s6)}
+  .hero2{grid-template-columns:1fr;gap:var(--s6)}
+  .hcopy{max-width:none}
+  .hshot{aspect-ratio:4/3}
+}
+@media(max-width:48rem){
+  header{padding:var(--s7) 0 var(--s6)} section{padding:var(--s8) 0 0} .ghost{display:none}
+  .nlinks a{padding:var(--s1) var(--s2);font-size:var(--t-micro)}
+}
+@media(max-width:27rem){
+  .wrap,.nrow{padding-left:var(--s4);padding-right:var(--s4)}
+  .grid,.tiles,.probs,.steps{grid-template-columns:1fr}
+  .statline{grid-template-columns:1fr;gap:var(--s4)}
+  .statline{gap:var(--s4)}
+  blockquote{padding:var(--s5) var(--s4)}
+}
+/* Three independent accessibility signals, three different answers. */
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+@media(prefers-reduced-transparency:reduce){
+  nav{background:var(--paper);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+@media(prefers-contrast:more){
+  :root{--muted:#3C4C63;--faint:#4C5E76;--line:#A9B6C8}
+  nav{background:var(--paper)}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<script>document.documentElement.classList.add('js');</script>
+
+<nav id="nav">
+  <div class="nrow">
+    <a class="nme" href="#top">Mehr Patni</a>
+    <div class="nlinks">
+      <a href="#ai"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>AI</span></a>
+      <a href="#content"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>Content &amp; community</span></a>
+      <a href="#gtm"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>GTM</span></a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
 
   <header>
-    <h1 class="name">Mehr Patni</h1>
-    <p class="role">Content strategy, creative direction and community. Based in <b>Dubai</b>.
-    I work at the intersection of creativity, data and execution, with a high bar for what counts as
-    good marketing. <b>I think in systems, not just campaigns</b>, and I'm hands-on by instinct:
-    editing the video, shaping the visual, refining the copy until it feels right.</p>
-    <div class="links">
-      <a class="primary" href="https://www.canva.com/design/DAG9XrE2nl0/view" target="_blank" rel="noopener">Full portfolio deck →</a>
-      <a href="https://www.linkedin.com/in/mehrpatni/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://medium.com/@mehr.patni" target="_blank" rel="noopener">Medium</a>
-      <a href="mailto:mehrpatni9@gmail.com">mehrpatni9@gmail.com</a>
+    <div class="hero2">
+      <div class="hcopy">
+        <p class="eyebrow">Dubai &middot; Content, community &amp; AI</p>
+        <h1 class="name">Mehr Patni</h1>
+        <p class="role">Consumer psychology is a puzzle I keep going back to. Content, community
+        and data are how I get at it. <b>I'm at my best with people in a room</b>, and I run a games
+        night that has become more organised than it strictly needs to be.</p>
+        <ul class="keys">
+          <li>Content &amp; community</li>
+          <li>AI systems builder</li>
+          <li>Go to market</li>
+          <li>Consumer psychology</li>
+          <li>$1M raised on television</li>
+        </ul>
+        <div class="hcta">
+          <a class="primary" href="Mehr Patni CV.pdf" download><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.8 10.6 12 14.8l4.2-4.2M4 17.5v1.6A1.9 1.9 0 0 0 5.9 21h12.2a1.9 1.9 0 0 0 1.9-1.9v-1.6"/></svg><span>Download CV</span></a>
+          <a href="#ai"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 13.7 8l4.8 1.7-4.8 1.7L12 16.2l-1.7-4.8L5.5 9.7 10.3 8z"/><path d="M18.6 15.4l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg><span>See the systems</span></a>
+        </div>
+      </div>
+      <figure class="hshot">
+        <img src="mehr-cut.png" alt="Mehr Patni" width="644" height="875" fetchpriority="high">
+      </figure>
     </div>
 
-    <div class="figures">
-      <div class="fig"><div class="n">710k</div><div class="c">views on my best-performing reel, 2,360 likes</div></div>
-      <div class="fig"><div class="n">2k → 31k</div><div class="c">followers grown, 70% organic</div></div>
-      <div class="fig"><div class="n">100M+</div><div class="c">views across two years</div></div>
-      <div class="fig"><div class="n">4.5% → 30%</div><div class="c">brand awareness, via a podcast I launched</div></div>
-      <div class="fig"><div class="n">$1M</div><div class="c">raised on Shark Tank India &amp; Meet the Drapers</div></div>
-    </div>
   </header>
 
-  <!-- ─────────── podcasts & film ─────────── -->
-  <section>
-    <div class="shead">
-      <h2>Podcasts &amp; film</h2>
-      <p>Two podcasts taken from idea to published. The first lifted global brand awareness from
-      4.5% to 30%.</p>
+  <!-- ─────────── 01 all things ai ─────────── -->
+  <section id="ai">
+    <div class="shead rv">
+      <span class="snum">All things AI</span>
+      <h2>Not a tool I use. <em>Systems I built.</em></h2>
     </div>
-    <div class="grid two">
-
-      <article class="card">
-        <div class="frame ar-16x9">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/5ZsnDE9JfVs"
-                  title="The Muslim Money Experts Ep.3: Paul Pogba" allowfullscreen
-                  allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe>
-        </div>
-        <div class="meta">
-          <span class="tag">Wahed · podcast</span>
-          <h3>The Muslim Money Experts, Ep.3: Paul Pogba</h3>
-          <p>Launched the series for a halal-investing platform serving 400,000+ users across four
-          SEC-regulated markets. Brand awareness went from 4.5% to 30%.</p>
-          <a class="open" href="https://www.youtube.com/watch?v=5ZsnDE9JfVs" target="_blank" rel="noopener">Watch <span>→</span></a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="frame ar-16x9">
-          <iframe loading="lazy" src="https://www.youtube.com/embed/videoseries?list=PL_1RmXudmaqJ9MfypUM-391f6Il-uMpp1"
-                  title="The Healthy Ageing Podcast, Ivory" allowfullscreen
-                  allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe>
-        </div>
-        <div class="meta">
-          <span class="tag">Ivory · podcast series</span>
-          <h3>The Healthy Ageing Podcast</h3>
-          <p>Built for a brain-wellness app, translating cognitive neuroscience into something people
-          actually want to listen to.</p>
-          <a class="open" href="https://www.youtube.com/playlist?list=PL_1RmXudmaqJ9MfypUM-391f6Il-uMpp1" target="_blank" rel="noopener">Open playlist <span>→</span></a>
-        </div>
-      </article>
-
+    <div class="grid sys">
+      <a class="card rv" href="https://github.com/mehrpatni9-lgtm/magna-brain" target="_blank" rel="noopener"><div class="meta">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="7" r="2.1"/><circle cx="18" cy="6" r="2.1"/><circle cx="12" cy="17.5" r="2.1"/><path d="M7.7 8.7 10.7 15.6M16.5 7.8 13.3 15.6M8.1 6.7h7.8"/></svg><span class="tag">Open on GitHub</span>
+        <h3>A founder's second brain</h3>
+        <p>Trained on his own books and talks. Every post across LinkedIn, Instagram and the site
+        now arrives as a draft in his voice. He stopped being the bottleneck.</p>
+      </div></a>
+      <a class="card rv" href="systems/stratos.html" target="_blank" rel="noopener"><div class="meta">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V9.5l5 3v-3l5 3V7l5 3.2V20z"/><path d="M3 20h18"/><circle cx="8" cy="16" r="1"/><circle cx="13" cy="16" r="1"/></svg><span class="tag">See the architecture</span>
+        <h3>A marketing agency, as software</h3>
+        <p>Agentic workflows for outreach, creative production and ad review at Stratos, so the
+        function scaled without more headcount.</p>
+      </div></a>
+      <a class="card rv" href="systems/chief-of-staff.html" target="_blank" rel="noopener"><div class="meta">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="7" height="6" rx="1.4"/><rect x="14" y="4" width="7" height="6" rx="1.4"/><rect x="8.5" y="14.5" width="7" height="5.5" rx="1.4"/><path d="M6.5 10v2.2h11V10M12 12.2v2.3"/></svg><span class="tag">See the architecture</span>
+        <h3>My chief of staff</h3>
+        <p>The agent I actually work with. It researches, writes, builds and checks itself, and
+        every correction I give it becomes a permanent rule.</p>
+      </div></a>
     </div>
   </section>
 
-  <!-- ─────────── reels ─────────── -->
-  <section>
-    <div class="shead">
-      <h2>Reels</h2>
-      <p>Short-form that actually travelled. <em>&ldquo;I&rsquo;m hands-on by instinct: editing videos,
-      shaping visuals, refining copy until it feels right.&rdquo;</em></p>
+  <!-- ─ 02 content & community ─────────── -->
+  <section id="content">
+    <div class="shead rv">
+      <span class="snum">Content &amp; community</span>
+      <h2>The work, <em>and what it travelled on.</em></h2>
+      <div class="statline">
+        <div class="st"><div class="n">100M+</div><div class="c">views across two years</div></div>
+        <div class="st"><div class="n">2k &rarr; 35k</div><div class="c">followers, 65% organic</div></div>
+        <div class="st"><div class="n">710k</div><div class="c">on the best performing reel</div></div>
+      </div>
     </div>
 
-    <div class="grid ig">
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DMP0cqNyGUa/embed/" title="Reel, 710k views" scrolling="no" allowtransparency="true"></iframe></div>
-        <div class="meta"><span class="tag">Reel · 710k views · 2,360 likes</span><h3>Best performer</h3>
+    <div class="filters rv" role="group" aria-label="Filter work">
+      <button class="on" data-f="shortform">Short form</button>
+      <button data-f="carousel">Carousels</button>
+      <button data-f="podcast">Podcasts</button>
+      <button data-f="all">Everything</button>
+    </div>
+
+    <div class="grid ig" id="workgrid">
+
+      <article class="card rv" data-cat="podcast" hidden><div class="frame ar-16x9">
+        <iframe loading="lazy" src="https://www.youtube.com/embed/5ZsnDE9JfVs" title="The Muslim Money Experts Ep.3: Paul Pogba" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>
+        <div class="meta"><span class="tag">Wahed &middot; podcast</span><h3>The Muslim Money Experts, Ep.3: Paul Pogba</h3>
+        <p>Launched for a halal investing platform, 400,000+ users, four SEC-regulated markets. Awareness went 4.5% to 30%.</p>
+        <a class="open" href="https://www.youtube.com/watch?v=5ZsnDE9JfVs" target="_blank" rel="noopener">Watch <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="podcast" hidden><div class="frame ar-16x9">
+        <iframe loading="lazy" src="https://www.youtube.com/embed/videoseries?list=PL_1RmXudmaqJ9MfypUM-391f6Il-uMpp1" title="The Healthy Ageing Podcast, Ivory" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>
+        <div class="meta"><span class="tag">Ivory &middot; podcast series</span><h3>The Healthy Ageing Podcast</h3>
+        <p>Past 1M views on YouTube, Spotify and Apple. Cognitive neuroscience, made listenable.</p>
+        <a class="open" href="https://www.youtube.com/playlist?list=PL_1RmXudmaqJ9MfypUM-391f6Il-uMpp1" target="_blank" rel="noopener">Open playlist <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DMP0cqNyGUa/embed/" title="Reel, 710k views" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; 710k views &middot; 2,360 likes</span><h3>Best performer</h3>
         <p>The one that travelled furthest. Written, shot and cut by me.</p>
         <a class="open" href="https://www.instagram.com/reel/DMP0cqNyGUa/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/C_9-xcRyCA2/embed/" title="Reel, 517k views" scrolling="no" allowtransparency="true"></iframe></div>
-        <div class="meta"><span class="tag">Reel · 517k views · 1,367 likes</span><h3>Second highest reach</h3>
-        <p>Short-form built for the scroll, not the brief.</p>
-        <a class="open" href="https://www.instagram.com/reel/C_9-xcRyCA2/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
-
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DOyO5Ekk3Zk/embed/" title="Reel, 412k views" scrolling="no" allowtransparency="true"></iframe></div>
-        <div class="meta"><span class="tag">Reel · 412k views · 500 likes</span><h3>Reach without spend</h3>
-        <p>Part of the 70% organic engine.</p>
-        <a class="open" href="https://www.instagram.com/reel/DOyO5Ekk3Zk/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
-
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DHlaaOMo5Rm/embed/" title="Reel, 78k views" scrolling="no" allowtransparency="true"></iframe></div>
-        <div class="meta"><span class="tag">Reel · 78k views · 250 likes</span><h3>Format test</h3>
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DHlaaOMo5Rm/embed/" title="Reel" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; 78k views</span><h3>Format test</h3>
         <p>Not every one lands the same. Kept in because the learning was the point.</p>
         <a class="open" href="https://www.instagram.com/reel/DHlaaOMo5Rm/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
-    </div>
-  </section>
 
-  <!-- ─────────── carousels ─────────── -->
-  <section>
-    <div class="shead">
-      <h2>Carousels &amp; campaigns</h2>
-      <p><em>&ldquo;Keep them concise and catchy. The first slide is the most important: it should
-      immediately intrigue the viewer.&rdquo;</em> Minimal and clean, or raw and authentic, depending on
-      the subject.</p>
-    </div>
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DOyO5Ekk3Zk/embed/" title="Reel, 412k views" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; 412k views &middot; 500 likes</span><h3>Reach without spend</h3>
+        <p>Part of the 65% organic engine.</p>
+        <a class="open" href="https://www.instagram.com/reel/DOyO5Ekk3Zk/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
-    <div class="grid ig">
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DQOJAW4iFrZ/embed/" title="Company's journey carousel" scrolling="no" allowtransparency="true"></iframe></div>
+      <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DQOJAW4iFrZ/embed/" title="Company's journey carousel" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Carousel</span><h3>Company's journey</h3>
         <p>The origin story, told in swipes.</p>
         <a class="open" href="https://www.instagram.com/p/DQOJAW4iFrZ/?img_index=1" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DR4lHjciFbV/embed/" title="IndiGo targeted ad" scrolling="no" allowtransparency="true"></iframe></div>
+      <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DR4lHjciFbV/embed/" title="IndiGo targeted ad" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Targeted campaign</span><h3>An ad aimed at IndiGo passengers</h3>
         <p>Right message, right cabin. Audience-specific creative rather than a broadcast.</p>
         <a class="open" href="https://www.instagram.com/p/DR4lHjciFbV/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DO3ov_3iDLS/embed/" title="Nostalgic marketing" scrolling="no" allowtransparency="true"></iframe></div>
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DO3ov_3iDLS/embed/" title="Nostalgic marketing" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Nostalgia</span><h3>Nostalgic marketing</h3>
         <p>Borrowing memory to earn attention.</p>
         <a class="open" href="https://www.instagram.com/p/DO3ov_3iDLS/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DOnte3tlINr/embed/" title="Research-based content" scrolling="no" allowtransparency="true"></iframe></div>
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DOnte3tlINr/embed/" title="Research-based content" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Research-led</span><h3>Research-based</h3>
-        <p>Educational and credible, grounded in deep research. The Magna approach.</p>
+        <p>Educational, credible, grounded in research. The Magna approach.</p>
         <a class="open" href="https://www.instagram.com/p/DOnte3tlINr/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DO_LeT8iPdy/embed/" title="Format experiment" scrolling="no" allowtransparency="true"></iframe></div>
-        <div class="meta"><span class="tag">Experiment</span><h3>Format experiment</h3>
-        <p>Trying a shape the feed hadn't seen from us yet.</p>
-        <a class="open" href="https://www.instagram.com/p/DO_LeT8iPdy/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
-
-      <article class="card"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DHBffuUSVl_/embed/" title="Community post" scrolling="no" allowtransparency="true"></iframe></div>
-        <div class="meta"><span class="tag">Post · 233 likes</span><h3>Community content</h3>
-        <p>Brand case studies, market studies and event highlights for a 194-member founder network.</p>
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DHBffuUSVl_/embed/" title="Community post" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Post &middot; 233 likes</span><h3>Community content</h3>
+        <p>Case studies, market studies and event highlights for a 194-member founder network.</p>
         <a class="open" href="https://www.instagram.com/p/DHBffuUSVl_/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
-    </div>
-  </section>
 
-  <!-- ─────────── long form ─────────── -->
-  <section>
-    <div class="shead">
-      <h2>Long-form &amp; lead-gen</h2>
-      <p>Playbooks, reports and editorial built to carry authority, and to be downloaded.</p>
-    </div>
-    <div class="grid">
 
-      <article class="card">
-        <div class="frame ar-a4">
-          <iframe loading="lazy" src="https://drive.google.com/file/d/1P1AiDd-lfsX5_sjUX7XfBh1BNwBMYxVC/preview"
-                  title="Brain Health Playbook" allowfullscreen></iframe>
-        </div>
-        <div class="meta">
-          <span class="tag">Ivory · flagship asset</span>
-          <h3>The Brain Health Playbook</h3>
-          <p>Lead-gen asset anchoring clinical credibility in healthy ageing.</p>
-          <a class="open" href="https://drive.google.com/file/d/1P1AiDd-lfsX5_sjUX7XfBh1BNwBMYxVC/view" target="_blank" rel="noopener">Open <span>→</span></a>
-        </div>
-      </article>
 
-      <article class="card">
-        <div class="frame ar-a4">
-          <iframe loading="lazy" src="https://drive.google.com/file/d/1TUU-RUxrzhNbRWMMdPgK9jrBz6-xXnK1/preview"
-                  title="E-book" allowfullscreen></iframe>
-        </div>
-        <div class="meta">
-          <span class="tag">E-book</span>
-          <h3>Brain Health Matters</h3>
-          <p>Long-form editorial turning neuroscience into something readable.</p>
-          <a class="open" href="https://drive.google.com/file/d/1TUU-RUxrzhNbRWMMdPgK9jrBz6-xXnK1/view" target="_blank" rel="noopener">Open <span>→</span></a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="frame ar-a4">
-          <iframe loading="lazy" src="https://drive.google.com/file/d/1q3Phr1YUy_two6J1oRZJslGDX9NRtQ4m/preview"
-                  title="Asian Paints magazine" allowfullscreen></iframe>
-        </div>
-        <div class="meta">
-          <span class="tag">Asian Paints · IPG Mediabrands</span>
-          <h3>Asian Paints magazine</h3>
-          <p>Editorial for India's largest paint brand, produced agency-side.</p>
-          <a class="open" href="https://drive.google.com/file/d/1q3Phr1YUy_two6J1oRZJslGDX9NRtQ4m/view" target="_blank" rel="noopener">Open <span>→</span></a>
-        </div>
-      </article>
 
     </div>
   </section>
 
-  <!-- ─────────── campaigns ─────────── -->
-  <section>
-    <div class="shead">
-      <h2>Campaigns, brands &amp; websites</h2>
-      <p>Work shipped for MNCs, startups and everything between.</p>
+  <!-- ─────────── 03 gtm ─────────── -->
+  <section id="gtm">
+    <div class="shead rv">
+      <span class="snum">Go to market</span>
+      <h2>Every portfolio shows outputs. <em>This is the diagnosis.</em></h2>
+      <div class="statline">
+        <div class="st"><div class="n">$1M</div><div class="c">raised on television</div></div>
+        <div class="st"><div class="n">4.5% &rarr; 30%</div><div class="c">brand awareness, one podcast</div></div>
+        <div class="st"><div class="n">2&times;</div><div class="c">returned on paid, every month</div></div>
+      </div>
+    </div>
+    <div class="funnel rv">
+      <div class="fstage" style="--w:100%"><span class="fl">Reach</span>
+        <span class="fb"><span class="fv">1M through creators, and a 3,000 member WhatsApp community</span></span></div>
+      <div class="fstage" style="--w:78%"><span class="fl">Capture</span>
+        <span class="fb"><span class="fv">Two lead-gen eBooks at the top of the funnel</span></span></div>
+      <div class="fstage" style="--w:56%"><span class="fl">Trust</span>
+        <span class="fb"><span class="fv">A podcast past 1M views, and clinical conferences</span></span></div>
+      <div class="fstage" style="--w:34%"><span class="fl">Convert</span>
+        <span class="fb"><span class="fv">The FDA-registered Checkup, into hospitals</span></span></div>
+      <p class="fnote">The funnel I built at Ivory. Creators at the top, clinicians at the bottom,
+      and a repositioned product as the thing it all pointed at.</p>
+    </div>
+
+    <div class="probs">
+
+      <div class="prob rv"><svg class="story" viewBox="0 0 210 118" role="img" aria-label="A product pitched on television">
+<rect x="34" y="16" width="142" height="78" rx="7" fill="var(--accent-soft)" stroke="none"/>
+<rect x="34" y="16" width="142" height="78" rx="7" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="46" y="27" width="118" height="56" rx="4" fill="#fff" stroke="var(--line)" stroke-width="1.5"/>
+<path d="M58 72 78 58 94 65 122 40" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M112 40h10v10" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="60" y="76" width="30" height="7" rx="3.5" fill="var(--accent)" stroke="none"/>
+<path d="M88 94v10M122 94v10M74 104h62" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20 34c-6 8-6 22 0 30M190 34c6 8 6 22 0 30" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/>
+<path d="M10 26c-9 13-9 39 0 52M200 26c9 13 9 39 0 52" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".22"/>
+</svg><div class="p">Nobody understood what we were selling</div>
+        <p class="m">Wrote the pitch that turned cognitive neuroscience into a story a television audience could follow.</p>
+        <div class="r">$1M raised across Shark Tank India and Meet the Drapers.</div>
+        <a class="cta" href="systems/case-television.html">Read the case study &rarr;</a></div>
+
+      <div class="prob rv"><svg class="story" viewBox="0 0 210 118" role="img" aria-label="An audience built before launch day">
+<path d="M22 96h166" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22 90V26" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".35"/>
+<path d="M22 86c22 0 34-30 52-40s34-4 46 2" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M22 86c22 0 34-30 52-40s34-4 46 2v34H22z" fill="var(--accent-soft)" stroke="none"/>
+<path d="M146 20v76" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
+<text x="150" y="28" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="var(--accent)">launch</text>
+<circle cx="44" cy="70" r="5.5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="62" r="5.5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="80" cy="56" r="5.5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M36 82c1.5-6 5-8.6 8-8.6s6.5 2.6 8 8.6M54 74c1.5-6 5-8.6 8-8.6s6.5 2.6 8 8.6M72 68c1.5-6 5-8.6 8-8.6s6.5 2.6 8 8.6" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><div class="p">We were about to launch to nobody</div>
+        <p class="m">Built a 3,000 member WhatsApp community of caregivers before the product shipped.</p>
+        <div class="r">Launched into a room, not a void.</div>
+        <a class="cta" href="systems/case-community.html">Read the case study &rarr;</a></div>
+
+      <div class="prob rv"><svg class="story" viewBox="0 0 210 118" role="img" aria-label="One voice cleared across four regulated markets">
+<rect x="78" y="14" width="54" height="32" rx="6" fill="var(--accent-soft)" stroke="none"/>
+<rect x="78" y="14" width="54" height="32" rx="6" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M90 26h30M90 34h20" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M105 46v14M105 60H38v12M105 60h67v12M68 60v12M142 60v12" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>
+<rect x="22" y="72" width="32" height="26" rx="5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="56" y="72" width="32" height="26" rx="5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="122" y="72" width="32" height="26" rx="5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="156" y="72" width="32" height="26" rx="5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="150" cy="34" r="13" fill="#fff" stroke="var(--accent)" stroke-width="2"/>
+<path d="m159 43 9 9" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m144 34 4 4 7-8" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><div class="p">One brand, four regulators, no single voice</div>
+        <p class="m">Defined the tone of voice through a rebrand, wrote every surface to it, cleared each word through US SEC compliance.</p>
+        <div class="r">One voice across the UK, US, Malaysia and UAE.</div>
+        <a class="cta" href="systems/case-wahed.html">Read the case study &rarr;</a></div>
+
+    </div>
+  </section>
+
+  <!-- ─────────── 04 brands ─────────── -->
+  <section id="brands">
+    <div class="float">
+      <div class="chiprow">
+        <a class="chip fill" style="left:1%;top:12%"    data-sp="-.26" href="https://www.asianpaints.com" target="_blank" rel="noopener" title="Asian Paints"><img src="logos/asianpaints.png" alt="Asian Paints"></a>
+        <a class="chip"      style="left:11%;top:56%"  data-sp=".34"  href="https://www.wahed.com" target="_blank" rel="noopener" title="Wahed"><img src="logos/wahed.png" alt="Wahed"></a>
+        <a class="chip fill" style="left:3%;top:84%"   data-sp="-.19" href="https://drive.google.com/drive/folders/1eDyrwcNb75qUWuG4n5Z_rqqX9adM2IAQ?usp=drive_link" target="_blank" rel="noopener" title="Stratos Technologies"><img src="logos/stratos.png" alt="Stratos Technologies"></a>
+        <span class="chip"   style="left:28%;top:6%"   data-sp=".23"  title="Tata Group"><img src="logos/tata.png" alt="Tata Group"></span>
+        <span class="chip fill" style="right:27%;top:7%" data-sp="-.31" title="Amazon"><img src="logos/amazon.png" alt="Amazon"></span>
+        <span class="chip fill" style="right:9%;top:70%" data-sp="-.22" title="Ivory"><img src="logos/ivory.png" alt="Ivory"></span>
+      </div>
+      <div class="fh rv">
+        <span class="snum">Brands &amp; archive</span>
+        <h2>Shipped for MNCs, <em>startups and everything between.</em></h2>
+      </div>
     </div>
     <div class="tiles">
-      <a class="tile" href="https://www.asianpaints.com/where-the-heart-is/season-3.html" target="_blank" rel="noopener">
-        <span class="t">Where the Heart Is, S3</span><span class="s">Asian Paints · branded series</span></a>
-      <a class="tile" href="https://www.asianpaints.com" target="_blank" rel="noopener">
-        <span class="t">Asian Paints</span><span class="s">Website content on Adobe Experience Manager</span></a>
-      <a class="tile" href="https://www.wahed.com" target="_blank" rel="noopener">
-        <span class="t">Wahed</span><span class="s">Halal investing · blogs, journal, rebranding</span></a>
-      <a class="tile" href="https://www.instagram.com/everestspices/" target="_blank" rel="noopener">
-        <span class="t">Everest Spices</span><span class="s">Amazon A+ content &amp; social</span></a>
-      <a class="tile" href="https://drive.google.com/drive/folders/1eDyrwcNb75qUWuG4n5Z_rqqX9adM2IAQ?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Stratos Tech</span><span class="s">Edtech · full marketing function</span></a>
-      <a class="tile" href="https://drive.google.com/drive/folders/1AZrDqWWB5tC_P-2nm-KRv_N6syAt2ULr?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Health Reports</span><span class="s">Clinical cognitive reporting</span></a>
-      <a class="tile" href="https://drive.google.com/drive/folders/1YVVs-3TGZUj1Dd3MRVHCFGiqZbOnT0sd?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Performance ads</span><span class="s">App ads across feature launches</span></a>
-      <a class="tile" href="https://drive.google.com/drive/folders/1QVVaPodOqdyf22GrW0MGn5BCWAwElqzT?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Comic mascot</span><span class="s">Character &amp; illustration</span></a>
-      <a class="tile" href="https://drive.google.com/drive/folders/1hg3bmTZrnVvdGN-7AOC4ibMitwd0WnxY?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Humour content</span><span class="s">Topical &amp; nostalgic formats</span></a>
-      <a class="tile" href="https://drive.google.com/drive/folders/1capZPr-bfMvaomaz__Od7mzBQOY9JnbE?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Fintech blogs</span><span class="s">SEC-compliant financial editorial</span></a>
-      <a class="tile" href="https://drive.google.com/drive/folders/1mfgGviW3W7e4ti4ND6HZrgKyHv3xq94U?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Brochures</span><span class="s">Print &amp; collateral</span></a>
-      <a class="tile" href="https://drive.google.com/drive/folders/1AHDtKD09p7PuoQpPcB1Doca4cfBolrdE?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Passion projects</span><span class="s">The ones nobody briefed</span></a>
+      <a class="tile rv" href="decks/Fello GTM teardown.pdf" target="_blank" rel="noopener">
+        <span class="t">Pitch deck &middot; Fello</span><span class="s">A GTM teardown of an AI real-estate platform, built unasked.</span></a>
+      <a class="tile rv" href="decks/Canva Gulf Layer.pdf" target="_blank" rel="noopener">
+        <span class="t">Pitch deck &middot; The Gulf Layer</span><span class="s">A content audit of a design platform's Arabic library, built from its own sitemap.</span></a>
+      <a class="tile rv" href="https://www.asianpaints.com/where-the-heart-is/season-3.html" target="_blank" rel="noopener">
+        <span class="t">Where the Heart Is</span><span class="s">Asian Paints, India's largest paint company. The celebrity home-tour series, now in its fourth season.</span></a>
+      <a class="tile rv" href="https://drive.google.com/drive/folders/1capZPr-bfMvaomaz__Od7mzBQOY9JnbE?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Editorial</span><span class="s">Wahed's journal. SEC-compliant financial writing for 400,000+ investors.</span></a>
+      <a class="tile rv" href="https://drive.google.com/file/d/1P1AiDd-lfsX5_sjUX7XfBh1BNwBMYxVC/view" target="_blank" rel="noopener">
+        <span class="t">eBooks &amp; playbooks</span><span class="s">The Brain Health Playbook and Brain Health Matters, built as lead engines.</span></a>
+      <a class="tile rv" href="https://drive.google.com/drive/folders/1AZrDqWWB5tC_P-2nm-KRv_N6syAt2ULr?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Health reports</span><span class="s">Clinical cognitive reporting, written for patients and clinicians.</span></a>
+      <a class="tile rv" href="https://drive.google.com/drive/folders/1YVVs-3TGZUj1Dd3MRVHCFGiqZbOnT0sd?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Performance ads</span><span class="s">App ads across feature launches.</span></a>
+      <a class="tile rv" href="https://drive.google.com/drive/folders/1mfgGviW3W7e4ti4ND6HZrgKyHv3xq94U?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Brochures</span><span class="s">Print and collateral.</span></a>
+      <a class="tile rv" href="https://drive.google.com/drive/folders/1QVVaPodOqdyf22GrW0MGn5BCWAwElqzT?usp=drive_link" target="_blank" rel="noopener">
+        <span class="t">Comic mascot</span><span class="s">Character and illustration.</span></a>
     </div>
   </section>
 
-  <section>
-    <blockquote>From making sure financial advice sounds legal, to turning brain health into
-    binge-worthy content. I've spent years mastering the art of storytelling. I want to build
-    something people can't stop talking about.</blockquote>
+
+  <!-- ─ outside work ─ -->
+  <section id="life">
+    <div class="shead rv">
+      <span class="snum">Outside work</span>
+      <h2>Same person, <em>fewer slides.</em></h2>
+    </div>
+    <div class="carousel">
+      <button class="cnav prev" type="button" aria-label="Previous photos">&larr;</button>
+      <div class="track" id="track">
+        <figure class="shot"><img loading="lazy" src="life/l1.jpg" alt="Mehr as a child" width="800" height="1000"><figcaption>Hopes and dreams in my eyes</figcaption></figure>
+        <figure class="shot"><img loading="lazy" src="life/l2.jpg" alt="With children in Mumbai" width="800" height="1000"><figcaption>Building the new gen</figcaption></figure>
+        <figure class="shot"><img loading="lazy" src="life/l3.jpg" alt="Tower Bridge, London" width="800" height="1000"><figcaption>While roaming the world</figcaption></figure>
+        <figure class="shot"><img loading="lazy" src="life/l4.jpg" alt="A sunset walk" width="800" height="1000"><figcaption>Finding my passion</figcaption></figure>
+        <figure class="shot"><img loading="lazy" src="life/l5.jpg" alt="Dubai Marina" width="800" height="1000"><figcaption>Finding my place</figcaption></figure>
+        <figure class="shot"><img loading="lazy" src="life/l6.jpg" alt="With Sahil under the Burj Khalifa" width="800" height="1000"><figcaption>Finding my person</figcaption></figure>
+      </div>
+      <button class="cnav next" type="button" aria-label="More photos">&rarr;</button>
+    </div>
+  </section>
+
+  <section id="contact">
+    <blockquote class="rv">From making financial advice sound legal to turning brain health into
+    binge-worthy content. Now I build the machine that tells it at scale.</blockquote>
+    <div class="links" style="margin-top:var(--s6)">
+      <a class="primary" href="mailto:mehrpatni9@gmail.com"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.4"/><path d="m3.5 7 7.4 5.6a2 2 0 0 0 2.2 0L20.5 7"/></svg><span>Email me</span></a>
+      <a href="https://www.linkedin.com/in/mehrpatni/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://medium.com/@mehr.patni" target="_blank" rel="noopener">Medium</a>
+      <a href="https://github.com/mehrpatni9-lgtm" target="_blank" rel="noopener">GitHub</a>
+    </div>
   </section>
 
   <footer>
     <div class="frow">
-      <span><strong>Mehr Patni</strong> · Dubai, UAE · +971 52 458 1370 · mehrpatni9@gmail.com</span>
-      <span>Creative direction · Content strategy · Community · Canva Pro · AI tools</span>
+      <div>Mehr Patni &middot; Dubai, United Arab Emirates &middot; +971 52 458 1370</div>
+      <div>Content &amp; brand &middot; Community &middot; AI systems</div>
     </div>
   </footer>
+
 </div>
+
+<script>
+// Filter the work grid. Pure show/hide, no layout library.
+(function () {
+  var bar = document.querySelector('.filters');
+  if (!bar) return;
+  bar.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    var f = b.dataset.f;
+    bar.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    document.querySelectorAll('#workgrid .card').forEach(function (c) {
+      c.hidden = !(f === 'all' || c.dataset.cat === f);
+    });
+  });
+})();
+
+// Highlight the nav link for whichever section you're looking at.
+(function () {
+  var nav = document.getElementById('nav');
+  var links = [].slice.call(document.querySelectorAll('.nlinks a'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if (!('IntersectionObserver' in window)) return;
+
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id); });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  secs.forEach(function (s) { io.observe(s); });
+
+  addEventListener('scroll', function () { nav.classList.toggle('stuck', scrollY > 8); }, { passive: true });
+})();
+
+// Reveal on scroll. Anything still hidden when JS is off stays visible via the
+// reduced-motion rule, so this can only ever add polish, never remove content.
+(function () {
+  var items = [].slice.call(document.querySelectorAll('.rv'));
+  function showAll() { items.forEach(function (i) { i.classList.add('in'); }); }
+  if (!('IntersectionObserver' in window)) { showAll(); return; }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(function (i) { io.observe(i); });
+  // Last resort: nothing stays hidden for more than a moment, whatever happens.
+  setTimeout(showAll, 2500);
+})();
+
+// Brand tiles drift as the section passes. Transform only, rAF-throttled, and
+// it does nothing at all when the viewer has asked for less motion.
+(function () {
+  var field = document.querySelector('.float');
+  if (!field || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var chips = [].slice.call(field.querySelectorAll('.chip'));
+  var queued = false;
+
+  function draw() {
+    queued = false;
+    var r = field.getBoundingClientRect();
+    if (r.bottom < -200 || r.top > innerHeight + 200) return;
+    // -1 when the section is entering, +1 when it is leaving.
+    var t = (innerHeight / 2 - (r.top + r.height / 2)) / innerHeight;
+    chips.forEach(function (c) {
+      c.style.transform = 'translate3d(0,' + (t * parseFloat(c.dataset.sp) * 520).toFixed(2) + 'px,0)';
+    });
+  }
+  function onScroll() { if (!queued) { queued = true; requestAnimationFrame(draw); } }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  draw();
+})();
+
+// The life strip. Buttons nudge it by one photo; touch and trackpad already work.
+(function () {
+  var t = document.getElementById('track'); if (!t) return;
+  function step(dir) {
+    var card = t.querySelector('.shot');
+    var w = card ? card.getBoundingClientRect().width + 24 : 240;
+    t.scrollBy({ left: dir * w, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+  var p = document.querySelector('.cnav.prev'), n = document.querySelector('.cnav.next');
+  if (p) p.addEventListener('click', function () { step(-1); });
+  if (n) n.addEventListener('click', function () { step(1); });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stratos CLI — architecture at a glance</title>
+<style>
+  :root{
+    --ink:#1c1c1e; --muted:#6e6e73; --faint:#8c9098; --line:#e2e2e6; --bg:#fff;
+    --new:#1d4ed8; --newbg:#f5f8ff; --part:#a3782a; --partbg:#fffdf5;
+    --off:#9aa0a8; --offbg:#f7f7f8; --warn:#9c4b3c; --warnbg:#fdf4f2; --dark:#26262b;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font:15px/1.5 -apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  .wrap{max-width:1180px;margin:0 auto;padding:34px 26px 70px}
+
+  header{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:22px}
+  .pdfhint{float:right;font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:6px 12px;background:#fafafa;color:var(--muted);cursor:pointer}
+  h1{font-size:27px;font-weight:800;letter-spacing:-.01em}
+  .meta{color:var(--muted);font-size:12.5px;margin-top:5px}
+  .meta b{color:var(--ink);font-weight:600}
+  .lede{margin-top:11px;max-width:96ch;font-size:15px;color:#3a3a3e}
+
+  .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:13px;font-size:11.5px;color:var(--muted);align-items:center}
+  .key{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:22px;height:12px;border-radius:3px;border:1.5px solid #c3c7cf;background:#fff;display:inline-block}
+  .sw.new{border:1.5px dashed var(--new);background:var(--newbg)}
+  .sw.part{border:1.5px dotted var(--part);background:var(--partbg)}
+  .sw.off{border:1.5px dashed var(--off);background:var(--offbg)}
+  .sw.warn{border:1.5px solid var(--warn);background:var(--warnbg)}
+
+  .boards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:20px}
+  .board{border:1px solid var(--line);border-radius:11px;padding:14px 14px 16px;background:#fff}
+  .btitle{display:flex;align-items:baseline;gap:9px;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+  .btitle h2{font-size:14.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+  .btitle .tag{font-size:10px;font-weight:700;letter-spacing:.11em;border:1.4px solid var(--ink);border-radius:3px;padding:2px 7px}
+  .btitle .tag.p{color:var(--new);border-color:var(--new)}
+  .btitle .sub{font-size:11.5px;color:var(--faint);margin-left:auto;text-align:right}
+
+  .layer{border:1px solid var(--lb,#dcdce0);background:var(--lt,#fafafa);border-radius:8px;padding:7px 9px 8px;margin-bottom:5px}
+  .lname{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5c6066;margin-bottom:5px}
+  .chips{display:flex;flex-wrap:wrap;gap:4px}
+  .chip{font-size:11.5px;line-height:1.25;font-weight:600;background:#fff;border:1.4px solid #c3c7cf;border-radius:5px;padding:4px 7px;color:#26262b}
+  .chip.new{border:1.4px dashed var(--new);background:var(--newbg);color:var(--new)}
+  .chip.part{border:1.4px dotted var(--part);background:var(--partbg);color:var(--part)}
+  .chip.off{border:1.4px dashed var(--off);background:var(--offbg);color:var(--off)}
+  .chip.warn{border:1.4px solid var(--warn);background:var(--warnbg);color:var(--warn)}
+
+  .flow{text-align:center;color:#b8bcc4;font-size:10px;line-height:1;margin:1px 0}
+  .gate{border-radius:8px;padding:7px 10px;margin-bottom:5px;background:var(--dark);color:#fff}
+  .gate.new{background:var(--new)}
+  .gate .gname{font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+  .gate .gsub{font-size:10.5px;color:#c9c9cf;margin-top:2px;line-height:1.35}
+  .gate.new .gsub{color:#dbe4ff}
+
+  .verdict{margin-top:9px;border-top:1px dashed var(--line);padding-top:9px;font-size:11.5px;line-height:1.45;color:#4a4e55}
+  .verdict b{color:var(--warn)}
+  .board.p .verdict b{color:var(--new)}
+
+  .diff{margin-top:22px;border:1px solid var(--line);border-radius:11px;background:#fafafa;padding:14px 18px}
+  .diff h3{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .diff ol{margin:0;padding-left:19px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px 22px;font-size:12.5px;line-height:1.45}
+  .diff li{margin:0}
+  .diff b{color:var(--new)}
+
+  .sheet2{page-break-before:always;padding-top:30px}
+  h2.sec{font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:32px 0 11px;border-top:1px solid var(--line);padding-top:16px}
+  ol.changes{padding-left:21px;max-width:92ch;font-size:14px}
+  ol.changes li{margin-bottom:10px}
+  ol.changes b{color:var(--new)}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  td{border-top:1px solid var(--line);padding:7px 12px 7px 0;vertical-align:top}
+  td.k{white-space:nowrap;font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:11.5px;padding-right:20px;color:#3a3a3e}
+  footer{margin-top:40px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);padding-top:11px}
+
+
+
+  .obj{display:grid;grid-template-columns:1.55fr 1fr;gap:12px;margin-top:13px}
+  .objbox{border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+  .objbox.hi{background:#132340;border-color:#132340;color:#fff}
+  .objbox h4{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .objbox.hi h4{color:#c4a265}
+  .otab{width:100%;border-collapse:collapse}
+  .otab td{border-top:1px solid #eef0f2;padding:4.5px 0;vertical-align:top;font-size:11px;line-height:1.35}
+  .otab tr:first-child td{border-top:none}
+  .otab td.n{width:17px;color:#1d4ed8;font-weight:800;padding-right:5px}
+  .otab td.d b{color:#26262b}
+  .otab td.d span{color:var(--faint);display:block;margin-top:1px;font-size:10px}
+  .otab td.f{width:74px;text-align:right;padding-left:6px}
+  .otab td.f em{font-style:normal;font-size:8.6px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7d8590;white-space:nowrap}
+  .objbox.hi p{font-size:11px;line-height:1.45;color:#c8d2e2;margin-bottom:7px}
+  .objbox.hi p b{color:#fff}
+  .objbox.hi .ask{border-top:1px solid #2a3c5e;padding-top:7px;margin-top:2px;font-size:10.5px;color:#9BA6B8;line-height:1.4}
+  /* ===== plan / gantt ===== */
+  .sheetp{page-break-before:always;padding-top:18px}
+  .ptitle{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}
+  .ptitle h2{font-size:20px;font-weight:800;letter-spacing:-.01em}
+  .ptitle .psub{font-size:12px;color:var(--faint);margin-left:auto;text-align:right}
+  .pintro{font-size:13px;color:#3a3a3e;max-width:104ch;margin-bottom:13px;line-height:1.5}
+
+  .gantt{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .ghead{display:grid;background:#f4f5f7;border-bottom:1px solid var(--line)}
+  .ghead .gh0{padding:6px 10px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .ghead .gh{padding:6px 4px;font-size:9.5px;font-weight:700;text-align:center;color:#5c6066;border-left:1px solid #e6e7ea;letter-spacing:.02em}
+  .ghead .gh.q{background:#eceef1}
+
+  .glane{display:grid;background:#fbfbfc;border-bottom:1px solid var(--line);border-top:1px solid var(--line)}
+  .glane .gl{padding:3.5px 10px;font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#4a4e55}
+
+  .grow{display:grid;border-bottom:1px solid #f0f0f2;align-items:center}
+  .grow:last-child{border-bottom:none}
+  .grow .g0{padding:4px 10px;font-size:11.5px;line-height:1.3;color:#26262b}
+  .grow .g0 i{font-style:normal;color:var(--faint);font-size:10px}
+  .gtrack{grid-column:2 / -1;position:relative;display:grid;height:100%;min-height:23px}
+  .gcell{border-left:1px solid #eeeff1}
+  .gbar{position:absolute;top:50%;transform:translateY(-50%);height:13px;border-radius:3px;display:flex;align-items:center;padding:0 6px;font-size:9px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden}
+  .gbar.now{background:#26262b}
+  .gbar.build{background:#1d4ed8}
+  .gbar.soft{background:#7d9ae8}
+  .gbar.people{background:#a3782a}
+  .gbar.risk{background:#9c4b3c}
+  .gbar.ghost{background:#fff;border:1.4px dashed #9aa0a8;color:#6e6e73}
+
+  .gmile{display:grid;background:#fff;border-top:1px solid var(--line)}
+  .gmile .gm0{padding:4px 10px;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .gmt{grid-column:2 / -1;position:relative;display:grid;min-height:22px}
+  .gflag{position:absolute;top:50%;transform:translateY(-50%);font-size:8.6px;font-weight:700;color:#26262b;background:#fdf6e3;border:1px solid #e0d2b4;border-radius:3px;padding:1.5px 5px;white-space:nowrap}
+
+  .enable{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}
+  .ecard{border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fafafa}
+  .ecard h4{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .ecard p{font-size:11px;line-height:1.4;color:#3a3a3e}
+  .ecard p b{color:#26262b}
+  .gnote{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.45;max-width:104ch}
+
+  @media screen and (max-width:760px){
+    .wrap{padding:22px 14px 50px}
+    .boards{grid-template-columns:minmax(0,1fr);gap:16px}
+    .board,.layer,.chips,.gate{min-width:0}
+    .diff ol{grid-template-columns:minmax(0,1fr)}
+    h1{font-size:21px}
+    .pdfhint{float:none;display:block;width:max-content;margin:0 0 10px}
+    .btitle{flex-wrap:wrap}
+    .btitle .sub{margin-left:0;width:100%;text-align:left}
+    td.k{white-space:normal}
+    td{display:block;border-top:none;padding:2px 0}
+    tr{display:block;border-top:1px solid var(--line);padding:8px 0}
+    td.k{font-weight:700;color:var(--ink);padding-bottom:3px}
+    .chip{font-size:11px}
+    .enable{grid-template-columns:1fr}
+    .obj{grid-template-columns:1fr}
+    .gantt{font-size:10px}
+    .grow .g0,.ghead .gh0,.glane .gl{padding-left:7px;padding-right:5px}
+    .grow .g0{font-size:10.5px}
+  }
+  @media print{
+    @page{size:A4 landscape;margin:10mm}
+    body{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:9.5pt}
+    .wrap{max-width:none;padding:0}
+    .pdfhint{display:none!important}
+    .boards{grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .board{padding:9px}
+    .chip{font-size:7.6pt;padding:2.5px 5px}
+    .lname{font-size:6.8pt}
+    .layer{padding:5px 7px 6px;margin-bottom:3.5px}
+    .gate{padding:5px 8px;margin-bottom:3.5px}
+    .gate .gname{font-size:7.8pt}
+    .gate .gsub{font-size:6.9pt}
+    .verdict{font-size:7.6pt}
+    .diff{margin-top:11px;padding:9px 12px}
+    .diff ol{font-size:8pt;gap:4px 14px}
+    .lede{font-size:9pt;max-width:none}
+    header{padding-bottom:9px;margin-bottom:0}
+    .legend{margin-top:8px;font-size:7pt}
+    .boards{page-break-inside:avoid}
+    .board{page-break-inside:avoid}
+    .diff{page-break-before:always;margin-top:0}
+    .sheet2{page-break-before:auto;padding-top:16px}
+    .sheetp{page-break-before:always;padding-top:0}
+    .gantt{page-break-inside:avoid}
+    .ptitle h2{font-size:13pt}
+    .pintro{font-size:8.4pt;margin-bottom:9px}
+    .grow .g0{font-size:7.5pt;padding:1.6px 8px;line-height:1.22}
+    .grow .g0 i{font-size:6.8pt}
+    .gtrack{min-height:12.5px}
+    .gbar{height:10px;font-size:6.4pt;padding:0 4px}
+    .ghead .gh,.ghead .gh0{font-size:6.8pt;padding:4px 3px}
+    .glane .gl{font-size:6.6pt;padding:1.8px 8px}
+    .gflag{font-size:6.2pt;padding:1px 4px}
+    .gmt{min-height:16px}
+    .ecard h4{font-size:6.8pt}
+    .ecard p{font-size:7.4pt}
+    .enable{gap:6px;margin-top:9px}
+    .gnote{font-size:7.4pt}
+    .obj{gap:8px;margin-top:9px}
+    .objbox{padding:8px 10px}
+    .objbox h4{font-size:6.8pt}
+    .otab td{font-size:7.4pt;padding:3px 0}
+    .otab td.d span{font-size:6.6pt}
+    .otab td.f em{font-size:5.9pt}
+    .otab td.f{width:58px}
+    .objbox.hi p{font-size:7.4pt}
+    .objbox.hi .ask{font-size:6.9pt}
+    h1{font-size:15.5pt}
+    .meta{font-size:7.4pt;margin-top:3px}
+    .lede{margin-top:7px}
+  }
+
+  .scale{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+  .scard{border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:#fafafa}
+  .scard h4{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .scard .big{font-size:22px;font-weight:800;margin:3px 0 1px}
+  .scard p{font-size:12px;color:#3a3a3e;line-height:1.4}
+  ul.why{padding-left:19px;font-size:13.5px;max-width:96ch;margin-top:10px}
+  ul.why li{margin-bottom:5px}
+  .lbl{font-size:9.5px;font-weight:800;letter-spacing:.07em;border:1px solid;border-radius:3px;padding:0 5px;white-space:nowrap}
+  .lbl.e{color:#26262b}.lbl.d{color:#1d4ed8}.lbl.r{color:#a3782a}.lbl.o{color:#9c4b3c}
+  @media screen and (max-width:760px){ .scale{grid-template-columns:1fr} }
+  @media print{ .sheet2{page-break-before:always} .scard .big{font-size:14pt} .scard p{font-size:7.6pt} ul.why{font-size:8.4pt} table{font-size:8.4pt} ol.changes{font-size:8.6pt} h2.sec{margin:14px 0 7px;padding-top:9px} .gnote{font-size:7.6pt} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <button class="pdfhint" onclick="window.print()">Save as PDF&nbsp;&nbsp;⌘P</button>
+    <h1>Stratos CLI</h1>
+    <div class="meta">Architecture review · 28 Sep 2026 · design at <b>736afdb</b> · rendered by arch-lens · <b>the right-hand side is designed and approved, not yet built</b></div>
+    <p class="lede">Stratos Technologies helps organisations, families and individuals work with AI through the command line, inside the AI tool they already use. Until now that has been done by hand, in four sessions per team. It works and people love it, but trust has rested on good behaviour. Stratos CLI makes the same experience safe by construction: keys locked away, every action named and recorded, every risky step waiting for a person's yes, and the person responsible (IT, a parent, or the user) able to see everything and switch it off.</p>
+    <div class="legend">
+      <span class="key"><span class="sw"></span> works today</span>
+      <span class="key"><span class="sw part"></span> partly there</span>
+      <span class="key"><span class="sw off"></span> absent</span>
+      <span class="key"><span class="sw warn"></span> a risk</span>
+      <span class="key"><span class="sw new"></span> designed, not built</span>
+    </div>
+  </header>
+
+  <div class="boards">
+    <div class="board">
+      <div class="btitle"><h2>Today</h2><span class="tag">CURRENT</span><span class="sub">works by hand, trusted by habit</span></div>
+      <div class="layer" style="--lt:#f6f3ec;--lb:#d9d1bd"><div class="lname">① People today</div><div class="chips"><span class="chip ">Founder runs every enablement</span><span class="chip ">Nonprofit teams · ~80 people</span><span class="chip ">Families · individuals</span><span class="chip part">Partner, not yet an enabler</span></div></div><div class="flow">▼</div><div class="layer" style="--lt:#eef3f8;--lb:#c5d5e4"><div class="lname">② The engine, used directly</div><div class="chips"><span class="chip ">Claude Code</span><span class="chip warn">Shared logins</span><span class="chip warn">Whoever-is-logged-in connectors</span><span class="chip off">Codex</span></div></div><div class="flow">▼</div><div class="gate"><div class="gname">Rules written as text</div><div class="gsub">Every “ask before sending” and “never read another team’s brain” lives in an editable instruction file. Nothing enforces it.</div></div><div class="layer" style="--lt:#f8f3ea;--lb:#e0d2b4"><div class="lname">③ Where the work lives</div><div class="chips"><span class="chip ">~25 team brain repos</span><span class="chip warn">One personal account owns them</span><span class="chip warn">Two public sites</span><span class="chip off">No branch protection</span></div></div><div class="flow">▼</div><div class="layer" style="--lt:#f2f3f5;--lb:#d0d4da"><div class="lname">④ Keys and access</div><div class="chips"><span class="chip warn">Secrets in history</span><span class="chip warn">Passwords in a sheet</span><span class="chip warn">Vendor admin everywhere</span><span class="chip off">No audit trail</span></div></div><div class="flow">▼</div><div class="layer" style="--lt:#eff5f0;--lb:#c5dac9"><div class="lname">⑤ The design desk</div><div class="chips"><span class="chip ">Operating sheet</span><span class="chip ">Dated decisions</span><span class="chip ">Session ledger</span><span class="chip ">Approved plan</span><span class="chip part">Company accounts</span></div></div><div class="verdict"><b>The break:</b> the method works and people love it, but trust rests on good behaviour. Logins are shared, keys sit where agents can read them, and every rule is a sentence someone can delete.</div>
+    </div>
+    <div class="board p">
+      <div class="btitle"><h2>Designed</h2><span class="tag p">PROPOSED</span><span class="sub">same work, safe by construction</span></div>
+      <div class="layer" style="--lt:#f6f3ec;--lb:#d9d1bd"><div class="lname">① Who it serves</div><div class="chips"><span class="chip new">Families · parents + teens</span><span class="chip new">Solopreneurs</span><span class="chip ">Nonprofits · company pilots</span><span class="chip new">Enablers · partners</span></div></div><div class="flow">▼</div><div class="layer" style="--lt:#eef3f8;--lb:#c5d5e4"><div class="lname">② The person’s laptop</div><div class="chips"><span class="chip ">Claude Code</span><span class="chip ">Codex</span><span class="chip new">stratos CLI</span><span class="chip ">Model, called directly</span><span class="chip part">Managed settings</span></div></div><div class="flow">▼</div><div class="layer" style="--lt:#f2f0f7;--lb:#d2cbe4"><div class="lname">③ Stratos gateway — the locked room</div><div class="chips"><span class="chip new">Key vault · one lock per tenant</span><span class="chip new">Agent identity</span><span class="chip new">Untrusted content marked</span><span class="chip new">Kill switch</span></div></div><div class="flow">▼</div><div class="gate new"><div class="gname">Role check · just-in-time yes · secret scan</div><div class="gsub">Every call checked against the person’s role. Sending, publishing, sharing or deleting waits for the person’s yes — a parent’s yes for a teen. No commit lands carrying a secret.</div></div><div class="layer" style="--lt:#f8f3ea;--lb:#e0d2b4"><div class="lname">④ Places the customer owns</div><div class="chips"><span class="chip ">Google · Microsoft 365</span><span class="chip part">Their GitHub organisation</span><span class="chip new">Their security log</span></div></div><div class="flow">▼</div><div class="layer" style="--lt:#eff5f0;--lb:#c5dac9"><div class="lname">⑤ The record and the off switch</div><div class="chips"><span class="chip new">Write-once audit log</span><span class="chip new">Alerts</span><span class="chip new">Registry · packages</span><span class="chip new">Decision-maker console</span></div></div><div class="verdict"><b>The join:</b> the same work, but every key is locked, every action carries a name, every risky step waits for a human yes, and the person responsible can see it all and switch it off.</div>
+    </div>
+  </div>
+
+<div class="sheetp">
+  <div class="ptitle"><h2>The build, slice by slice</h2><span class="psub">plan approved 23 Sep 2026 · weeks counted from the day Google releases the company domain</span></div>
+  <p class="pintro">Each slice ends with something a real person can use and react to, and security is in the first slice, not bolted on later. The founder uses it first, then families and individuals, then a nonprofit department, then an IT team, then a partner who runs the call without Stratos in the room. Codex now comes before Microsoft, because it is the engine that lets 13–17-year-olds take part with a parent's permission; that re-order is decided and is being written into the next version of the plan.</p>
+  <div class="gantt"><div class="ghead" style="grid-template-columns:250px repeat(13,1fr)"><div class="gh0">Weeks from the domain release</div><div class="gh q">W1–2</div><div class="gh">W3–4</div><div class="gh q">W5–6</div><div class="gh">W7–8</div><div class="gh q">W9–10</div><div class="gh">W11–12</div><div class="gh q">W13–14</div><div class="gh">W15–16</div><div class="gh q">W17–18</div><div class="gh">W19–20</div><div class="gh q">W21–22</div><div class="gh">W23–24</div><div class="gh q">W25–26</div></div><div class="gmile" style="grid-template-columns:250px repeat(13,1fr)"><div class="gm0">Who tries it first</div><div class="gmt" style="grid-template-columns:repeat(13,1fr)"><div class="gflag" style="left:calc(7.6923% + 3px)">founder, then families</div><div class="gflag" style="left:calc(26.9231% + 3px)">first department</div><div class="gflag" style="left:calc(42.3077% + 3px)">first IT team</div><div class="gflag" style="left:calc(57.6923% + 3px)">first enabler</div><div class="gflag" style="left:calc(69.2308% + 3px)">teens on Codex</div></div></div><div class="glane" style="grid-template-columns:250px repeat(13,1fr)"><div class="gl">Product slices</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">0 · Foundations <i>accounts, verification, GitHub App</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar risk" style="left:calc(0.0000% + 3px);width:calc(7.6923% - 6px)">waiting</div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">1 · One person, 30 minutes <i>login, connect, first live page; security built in</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar build" style="left:calc(7.6923% + 3px);width:calc(19.2308% - 6px)"></div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">2 · A department <i>capture, publish, undo, Friday summary</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar build" style="left:calc(26.9231% + 3px);width:calc(15.3846% - 6px)"></div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">3 · IT can say yes <i>deploy pack, request-and-unlock, gateway in their cloud</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar build" style="left:calc(42.3077% + 3px);width:calc(15.3846% - 6px)"></div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">4 · Enablers <i>branded CLI, enabler admin, handbook</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar build" style="left:calc(57.6923% + 3px);width:calc(11.5385% - 6px)"></div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">5a · Codex <i>teens 13–17 with a parent’s permission</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar soft" style="left:calc(69.2308% + 3px);width:calc(11.5385% - 6px)">moved earlier</div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">5b · Microsoft 365 <i>mail, calendar, files, Entra login</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar soft" style="left:calc(80.7692% + 3px);width:calc(15.3846% - 6px)"></div></div></div><div class="glane" style="grid-template-columns:250px repeat(13,1fr)"><div class="gl">Alongside</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">Independent security review <i>before any customer reaches slice 3</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar people" style="left:calc(38.4615% + 3px);width:calc(3.8462% - 6px)"></div></div></div><div class="grow" style="grid-template-columns:250px repeat(13,1fr)"><div class="g0">T · Existing brains move across <i>into customer-owned organisations</i></div><div class="gtrack" style="grid-template-columns:repeat(13,1fr)"><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gcell"></div><div class="gbar soft" style="left:calc(26.9231% + 3px);width:calc(73.0769% - 6px)">continuous</div></div></div></div>
+  <div class="obj">
+    <div class="objbox">
+      <h4>What is true at the end of slice 1</h4>
+      <table class="otab">
+        <tr><td class="n">1</td><td class="d"><b>One person, thirty minutes.</b><span>Install, sign in with the account they already have, connect mail and calendar, and see a live page of their own with a private link.</span></td><td class="f"><em>Product</em></td></tr>
+        <tr><td class="n">2</td><td class="d"><b>No key on any laptop.</b><span>Every login token sits in the gateway vault, one lock per customer.</span></td><td class="f"><em>Security</em></td></tr>
+        <tr><td class="n">3</td><td class="d"><b>Every action has a name.</b><span>Each AI session carries its own identity, tied to its human, in a record nobody can edit.</span></td><td class="f"><em>Audit</em></td></tr>
+        <tr><td class="n">4</td><td class="d"><b>Nothing risky without a yes.</b><span>Sending, publishing, sharing and deleting wait for the person at the moment it happens.</span></td><td class="f"><em>Control</em></td></tr>
+        <tr><td class="n">5</td><td class="d"><b>An off switch that works.</b><span>One person, one family or everyone, stopped in minutes.</span></td><td class="f"><em>Safety</em></td></tr>
+      </table>
+    </div>
+    <div class="objbox hi">
+      <h4>What we can honestly say today</h4>
+      <p>The design is written, reviewed and approved. <b>No product code exists yet</b>; the first step is company accounts and app verification with Google and Microsoft.</p>
+      <p>We say <b>"designed to"</b>, not "certified". Certifications are a path: data-protection alignment before launch, child-safety rules before any child uses it, SOC 2 and ISO after.</p>
+      <div class="ask">Bars are solid where the work is understood and pale where it depends on the re-order still being written into the plan. Estimates, re-planned after slice 1: a shape to argue with, not a promise.</div>
+    </div>
+  </div>
+</div>
+
+  <div class="sheet2">
+    <h1 style="font-size:20px">The detail</h1>
+    <div class="meta">Stratos CLI · architecture review · 28 Sep 2026 · labels: <span class="lbl e">EXISTS</span> verified · <span class="lbl d">DECIDED</span> confirmed by Stratos · <span class="lbl r">RECOMMENDED</span> proposed, not yet agreed</div>
+
+    <h2 class="sec">The five promises</h2>
+    <ol class="changes">
+      <li><b>Your work stays yours.</b> Company brains live in a GitHub organisation the customer owns; Stratos's app is a guest they installed and can remove in one click. Stratos staff hold no personal access. <span class="lbl d">DECIDED</span></li>
+      <li><b>Nobody holds your keys but the locked room.</b> Login keys live only in the gateway's vault, one lock per customer, never on laptops and never in files the AI can read. <span class="lbl d">DECIDED</span></li>
+      <li><b>Every action has a name on it, and the record cannot be edited.</b> Person, their agent, what, when, in a write-once log the customer can copy into their own security system. <span class="lbl d">DECIDED</span></li>
+      <li><b>Risky things need a "yes" at the moment they happen.</b> Sending outside, publishing, deleting, sharing, bulk reading. For a teen, the yes is the parent's. <span class="lbl d">DECIDED</span></li>
+      <li><b>Someone responsible can always pull the plug.</b> IT for a company, a parent for a family, the person for themselves, from the decision-maker console, in minutes. The console shows and switches; nobody chats or works there. <span class="lbl d">DECIDED</span></li>
+    </ol>
+    <p class="gnote">We never see the conversation between a person and the AI. The model is called by the person's own tool on the person's own plan; Stratos only sees actions on mail, files and code. That is a privacy promise, not a gap.</p>
+
+    <h2 class="sec">Who it serves, and who is the guardian</h2>
+    <table>
+      <tr><td class="k">Parent + teens 13–17</td><td>A family space owned by the parent. Teens use Codex with the parent's permission (Anthropic's consumer terms are 18+; OpenAI allows 13–17 with a guardian's permission). No outside send, share or publish without the parent's yes; private only; weekly summary to the parent. <span class="lbl d">DECIDED</span></td></tr>
+      <tr><td class="k">Adults, solopreneurs</td><td>Their own private space; they are their own guardian. Claude Code or Codex. <span class="lbl d">DECIDED</span></td></tr>
+      <tr><td class="k">Under 13</td><td>Not served in the first version. <span class="lbl d">DECIDED</span></td></tr>
+      <tr><td class="k">Nonprofits, companies</td><td>Their own organisation, directly with Stratos or through an enabler partner; the IT admin is the guardian. Claude Code first, Codex next. <span class="lbl d">DECIDED</span></td></tr>
+      <tr><td class="k">Enabler partners</td><td>Their own branded build of the same CLI; they may run their own gateway and may leave with their customers' data, which was never Stratos's. No lock-in. <span class="lbl d">DECIDED</span></td></tr>
+    </table>
+
+    <h2 class="sec">What is enforced, and what is only advice</h2>
+    <table>
+      <tr><td class="k">Enforced everywhere</td><td>Everything at the gateway: login, keys, role checks, the just-in-time yes, the secret scan, the audit log, the kill switch. It holds whatever happens on the laptop.</td></tr>
+      <tr><td class="k">Enforced with device management</td><td>Laptop settings (which tools the AI may run, which sites it may reach) are locked only where IT manages the machine. Without that they are advice, and the setup pack says so.</td></tr>
+      <tr><td class="k">Advice only</td><td>Instructions written for the AI. Useful, never relied on for safety.</td></tr>
+    </table>
+
+    <h2 class="sec">How it scales, and what it costs to run</h2>
+    <div class="scale">
+      <div class="scard"><h4>Pilot · up to 50 users</h4><div class="big">~$410 / month</div><p>One shared gateway and control plane, EU-hosted.</p></div>
+      <div class="scard"><h4>Growth · ~1,000 users</h4><div class="big">~$4k / month</div><p>More copies of the same gateway; same design.</p></div>
+      <div class="scard"><h4>Scale · ~20,000 users</h4><div class="big">~$8.5k / month</div><p>Twenty times the users of growth, about twice the cost.</p></div>
+    </div>
+    <p class="gnote">Plus about $26k of one-off costs. Estimates for infrastructure only, excluding salaries; the AI model itself is on each customer's own plan. <span class="lbl r">RECOMMENDED</span> estimates, not quotes.</p>
+    <ul class="why">
+      <li><b>The gateway keeps no state of its own,</b> so more users means more copies of the same small service, not a bigger one.</li>
+      <li><b>One encryption key per tenant</b> keeps customers apart however many there are; a new tenant adds a key, not a system.</li>
+      <li><b>The expensive part, the AI model, is never on Stratos's bill;</b> it runs on the customer's own Claude or ChatGPT plan.</li>
+      <li><b>The same gateway image runs in a customer's or partner's own cloud,</b> so large organisations and partners carry their own load and keep their data inside their perimeter.</li>
+      <li><b>Stratos stores events, not content,</b> so what grows is a stream of small records, not everyone's documents.</li>
+    </ul>
+
+    <h2 class="sec">The compliance path</h2>
+    <table>
+      <tr><td class="k">Now · design</td><td>Privacy by design; data map; data-processing agreement template; list of subprocessors.</td></tr>
+      <tr><td class="k">First company pilot</td><td>Security pack: one-pager, architecture, setup pack, questionnaire answers. Independent security review before any customer reaches the IT stage.</td></tr>
+      <tr><td class="k">Before public launch</td><td>UAE data-protection law, GDPR (EU hosting), California privacy law, EU AI Act transparency ("you are working with AI"), Google's security assessment for Gmail access.</td></tr>
+      <tr><td class="k">Before any child user</td><td>UAE Child Digital Safety law (compliance window to about January 2027), COPPA, GDPR for children, UK Children's Code; age assurance and recorded parental consent.</td></tr>
+      <tr><td class="k">Growth</td><td>SOC 2 Type I, then Type II; then ISO 27001 and ISO/IEC 42001 for AI management.</td></tr>
+    </table>
+    <p class="gnote">Legal points are summarised from public sources and are to be re-verified with counsel.</p>
+
+    <h2 class="sec">What was found, today</h2>
+    <table>
+      <tr><td class="k">The method</td><td>Four hand-run sessions per team; strong adoption across three nonprofits and many families and individuals. It needs a Stratos person in every room, so it cannot reach thousands of organisations.</td></tr>
+      <tr><td class="k">Identity</td><td>Shared AI logins and shared mailboxes are common; the record often cannot say who did what.</td></tr>
+      <tr><td class="k">Rules</td><td>Around 180 written rules across the team brains; none enforced by software.</td></tr>
+      <tr><td class="k">Keys</td><td>Two live keys sit in repository history; they are retired as teams move onto the new system rather than by hand beforehand, a risk accepted knowingly.</td></tr>
+      <tr><td class="k">Ownership</td><td>Most team brains sit under one personal account; they move into organisations the customers own as part of the transition.</td></tr>
+      <tr><td class="k">The build</td><td>Design documents, decisions and plan are in place; no product code yet. The first step is waiting to release the company domain.</td></tr>
+    </table>
+
+    <footer>arch-lens · one page for the shape, the rest for the detail · current = status quo, proposed = designed, none implemented</footer>
+  </div>
+</div>
+</body>
+</html>

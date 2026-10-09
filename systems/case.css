@@ -1,0 +1,43 @@
+:root{
+  --paper:#F6F8FB; --paper-2:#E9EFF7; --ink:#0F1E33; --body:#2B3C53;
+  --muted:#5C6E85; --faint:#8295AB;
+  --accent:#1A6FD4; --accent-soft:#E4EEFC; --line:#DBE3EE; --white:#fff;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem;
+  --s6:2rem; --s7:3rem; --s8:4.5rem; --r:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0}
+a{color:inherit}
+.wrap{max-width:46rem;margin:0 auto;padding:var(--s7) var(--s5) var(--s8)}
+.back{display:inline-flex;gap:var(--s2);text-decoration:none;font-size:.86rem;
+  font-weight:600;color:var(--accent);margin-bottom:var(--s6)}
+.back.next{margin:var(--s8) 0 0}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 var(--s3)}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);letter-spacing:-.03em;line-height:1.08}
+.lede{font-size:clamp(1rem,1.5vw,1.16rem);color:var(--muted);margin:var(--s4) 0 0}
+h2{font-size:1.12rem;letter-spacing:-.015em;margin:var(--s7) 0 var(--s3);
+  padding-top:var(--s4);border-top:1px solid var(--line)}
+p{margin:0 0 var(--s4)}
+ul{margin:0 0 var(--s4);padding-left:1.1rem}
+li{margin-bottom:var(--s3)}
+li b,p b{color:var(--ink);font-weight:600}
+.funnelbox{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  padding:var(--s5);margin:0 0 var(--s4)}
+.fstep{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:var(--s4);
+  padding:var(--s3) 0;border-bottom:1px dashed var(--line)}
+.fstep:last-child{border-bottom:0;padding-bottom:0}
+.fstep .k{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);padding-top:.18rem}
+.fstep .v{font-size:.92rem;color:var(--muted)}
+.result{background:var(--accent-soft);border:1px solid #CFE0F7;border-radius:var(--r);
+  padding:var(--s5);margin:0 0 var(--s4)}
+.result .big{font-family:Fraunces,Georgia,serif;font-size:1.45rem;font-weight:600;
+  letter-spacing:-.02em;color:var(--ink);line-height:1.25}
+.result p{margin:var(--s2) 0 0;font-size:.92rem;color:var(--muted)}
+.take{font-size:1.02rem;color:var(--ink)}
+@media(max-width:34rem){.fstep{grid-template-columns:1fr;gap:var(--s1)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}

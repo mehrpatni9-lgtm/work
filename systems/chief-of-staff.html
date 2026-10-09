@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My chief of staff: how it works</title>
+<meta name="description" content="The architecture of the agent Mehr Patni works with daily. Research, build, check, and a memory that turns every correction into a permanent rule.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --paper-2:#E9EFF7; --ink:#0F1E33; --body:#2B3C53;
+  --muted:#5C6E85; --faint:#8295AB;
+  --accent:#1A6FD4; --accent-2:#74C3F2; --accent-soft:#E4EEFC;
+  --line:#DBE3EE; --white:#fff;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem;
+  --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --r:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:1rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0}
+a{color:inherit}
+.wrap{max-width:58rem;margin:0 auto;padding:var(--s7) var(--s5) var(--s8)}
+
+.back{display:inline-flex;align-items:center;gap:var(--s2);text-decoration:none;
+  font-size:.86rem;font-weight:600;color:var(--accent);margin-bottom:var(--s6)}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 var(--s3)}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);letter-spacing:-.03em;line-height:1.08}
+h1 em{font-style:italic;font-weight:400;color:var(--faint)}
+.lede{font-size:clamp(1rem,1.5vw,1.16rem);color:var(--muted);max-width:52ch;margin:var(--s4) 0 0}
+
+/* ── the stack ──────────────────────────────────────────────────────────── */
+.stack{margin:var(--s8) 0 0;display:flex;flex-direction:column;gap:var(--s2);position:relative}
+.layer{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  padding:var(--s4) var(--s5);display:grid;grid-template-columns:2.4rem minmax(0,1fr);
+  gap:var(--s4);align-items:start}
+.layer .n{font-size:.72rem;font-weight:700;letter-spacing:.12em;color:var(--accent);padding-top:.22rem}
+.layer h3{font-size:1.05rem;letter-spacing:-.015em}
+.layer p{margin:var(--s1) 0 0;font-size:.86rem;color:var(--muted);line-height:1.5}
+/* The two layers that carry the argument sit in the accent tint. */
+.layer.key{background:var(--accent-soft);border-color:#CFE0F7}
+.tick{display:flex;justify-content:center;color:var(--faint);font-size:.8rem;line-height:1}
+
+/* ── the feedback loops ─────────────────────────────────────────────────── */
+.loops{margin:var(--s7) 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
+.loop{border:1px dashed #BBCDE4;border-radius:var(--r);padding:var(--s5);background:var(--white)}
+.loop .t{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:var(--s2)}
+.loop h3{font-size:1rem;letter-spacing:-.015em}
+.loop p{margin:var(--s2) 0 0;font-size:.86rem;color:var(--muted);line-height:1.5}
+
+.note{margin:var(--s7) 0 0;padding-top:var(--s5);border-top:1px solid var(--line);
+  font-size:.86rem;color:var(--muted);max-width:56ch}
+
+@media(max-width:40rem){
+  .loops{grid-template-columns:1fr}
+  .layer{grid-template-columns:1fr;gap:var(--s1)}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../index.html">&larr; Mehr Patni</a>
+
+  <p class="eyebrow">System architecture</p>
+  <h1>My chief of staff. <em>What it actually does.</em></h1>
+  <p class="lede">Not a chatbot I ask things. A working system with its own memory, its own
+  research, and a rule that it checks before it ships.</p>
+
+  <div class="stack">
+
+    <div class="layer">
+      <span class="n">01</span>
+      <div><h3>I ask for something</h3>
+        <p>A job to apply for, a company to understand, a deck to build, an email to write.</p></div>
+    </div>
+    <div class="tick">&darr;</div>
+
+    <div class="layer key">
+      <span class="n">02</span>
+      <div><h3>It reads its own rules first</h3>
+        <p>Everything I have ever corrected it on. How I write, what I will not claim, which
+        numbers are confirmed and which are not. It starts from what it already knows about me.</p></div>
+    </div>
+    <div class="tick">&darr;</div>
+
+    <div class="layer">
+      <span class="n">03</span>
+      <div><h3>It researches</h3>
+        <p>Crawls the site, pulls the public sitemap, checks every claim against the live page,
+        and writes the findings to a file with a source on each line.</p></div>
+    </div>
+    <div class="tick">&darr;</div>
+
+    <div class="layer">
+      <span class="n">04</span>
+      <div><h3>It builds</h3>
+        <p>The CV, the tailored version of it, the deck, the tracker, the site. All rendered from
+        one profile file, so a number changed once is changed everywhere.</p></div>
+    </div>
+    <div class="tick">&darr;</div>
+
+    <div class="layer key">
+      <span class="n">05</span>
+      <div><h3>It checks itself, and refuses</h3>
+        <p>Twenty-eight labelled cases with deliberate traps. Below ninety per cent accuracy the
+        build stops. It also tells me which claims it could not verify, instead of quietly
+        filling the gap.</p></div>
+    </div>
+    <div class="tick">&darr;</div>
+
+    <div class="layer">
+      <span class="n">06</span>
+      <div><h3>I approve, then it ships</h3>
+        <p>Nothing is sent, published or posted without me. Drafts only, every time.</p></div>
+    </div>
+
+  </div>
+
+  <div class="loops">
+    <div class="loop">
+      <div class="t">Loop back to 01</div>
+      <h3>It asks before it guesses</h3>
+      <p>When two readings of a request would produce different work, it stops and asks rather
+      than picking one and hoping.</p>
+    </div>
+    <div class="loop">
+      <div class="t">Loop back to 02</div>
+      <h3>Every correction becomes a rule</h3>
+      <p>Tell it once that a phrase is not how I talk, and it is written into memory. It does not
+      need telling twice.</p>
+    </div>
+  </div>
+
+  <p class="note">Built in Claude Code. The research, the build pipeline and the eval suite are
+  separate pieces that hand off to each other, which is why any one of them can be replaced
+  without breaking the rest.</p>
+
+</div>
+</body>
+</html>
