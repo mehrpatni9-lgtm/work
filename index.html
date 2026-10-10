@@ -230,11 +230,10 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .prob .m{flex:0 0 auto}
 /* Two lines' worth of room, so a one-line outcome still starts level with a
    two-line one across the row. */
-.prob .cta{margin-top:auto;padding-top:var(--s4)}
+.prob .cta{margin-top:auto;padding-top:var(--s4);align-self:flex-start}
 /* Two links sit on one row, the case study first and the press second. */
-.prob .ctarow{margin-top:auto;padding-top:var(--s4);display:flex;flex-wrap:wrap;
-  gap:var(--s2) var(--s5)}
-.prob .ctarow .cta{margin-top:0;padding-top:0}
+.prob .ctarow{margin-top:auto;padding-top:var(--s4)}
+.prob .ctarow .cta{margin:0 var(--s5) var(--s2) 0;padding-top:0;vertical-align:top}
 .cta.alt{color:var(--muted)}
 .cta.alt:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .cta{display:inline-flex;align-items:center;gap:.42rem;margin-top:var(--s4);font-size:var(--t-small);font-weight:600;
@@ -283,6 +282,10 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .chip:hover{transform:translateY(-5px);border-color:var(--accent);
   box-shadow:0 1.3rem 2.4rem -1.2rem rgba(15,30,51,.45)}
 .chip img{width:64%;height:64%;object-fit:contain}
+/* A horizontal wordmark reads as a smudge at 64%, so it takes more of the tile. */
+/* A wordmark gets a wider tile than a square mark, so it reads at a glance. */
+.chip.wide{aspect-ratio:1.85;width:clamp(8rem,11.8vw,10.4rem);padding:var(--s3)}
+.chip.wide img{width:82%;height:auto;max-height:70%}
 .chip.fill{padding:0;overflow:hidden;background:none}
 .chip.fill img{width:100%;height:100%;object-fit:cover}
 .chip{text-decoration:none;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
@@ -770,16 +773,24 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
     <div class="logostrip rv">
       <div class="ltrack">
         <a class="chip fill" href="https://www.asianpaints.com" target="_blank" rel="noopener" title="Asian Paints"><img src="logos/asianpaints.png" alt="Asian Paints"></a>
-        <a class="chip" href="https://www.wahed.com" target="_blank" rel="noopener" title="Wahed"><img src="logos/wahed.png" alt="Wahed"></a>
-        <a class="chip fill" href="https://drive.google.com/drive/folders/1eDyrwcNb75qUWuG4n5Z_rqqX9adM2IAQ?usp=drive_link" target="_blank" rel="noopener" title="Stratos Technologies"><img src="logos/stratos.png" alt="Stratos Technologies"></a>
+        <a class="chip wide" href="https://nilkamalsleep.com" target="_blank" rel="noopener" title="Nilkamal Sleep"><img src="logos/nilkamal.png" alt="Nilkamal Sleep"></a>
         <span class="chip" title="Tata Group"><img src="logos/tata.png" alt="Tata Group"></span>
+        <span class="chip wide" title="Royal Enfield"><img src="logos/royalenfield.png" alt="Royal Enfield"></span>
         <span class="chip fill" title="Amazon"><img src="logos/amazon.png" alt="Amazon"></span>
+        <span class="chip wide" title="Listerine"><img src="logos/listerine.png" alt="Listerine"></span>
+        <a class="chip" href="https://www.wahed.com" target="_blank" rel="noopener" title="Wahed"><img src="logos/wahed.png" alt="Wahed"></a>
+        <span class="chip wide" title="Bergner"><img src="logos/bergner.png" alt="Bergner"></span>
+        <a class="chip fill" href="https://drive.google.com/drive/folders/1eDyrwcNb75qUWuG4n5Z_rqqX9adM2IAQ?usp=drive_link" target="_blank" rel="noopener" title="Stratos Technologies"><img src="logos/stratos.png" alt="Stratos Technologies"></a>
         <span class="chip fill" title="Ivory"><img src="logos/ivory.png" alt="Ivory"></span>
         <span class="chip fill" aria-hidden="true" title="Asian Paints"><img src="logos/asianpaints.png" alt="" aria-hidden="true"></span>
-        <span class="chip" aria-hidden="true" title="Wahed"><img src="logos/wahed.png" alt="" aria-hidden="true"></span>
-        <span class="chip fill" aria-hidden="true" title="Stratos Technologies"><img src="logos/stratos.png" alt="" aria-hidden="true"></span>
+        <span class="chip wide" aria-hidden="true" title="Nilkamal Sleep"><img src="logos/nilkamal.png" alt="" aria-hidden="true"></span>
         <span class="chip" aria-hidden="true" title="Tata Group"><img src="logos/tata.png" alt="" aria-hidden="true"></span>
+        <span class="chip wide" aria-hidden="true" title="Royal Enfield"><img src="logos/royalenfield.png" alt="" aria-hidden="true"></span>
         <span class="chip fill" aria-hidden="true" title="Amazon"><img src="logos/amazon.png" alt="" aria-hidden="true"></span>
+        <span class="chip wide" aria-hidden="true" title="Listerine"><img src="logos/listerine.png" alt="" aria-hidden="true"></span>
+        <span class="chip" aria-hidden="true" title="Wahed"><img src="logos/wahed.png" alt="" aria-hidden="true"></span>
+        <span class="chip wide" aria-hidden="true" title="Bergner"><img src="logos/bergner.png" alt="" aria-hidden="true"></span>
+        <span class="chip fill" aria-hidden="true" title="Stratos Technologies"><img src="logos/stratos.png" alt="" aria-hidden="true"></span>
         <span class="chip fill" aria-hidden="true" title="Ivory"><img src="logos/ivory.png" alt="" aria-hidden="true"></span>
       </div>
     </div>
