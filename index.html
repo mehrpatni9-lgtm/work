@@ -7,7 +7,7 @@
 <meta name="description" content="Mehr Patni, Dubai. Content and community for products that are hard to explain, and the AI systems that keep them shipping. Selected work, live.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* Spacing and type run off one modular scale in rem, so everything reflows
    together when someone enlarges their text. No fixed pixel rhythm. */
@@ -50,6 +50,11 @@ nav::after{content:"";position:absolute;top:100%;left:0;right:0;height:1.75rem;
 .nrow{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
   max-width:72rem;margin:0 auto;padding:var(--s3) var(--s5)}
 .nme{font-family:Fraunces;font-weight:600;font-size:1rem;letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
+/* The location rides with the name in the bar, now that the hero eyebrow is gone. */
+.nme span{font-family:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-weight:500;font-size:.8rem;letter-spacing:0;color:var(--muted)}
+.nme span::before{content:"\00b7";margin:0 .45rem;color:var(--faint)}
+@media(max-width:48rem){.nme span{display:none}}
 .nlinks{display:flex;gap:var(--s1);flex-wrap:wrap;align-items:center}
 .nlinks a{display:inline-flex;align-items:center;gap:var(--s2);
   font-size:var(--t-small);font-weight:500;text-decoration:none;color:var(--muted);
@@ -71,16 +76,87 @@ nav::after{content:"";position:absolute;top:100%;left:0;right:0;height:1.75rem;
 header{padding:var(--s7) 0 0;position:relative}
 .hero2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);
   gap:var(--s8);align-items:center}
-.hcopy{max-width:34ch}
+.hcopy{max-width:40ch}
 .eyebrow{font-size:var(--t-micro);font-weight:700;letter-spacing:.2em;text-transform:uppercase;
   color:var(--accent);margin:0 0 var(--s4)}
+/* A handwritten line that reads the visitor's own clock. The HTML ships "Hey there"
+   so the greeting is never blank if the script does not run. */
+.hello{font-family:Caveat,"Bradley Hand","Segoe Script",cursive;font-weight:600;
+  font-size:clamp(1.45rem,2.5vw,1.95rem);line-height:1.15;color:var(--accent);
+  margin:0 0 var(--s5);transform:rotate(-1.6deg);transform-origin:0 100%}
+/* "Good" is fixed. The time word turns into the right one: the first fades up and
+   out while the real one fades up and in, and the box animates between the two
+   widths so the line never jumps. No masking, because Caveat's descenders would
+   be clipped by it. */
+.swap{position:relative;display:inline-block;white-space:nowrap;
+  transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.swap .w{transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+.swap .w+.w{position:absolute;left:0;top:0}
+.js #hreal{opacity:0;transform:translateY(.32em)}
+.js .swap.go #hdecoy{opacity:0;transform:translateY(-.32em)}
+.js .swap.go #hreal{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  #hdecoy{display:none}
+  .js #hreal{position:static;opacity:1;transform:none}
+  .swap{width:auto!important}
+}
+/* The name signs off the note instead of titling it. It is still the h1, so the
+   surname is carried for search and screen readers without being set. */
+.sign{font-size:clamp(1.9rem,3.2vw,2.6rem);font-weight:600;letter-spacing:-.035em;
+  line-height:1;color:var(--ink);margin:var(--s4) 0 0}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+@media(prefers-reduced-motion:reduce){
+  .decoy{display:none}
+  .js .real{opacity:1;transform:none}
+}
 .name{font-size:clamp(2.6rem,6vw,4.4rem);font-weight:600;letter-spacing:-.04em;line-height:1}
-.role{font-size:var(--t-lede);color:var(--muted);margin:var(--s5) 0 0;line-height:1.5}
+.role{font-size:clamp(1.12rem,1.65vw,1.4rem);color:var(--muted);margin:var(--s4) 0 0;line-height:1.45}
 .role b{color:var(--ink);font-weight:600}
-.keys{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s6) 0 0;padding:0;list-style:none}
+.hfig{position:relative}
+.keys{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s5) 0 0;padding:0;list-style:none}
 .keys li{font-size:var(--t-small);font-weight:600;color:var(--ink);
   background:var(--accent-soft);border:1px solid #D2E2F8;border-radius:999px;
   padding:.42rem .85rem}
+/* Above 60rem the pills leave the flow and sit in the four empty corners of the
+   portrait panel. The silhouette is contain-fitted to ~74% of the square's width,
+   so the corners are blue ground and nothing lands on her face. */
+@media(min-width:60.0625rem){
+  .keys{display:block;margin:0}
+  .keys li{position:absolute;white-space:nowrap;z-index:2;
+    background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border-color:rgba(255,255,255,.7);box-shadow:0 .55rem 1.5rem rgba(15,30,51,.12)}
+  .keys li:nth-child(1){top:4%;left:2%}
+  .keys li:nth-child(2){top:15%;left:-4%}
+  .keys li:nth-child(3){top:4%;right:2%}
+  .keys li:nth-child(4){top:15%;right:-4%}
+  .keys li:nth-child(5){top:27%;left:-7%}
+  .keys li:nth-child(6){top:27%;right:-7%}
+  .keys li:nth-child(7){bottom:15%;left:-4%}
+  .keys li:nth-child(8){bottom:15%;right:-4%}
+  .keys li:nth-child(9){bottom:28%;left:-7%}
+  /* The centred pill uses the standalone translate property, not transform, so
+     the float animation below can own transform without fighting the centring. */
+  .keys li:nth-child(10){bottom:2%;left:50%;translate:-50% 0}
+
+  /* Each pill drifts on its own clock. Different durations and delays, none of
+     them whole multiples of each other, so they never fall into step. */
+  .keys li{animation:bob var(--dur,6s) var(--del,0s) ease-in-out infinite alternate;
+    transition:scale .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease}
+  .keys li:hover{scale:1.05;box-shadow:0 .8rem 2rem rgba(15,30,51,.18)}
+  .keys li:nth-child(1){--dur:5.2s;--del:0s;   --bob:-8px}
+  .keys li:nth-child(2){--dur:6.1s;--del:.45s; --bob:-6px}
+  .keys li:nth-child(3){--dur:4.9s;--del:.9s;  --bob:-7px}
+  .keys li:nth-child(4){--dur:6.7s;--del:.2s;  --bob:-9px}
+  .keys li:nth-child(5){--dur:5.6s;--del:1.1s; --bob:-6px}
+  .keys li:nth-child(6){--dur:7.1s;--del:.6s;  --bob:-8px}
+  .keys li:nth-child(7){--dur:5.0s;--del:1.4s; --bob:-7px}
+  .keys li:nth-child(8){--dur:6.3s;--del:.3s;  --bob:-6px}
+  .keys li:nth-child(9){--dur:5.8s;--del:.8s;  --bob:-9px}
+  .keys li:nth-child(10){--dur:6.9s;--del:1.2s;--bob:-7px}
+  @keyframes bob{from{transform:translateY(0)}to{transform:translateY(var(--bob,-7px))}}
+  @media(prefers-reduced-motion:reduce){.keys li{animation:none}}
+}
 
 /* The cutout needs a tinted ground or its white outline disappears. */
 .hshot{position:relative;margin:0;display:flex;align-items:flex-end;justify-content:center;
@@ -101,10 +177,6 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .shead p em{font-style:italic;color:var(--ink)}
 
 /* Numbers sit beside the work they describe, not in a banner of their own. */
-.statline{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;
-  gap:var(--s7);margin:var(--s5) 0 0;padding-top:var(--s5);border-top:1px solid var(--line)}
-.st .n{font-family:Fraunces;font-size:1.6rem;font-weight:600;letter-spacing:-.03em;color:var(--accent);line-height:1}
-.st .c{font-size:var(--t-small);color:var(--muted);margin-top:var(--s1)}
 
 /* ── work gallery: flat, so thirteen pieces read as a gallery not as boxes ─ */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:var(--s6) var(--s5)}
@@ -130,9 +202,14 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .ico{width:1.6rem;height:1.6rem;color:var(--accent);margin-bottom:var(--s2)}
 .grid.sys .tag{color:var(--faint)}
 .grid.sys .card p{font-size:var(--t-small);line-height:1.55}
-.grid.sys .card::after{content:"\2192";margin-top:var(--s3);font-size:1rem;color:var(--accent);
-  transition:transform .2s cubic-bezier(.2,.8,.2,1)}
-.grid.sys .card:hover::after{transform:translateX(4px)}
+/* Icon, title, subcopy, then the call to action pinned to the bottom so the
+   three cards line up however long their copy runs. */
+.grid.sys .meta{flex:1}
+.grid.sys .cta{margin-top:auto;padding-top:var(--s4);display:inline-flex;align-items:center;
+  gap:.42rem;font-size:var(--t-small);font-weight:600;color:var(--accent)}
+.grid.sys .cta .ar{width:1.02rem;height:1.02rem;flex:none;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.grid.sys .card:hover .cta .ar{transform:translateX(4px)}
 
 
 /* ── filters ────────────────────────────────────────────────────────────── */
@@ -146,25 +223,6 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .card[hidden]{display:none!important}
 
 /* ── gtm ────────────────────────────────────────────────────────────────── */
-/* ── the funnel, drawn rather than described ────────────────────────────── */
-.funnel{margin:0 0 var(--s7);display:flex;flex-direction:column;gap:var(--s3)}
-.fstage{display:grid;grid-template-columns:5.5rem minmax(0,1fr);align-items:center;
-  gap:var(--s4);position:relative}
-.fl{font-size:var(--t-micro);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--accent)}
-.fb{position:relative;height:2.7rem;width:var(--w);border-radius:.5rem;
-  background:linear-gradient(90deg,var(--accent) 0%,#5FA4E8 100%);
-  -webkit-print-color-adjust:exact;print-color-adjust:exact}
-.fv{position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);
-  font-size:var(--t-small);color:var(--white);font-weight:500;white-space:nowrap;
-  max-width:calc(100% - var(--s6));overflow:hidden;text-overflow:ellipsis}
-.fnote{margin:var(--s4) 0 0;font-size:var(--t-small);color:var(--muted);max-width:52ch}
-@media(max-width:48rem){
-  .fstage{grid-template-columns:1fr;gap:var(--s1)}
-  .fb{min-width:38%}
-  .fv{position:static;color:var(--muted);white-space:normal;max-width:none;margin-top:.25rem}
-}
-
 .probs{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:var(--s6);align-items:stretch}
 /* Equal-height columns, with the outcome and the link pinned to the bottom so
    they line up across all three regardless of how long the copy above runs. */
@@ -172,17 +230,25 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .prob .m{flex:0 0 auto}
 /* Two lines' worth of room, so a one-line outcome still starts level with a
    two-line one across the row. */
-.prob .r{margin-top:auto;padding-top:var(--s4);min-height:calc(2.5em + var(--s4))}
-.prob .cta{margin-top:var(--s3)}
-.cta{display:inline-block;margin-top:var(--s4);font-size:var(--t-small);font-weight:600;
+.prob .cta{margin-top:auto;padding-top:var(--s4)}
+.cta{display:inline-flex;align-items:center;gap:.42rem;margin-top:var(--s4);font-size:var(--t-small);font-weight:600;
   color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;
   transition:border-color .18s ease}
 .cta:hover{border-bottom-color:var(--accent)}
+.cta .ar{width:1.02rem;height:1.02rem;flex:none;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.cta:hover .ar{transform:translateX(4px)}
 .story{display:block;width:100%;height:auto;max-width:100%;margin:0 0 var(--s4);
   background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3)}
-.prob .p{font-size:var(--t-small);font-weight:600;color:var(--accent);margin-bottom:var(--s3)}
 .prob .m{font-size:var(--t-small);line-height:1.55;margin:0 0 var(--s4);color:var(--muted)}
-.prob .r{font-family:Fraunces;font-size:1.15rem;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+/* The result leads, the newspaper sits under it, the explanation follows. */
+.prob .r{font-family:Fraunces;font-size:1.2rem;font-weight:600;letter-spacing:-.022em;
+  line-height:1.25;color:var(--ink);margin:0 0 var(--s4);min-height:3em}
+.prob .clip{margin:0 0 var(--s4);border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);background:var(--paper-2);
+  box-shadow:0 1rem 2rem -1.4rem rgba(15,30,51,.4)}
+.prob .clip img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.prob .m{flex:1 1 auto}
 
 /* ── brands ─────────────────────────────────────────────────────────────── */
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:var(--s2)}
@@ -196,18 +262,20 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 /* ── floating brand field ───────────────────────────────────────────────── */
 /* Tiles drift as you scroll. Only transform moves, so it stays on the
    compositor. Swap .chip's text for <img> when real logo files arrive. */
-.float{position:relative;display:grid;place-items:center;
-  min-height:clamp(22rem,42vw,30rem);margin:var(--s8) 0 var(--s7);isolation:isolate}
-.float .fh{position:relative;z-index:2;text-align:center;max-width:26ch;margin:0 auto}
-.float .fh h2{font-size:clamp(1.9rem,5vw,3.4rem)}
-.float .fh p{margin:var(--s4) 0 0;color:var(--muted);font-size:var(--t-small);max-width:34ch;
-  margin-left:auto;margin-right:auto}
-.chip{position:absolute;z-index:1;display:grid;place-items:center;text-align:center;
-  width:clamp(5rem,8vw,6.6rem);aspect-ratio:1;padding:var(--s2);
+.logostrip{position:relative;overflow:hidden;margin:var(--s6) 0 var(--s7);padding:var(--s2) 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.ltrack{display:flex;align-items:center;gap:clamp(var(--s4),3vw,var(--s6));width:max-content;
+  animation:slide 30s linear infinite}
+.logostrip:hover .ltrack{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(calc(-50% - clamp(var(--s4),3vw,var(--s6))/2))}}
+.chip{flex:none;display:grid;place-items:center;text-align:center;
+  width:clamp(4.4rem,6.4vw,5.6rem);aspect-ratio:1;padding:var(--s2);
   background:var(--white);border:1px solid var(--line);border-radius:22%;
-  font-size:var(--t-micro);font-weight:600;letter-spacing:.01em;line-height:1.2;color:var(--ink);
-  box-shadow:0 1.1rem 2.2rem -1.4rem rgba(15,30,51,.4);
-  will-change:transform}
+  box-shadow:0 .9rem 1.8rem -1.2rem rgba(15,30,51,.38);
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s ease,box-shadow .22s ease}
+.chip:hover{transform:translateY(-5px);border-color:var(--accent);
+  box-shadow:0 1.3rem 2.4rem -1.2rem rgba(15,30,51,.45)}
 .chip img{width:64%;height:64%;object-fit:contain}
 .chip.fill{padding:0;overflow:hidden;background:none}
 .chip.fill img{width:100%;height:100%;object-fit:cover}
@@ -217,15 +285,54 @@ a.chip:hover{border-color:var(--accent)}
 .chip::after{content:"";position:absolute;inset:0;border-radius:inherit;
   box-shadow:0 1.8rem 3rem -1.6rem rgba(15,30,51,.5);opacity:0;transition:opacity .22s ease}
 .chip:hover::after{opacity:1}
-@media(max-width:48rem){
-  .float{min-height:0;display:block;margin-bottom:var(--s6)}
-  .float .fh{text-align:left;max-width:none}
-  .float .fh p{margin-left:0;margin-right:0}
-  .chiprow{display:flex;flex-wrap:wrap;gap:var(--s2);margin:0 0 var(--s5)}
-  .chip{position:static!important;transform:none!important;width:auto;aspect-ratio:auto;
-    padding:var(--s2) var(--s3);border-radius:999px;box-shadow:none}
+/* On a phone the strip keeps its square tiles and simply runs a little faster. */
+@media(max-width:48rem){.ltrack{animation-duration:22s}}
+@media(prefers-reduced-motion:reduce){.ltrack{animation:none}}
+
+/* ── the playbook: three plain blocks, no card chrome. ──────────────────── */
+/* This heading is short enough to hold one line once it is let out of the 54ch measure. */
+.oneline{max-width:none}
+@media(min-width:62rem){.oneline{white-space:nowrap;font-size:clamp(2rem,3.5vw,2.9rem)}}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6) var(--s5);margin-top:var(--s6)}
+.dblk{margin:0;display:flex;flex-direction:column;text-align:center}
+.dblk figcaption{font-family:Fraunces,Georgia,serif;font-size:1.12rem;font-weight:600;
+  letter-spacing:-.015em;line-height:1.25;color:var(--ink);margin-bottom:var(--s4)}
+.dg{display:block;width:100%;height:auto;margin:0 auto var(--s4)}
+.dblk p{margin:auto 0 0;font-size:var(--t-small);color:var(--muted);line-height:1.5;
+  max-width:30ch;margin-left:auto;margin-right:auto}
+.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5) var(--s4);
+  margin:0 0 var(--s4);padding:var(--s4) 0;align-content:center;min-height:12.5rem}
+.mt{display:flex;flex-direction:column;align-items:center;gap:var(--s2);
+  font-size:var(--t-small);font-weight:600;color:var(--ink);line-height:1.25}
+.mi{width:1.5rem;height:1.5rem;color:var(--accent)}
+@media(max-width:52rem){.dgrid{grid-template-columns:1fr;gap:var(--s7)}
+  .dg{max-width:20rem}.mgrid{max-width:20rem;margin-inline:auto}}
+
+/* ── phones: long stacks glide sideways instead of running down the page ──
+   The strip bleeds to both screen edges so the next card peeks in and the
+   gesture is obvious without a visible scrollbar. ──────────────────────── */
+@media(max-width:52rem){
+  #workgrid,.tiles,.grid.sys,.probs,.dgrid{
+    display:flex!important;flex-wrap:nowrap;gap:var(--s4);
+    overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    margin-inline:calc(var(--s5) * -1);padding:0 var(--s5) var(--s4);
+    scroll-padding-inline:var(--s5)}
+  #workgrid::-webkit-scrollbar,.tiles::-webkit-scrollbar,.grid.sys::-webkit-scrollbar,
+  .probs::-webkit-scrollbar,.dgrid::-webkit-scrollbar{display:none}
+  #workgrid > *,.tiles > *,.grid.sys > *,.probs > *,.dgrid > *{
+    flex:0 0 80%;max-width:80%;scroll-snap-align:start}
+  .tiles > *{flex-basis:68%;max-width:68%}
+  .dgrid > *{flex-basis:86%;max-width:86%}
+  .dgrid{gap:var(--s4)}
+  .dblk .dg,.dblk .mgrid{max-width:100%}
+  .mgrid{min-height:0;grid-template-columns:repeat(2,1fr)}
+  /* The filters ride on one line as well, rather than stacking three deep. */
+  .filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    margin-inline:calc(var(--s5) * -1);padding:0 var(--s5) var(--s2)}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:none}
 }
-@media(prefers-reduced-motion:reduce){.chip{transform:none!important}}
 
 /* ── outside work: a scroll-snapped strip, tilted just enough to feel human ── */
 .carousel{position:relative}
@@ -313,9 +420,7 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
 @media(max-width:27rem){
   .wrap,.nrow{padding-left:var(--s4);padding-right:var(--s4)}
   .grid,.tiles,.probs,.steps{grid-template-columns:1fr}
-  .statline{grid-template-columns:1fr;gap:var(--s4)}
-  .statline{gap:var(--s4)}
-  blockquote{padding:var(--s5) var(--s4)}
+      blockquote{padding:var(--s5) var(--s4)}
 }
 /* Three independent accessibility signals, three different answers. */
 @media(prefers-reduced-motion:reduce){
@@ -337,7 +442,7 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
 
 <nav id="nav">
   <div class="nrow">
-    <a class="nme" href="#top">Mehr Patni</a>
+    <a class="nme" href="#top">Mehr Patni<span>Dubai, UAE</span></a>
     <div class="nlinks">
       <a href="#ai"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>AI</span></a>
       <a href="#content"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>Content &amp; community</span></a>
@@ -351,26 +456,33 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
   <header>
     <div class="hero2">
       <div class="hcopy">
-        <p class="eyebrow">Dubai &middot; Content, community &amp; AI</p>
-        <h1 class="name">Mehr Patni</h1>
-        <p class="role">Consumer psychology is a puzzle I keep going back to. Content, community
-        and data are how I get at it. <b>I'm at my best with people in a room</b>, and I run a games
-        night that has become more organised than it strictly needs to be.</p>
-        <ul class="keys">
-          <li>Content &amp; community</li>
-          <li>AI systems builder</li>
-          <li>Go to market</li>
-          <li>Consumer psychology</li>
-          <li>$1M raised on television</li>
-        </ul>
+        <p class="hello">Hey there, <span id="hgood">Good </span><span class="swap" id="hswap"><span class="w" id="hdecoy">Morning</span><span class="w" id="hreal">Evening</span></span>!</p>
+        <p class="role">Selling something once is easy. <b>Getting someone to come back is not.</b>
+        I build content, communities and marketing that earn trust. All of it with AI as my
+        chief of staff.</p>
+        <h1 class="sign">- Mehr<span class="vh"> Patni</span></h1>
         <div class="hcta">
           <a class="primary" href="Mehr Patni CV.pdf" download><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.8 10.6 12 14.8l4.2-4.2M4 17.5v1.6A1.9 1.9 0 0 0 5.9 21h12.2a1.9 1.9 0 0 0 1.9-1.9v-1.6"/></svg><span>Download CV</span></a>
           <a href="#ai"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 13.7 8l4.8 1.7-4.8 1.7L12 16.2l-1.7-4.8L5.5 9.7 10.3 8z"/><path d="M18.6 15.4l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg><span>See the systems</span></a>
         </div>
       </div>
+      <div class="hfig">
       <figure class="hshot">
         <img src="mehr-cut.png" alt="Mehr Patni" width="644" height="875" fetchpriority="high">
       </figure>
+      <ul class="keys">
+        <li>Creative thinking</li>
+        <li>GTM strategies</li>
+        <li>AI systems builder</li>
+        <li>Content &amp; community</li>
+        <li>Content writer</li>
+        <li>Performance content</li>
+        <li>UI/UX expert</li>
+        <li>Consumer psychology</li>
+        <li>Campaign analytics</li>
+        <li>$1M raised on television</li>
+      </ul>
+      </div>
     </div>
 
   </header>
@@ -379,26 +491,29 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
   <section id="ai">
     <div class="shead rv">
       <span class="snum">All things AI</span>
-      <h2>Not a tool I use. <em>Systems I built.</em></h2>
+      <h2>Tools I use. <em>Systems I built.</em></h2>
     </div>
     <div class="grid sys">
       <a class="card rv" href="https://github.com/mehrpatni9-lgtm/magna-brain" target="_blank" rel="noopener"><div class="meta">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="7" r="2.1"/><circle cx="18" cy="6" r="2.1"/><circle cx="12" cy="17.5" r="2.1"/><path d="M7.7 8.7 10.7 15.6M16.5 7.8 13.3 15.6M8.1 6.7h7.8"/></svg><span class="tag">Open on GitHub</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="7" r="2.1"/><circle cx="18" cy="6" r="2.1"/><circle cx="12" cy="17.5" r="2.1"/><path d="M7.7 8.7 10.7 15.6M16.5 7.8 13.3 15.6M8.1 6.7h7.8"/></svg>
         <h3>A founder's second brain</h3>
         <p>Trained on his own books and talks. Every post across LinkedIn, Instagram and the site
         now arrives as a draft in his voice. He stopped being the bottleneck.</p>
+        <span class="cta">Open on GitHub <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></span>
       </div></a>
       <a class="card rv" href="systems/stratos.html" target="_blank" rel="noopener"><div class="meta">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V9.5l5 3v-3l5 3V7l5 3.2V20z"/><path d="M3 20h18"/><circle cx="8" cy="16" r="1"/><circle cx="13" cy="16" r="1"/></svg><span class="tag">See the architecture</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20V9.5l5 3v-3l5 3V7l5 3.2V20z"/><path d="M3 20h18"/><circle cx="8" cy="16" r="1"/><circle cx="13" cy="16" r="1"/></svg>
         <h3>A marketing agency, as software</h3>
         <p>Agentic workflows for outreach, creative production and ad review at Stratos, so the
         function scaled without more headcount.</p>
+        <span class="cta">See the architecture <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></span>
       </div></a>
       <a class="card rv" href="systems/chief-of-staff.html" target="_blank" rel="noopener"><div class="meta">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="7" height="6" rx="1.4"/><rect x="14" y="4" width="7" height="6" rx="1.4"/><rect x="8.5" y="14.5" width="7" height="5.5" rx="1.4"/><path d="M6.5 10v2.2h11V10M12 12.2v2.3"/></svg><span class="tag">See the architecture</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="7" height="6" rx="1.4"/><rect x="14" y="4" width="7" height="6" rx="1.4"/><rect x="8.5" y="14.5" width="7" height="5.5" rx="1.4"/><path d="M6.5 10v2.2h11V10M12 12.2v2.3"/></svg>
         <h3>My chief of staff</h3>
         <p>The agent I actually work with. It researches, writes, builds and checks itself, and
         every correction I give it becomes a permanent rule.</p>
+        <span class="cta">See the architecture <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></span>
       </div></a>
     </div>
   </section>
@@ -408,49 +523,78 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
     <div class="shead rv">
       <span class="snum">Content &amp; community</span>
       <h2>The work, <em>and what it travelled on.</em></h2>
-      <div class="statline">
-        <div class="st"><div class="n">100M+</div><div class="c">views across two years</div></div>
-        <div class="st"><div class="n">2k &rarr; 35k</div><div class="c">followers, 65% organic</div></div>
-        <div class="st"><div class="n">710k</div><div class="c">on the best performing reel</div></div>
-      </div>
     </div>
 
     <div class="filters rv" role="group" aria-label="Filter work">
-      <button class="on" data-f="shortform">Short form</button>
+      <button class="on" data-f="shortform">Social media</button>
       <button data-f="carousel">Carousels</button>
       <button data-f="podcast">Podcasts</button>
+      <button data-f="tv">Live on TV</button>
       <button data-f="all">Everything</button>
     </div>
 
     <div class="grid ig" id="workgrid">
 
+      <article class="card rv" data-cat="tv" hidden><div class="frame ar-16x9">
+        <iframe loading="lazy" src="https://www.youtube.com/embed/m3BdTGohDEM" title="Ivory on Shark Tank India, Season 4" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>
+        <div class="meta"><span class="tag">Ivory &middot; Shark Tank India S4</span><h3>The full pitch</h3>
+        <p>Neuroscience, cut to hold on prime time.</p>
+        <a class="open" href="https://www.youtube.com/watch?v=m3BdTGohDEM" target="_blank" rel="noopener">Watch <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="tv" hidden><div class="frame ar-16x9">
+        <iframe loading="lazy" src="https://www.youtube.com/embed/0x2AAn_VHNY?start=483" title="Ivory on Meet the Drapers India, Hyderabad" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>
+        <div class="meta"><span class="tag">Ivory &middot; Meet the Drapers India</span><h3>The Hyderabad episode</h3>
+        <p>The second raise. A different room.</p>
+        <a class="open" href="https://youtu.be/0x2AAn_VHNY?t=483" target="_blank" rel="noopener">Watch from our pitch <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="tv" hidden><div class="frame ar-16x9">
+        <iframe loading="lazy" src="https://www.youtube.com/embed/9cqxDYkyx_4" title="Where the Heart Is, Season 4, Episode 1" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>
+        <div class="meta"><span class="tag">Asian Paints &middot; Where the Heart Is</span><h3>Season 4, with Shankar Mahadevan</h3>
+        <p>Celebrity home tours. 62M+ reach.</p>
+        <a class="open" href="https://www.youtube.com/watch?v=9cqxDYkyx_4" target="_blank" rel="noopener">Watch <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="tv" hidden><div class="frame ar-16x9">
+        <iframe loading="lazy" src="https://www.youtube.com/embed/xDxaomS1uq0" title="Kaamyabi Ke Rang, Season 2, Episode 2" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>
+        <div class="meta"><span class="tag">Asian Paints &middot; Kaamyabi Ke Rang</span><h3>Colors of Success, Season 2</h3>
+        <p>Portraits of people who built something.</p>
+        <a class="open" href="https://www.youtube.com/watch?v=xDxaomS1uq0" target="_blank" rel="noopener">Watch <span>&rarr;</span></a></div></article>
+
       <article class="card rv" data-cat="podcast" hidden><div class="frame ar-16x9">
         <iframe loading="lazy" src="https://www.youtube.com/embed/5ZsnDE9JfVs" title="The Muslim Money Experts Ep.3: Paul Pogba" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>
         <div class="meta"><span class="tag">Wahed &middot; podcast</span><h3>The Muslim Money Experts, Ep.3: Paul Pogba</h3>
-        <p>Launched for a halal investing platform, 400,000+ users, four SEC-regulated markets. Awareness went 4.5% to 30%.</p>
+        <p>Awareness 4.5% to 30%, on one podcast.</p>
         <a class="open" href="https://www.youtube.com/watch?v=5ZsnDE9JfVs" target="_blank" rel="noopener">Watch <span>&rarr;</span></a></div></article>
 
       <article class="card rv" data-cat="podcast" hidden><div class="frame ar-16x9">
         <iframe loading="lazy" src="https://www.youtube.com/embed/videoseries?list=PL_1RmXudmaqJ9MfypUM-391f6Il-uMpp1" title="The Healthy Ageing Podcast, Ivory" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>
         <div class="meta"><span class="tag">Ivory &middot; podcast series</span><h3>The Healthy Ageing Podcast</h3>
-        <p>Past 1M views on YouTube, Spotify and Apple. Cognitive neuroscience, made listenable.</p>
+        <p>Neuroscience, made listenable. Past 1M views.</p>
         <a class="open" href="https://www.youtube.com/playlist?list=PL_1RmXudmaqJ9MfypUM-391f6Il-uMpp1" target="_blank" rel="noopener">Open playlist <span>&rarr;</span></a></div></article>
 
       <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DMP0cqNyGUa/embed/" title="Reel, 710k views" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Reel &middot; 710k views &middot; 2,360 likes</span><h3>Best performer</h3>
-        <p>The one that travelled furthest. Written, shot and cut by me.</p>
+        <p>The one that travelled furthest.</p>
         <a class="open" href="https://www.instagram.com/reel/DMP0cqNyGUa/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
-      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DHlaaOMo5Rm/embed/" title="Reel" scrolling="no" allowtransparency="true"></iframe></div>
-        <div class="meta"><span class="tag">Reel &middot; 78k views</span><h3>Format test</h3>
-        <p>Not every one lands the same. Kept in because the learning was the point.</p>
-        <a class="open" href="https://www.instagram.com/reel/DHlaaOMo5Rm/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DHBffuUSVl_/embed/" title="Community post" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Post &middot; 233 likes</span><h3>Community content</h3>
+        <p>Case studies for a founder network.</p>
+        <a class="open" href="https://www.instagram.com/p/DHBffuUSVl_/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
       <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DOyO5Ekk3Zk/embed/" title="Reel, 412k views" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Reel &middot; 412k views &middot; 500 likes</span><h3>Reach without spend</h3>
         <p>Part of the 65% organic engine.</p>
         <a class="open" href="https://www.instagram.com/reel/DOyO5Ekk3Zk/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/reel/DHlaaOMo5Rm/embed/" title="Reel" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; 78k views</span><h3>Format test</h3>
+        <p>Kept in because the learning was the point.</p>
+        <a class="open" href="https://www.instagram.com/reel/DHlaaOMo5Rm/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DCiqfE2oe6j/embed/" title="A man was here, International Men's Day" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Carousel &middot; 73 likes</span><h3>A man was here</h3>
+        <p>Men&rsquo;s Day as a health nudge.</p>
+        <a class="open" href="https://www.instagram.com/p/DCiqfE2oe6j/?img_index=1" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
       <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DQOJAW4iFrZ/embed/" title="Company's journey carousel" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Carousel</span><h3>Company's journey</h3>
         <p>The origin story, told in swipes.</p>
@@ -458,8 +602,28 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
 
       <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DR4lHjciFbV/embed/" title="IndiGo targeted ad" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Targeted campaign</span><h3>An ad aimed at IndiGo passengers</h3>
-        <p>Right message, right cabin. Audience-specific creative rather than a broadcast.</p>
+        <p>Right message, right cabin.</p>
         <a class="open" href="https://www.instagram.com/p/DR4lHjciFbV/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+      <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DPi23HlExpv/embed/" title="Your brain's biological age" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Carousel &middot; research-led &middot; 45 likes</span><h3>Your brain&rsquo;s biological age</h3>
+        <p>A claim with its citation attached.</p>
+        <a class="open" href="https://www.instagram.com/p/DPi23HlExpv/?img_index=1" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+      <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DLARWvLI8PK/embed/" title="Panic strikes brain functions, comic strip" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Carousel &middot; comics</span><h3>Panic strikes brain functions</h3>
+        <p>Brain science for people who skip diagrams.</p>
+        <a class="open" href="https://www.instagram.com/p/DLARWvLI8PK/?img_index=1" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+      <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DJUK8mryjO4/embed/" title="Healthy ageing, the Met Gala edition" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Carousel &middot; 35 likes</span><h3>Healthy ageing, the Met Gala edition</h3>
+        <p>Borrowing a culture moment.</p>
+        <a class="open" href="https://www.instagram.com/p/DJUK8mryjO4/?img_index=1" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+      <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DJRkI74yH7A/embed/" title="Mental Health Awareness Month" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Carousel</span><h3>Mental Health Awareness Month</h3>
+        <p>Published to listen, not to launch.</p>
+        <a class="open" href="https://www.instagram.com/p/DJRkI74yH7A/?img_index=1" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+      <article class="card rv" data-cat="carousel" hidden><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DStpTHiEykc/embed/" title="A year in review" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Carousel &middot; year in review</span><h3>That was our year</h3>
+        <p>The year as a list, not a victory lap.</p>
+        <a class="open" href="https://www.instagram.com/p/DStpTHiEykc/?img_index=1" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
       <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DO3ov_3iDLS/embed/" title="Nostalgic marketing" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Nostalgia</span><h3>Nostalgic marketing</h3>
@@ -468,13 +632,39 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
 
       <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DOnte3tlINr/embed/" title="Research-based content" scrolling="no" allowtransparency="true"></iframe></div>
         <div class="meta"><span class="tag">Research-led</span><h3>Research-based</h3>
-        <p>Educational, credible, grounded in research. The Magna approach.</p>
+        <p>Grounded in research. The Magna approach.</p>
         <a class="open" href="https://www.instagram.com/p/DOnte3tlINr/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
-      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DHBffuUSVl_/embed/" title="Community post" scrolling="no" allowtransparency="true"></iframe></div>
-        <div class="meta"><span class="tag">Post &middot; 233 likes</span><h3>Community content</h3>
-        <p>Case studies, market studies and event highlights for a 194-member founder network.</p>
-        <a class="open" href="https://www.instagram.com/p/DHBffuUSVl_/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DYXEuEOTyQq/embed/" title="What's your cognitive score?" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; product explainer</span><h3>What&rsquo;s your cognitive score?</h3>
+        <p>A clinical test, explained in one scroll.</p>
+        <a class="open" href="https://www.instagram.com/p/DYXEuEOTyQq/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DTjQJNzExaI/embed/" title="Meet the Drapers, with Draper TV" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; collab with Draper TV</span><h3>Why the founder built it</h3>
+        <p>His father had Parkinson&rsquo;s. Hence the company.</p>
+        <a class="open" href="https://www.instagram.com/p/DTjQJNzExaI/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DSACvimE0xg/embed/" title="Creator partnership with Dr. Sid Warrier" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; creator collab &middot; 339 likes</span><h3>Strategic creator partnership</h3>
+        <p>A recurring series with neurologist Dr. Sid Warrier.</p>
+        <a class="open" href="https://www.instagram.com/p/DSACvimE0xg/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DSPOQDDk9r6/embed/" title="The LinkedIn launch" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel</span><h3>This could be you</h3>
+        <p>Launched as a profile, not a page.</p>
+        <a class="open" href="https://www.instagram.com/p/DSPOQDDk9r6/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DJT66ueyE1j/embed/" title="The expert, in three seconds" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; 4,897 likes</span><h3>The expert, in three seconds</h3>
+        <p>Most engaged post. The first three seconds did it.</p>
+        <a class="open" href="https://www.instagram.com/p/DJT66ueyE1j/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
+
+      <article class="card rv" data-cat="shortform"><div class="frame ar-ig"><iframe loading="lazy" src="https://www.instagram.com/p/DP0-q7tEoRM/embed/" title="Are we remembering less?" scrolling="no" allowtransparency="true"></iframe></div>
+        <div class="meta"><span class="tag">Reel &middot; topical</span><h3>Are we remembering less?</h3>
+        <p>Biometric payments, turned into a memory question.</p>
+        <a class="open" href="https://www.instagram.com/p/DP0-q7tEoRM/" target="_blank" rel="noopener">Open on Instagram <span>&rarr;</span></a></div></article>
 
 
 
@@ -484,93 +674,101 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
 
   <!-- ─────────── 03 gtm ─────────── -->
   <section id="gtm">
-    <div class="shead rv">
+    <div class="shead rv" id="playbook">
+      <span class="snum">Playbook</span>
+      <h2 class="oneline">Popular GTM strategies <em>I swear by.</em></h2>
+    </div>
+    <div class="dgrid">
+      <figure class="dblk rv">
+        <figcaption>The psychology behind<br>a cold outreach reply</figcaption>
+        <svg class="dg" viewBox="0 0 300 200" role="img" aria-label="Four layers narrowing to a reply"><g font-family="Inter,system-ui,sans-serif"><circle cx="198" cy="100" r="88" fill="var(--accent)" fill-opacity="0.05" stroke="var(--accent)" stroke-opacity="0.35" stroke-width="1.3"/><circle cx="198" cy="100" r="69" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-opacity="0.39" stroke-width="1.3"/><circle cx="198" cy="100" r="50" fill="var(--accent)" fill-opacity="0.13" stroke="var(--accent)" stroke-opacity="0.43" stroke-width="1.3"/><circle cx="198" cy="100" r="31" fill="var(--accent)" fill-opacity="0.18" stroke="var(--accent)" stroke-opacity="0.48" stroke-width="1.3"/><circle cx="198" cy="100" r="11" fill="var(--accent)"/><text x="86" y="43" text-anchor="end" font-size="10.5" font-weight="600" fill="var(--ink)">Personalisation</text><path d="M90 40 H133.6" stroke="var(--accent)" stroke-opacity=".5" stroke-width="1"/><circle cx="133.6" cy="40" r="2.1" fill="var(--accent)"/><text x="86" y="75" text-anchor="end" font-size="10.5" font-weight="600" fill="var(--ink)">Signals</text><path d="M90 72 H134.9" stroke="var(--accent)" stroke-opacity=".5" stroke-width="1"/><circle cx="134.9" cy="72" r="2.1" fill="var(--accent)"/><text x="86" y="107" text-anchor="end" font-size="10.5" font-weight="600" fill="var(--ink)">Volume</text><path d="M90 104 H148.2" stroke="var(--accent)" stroke-opacity=".5" stroke-width="1"/><circle cx="148.2" cy="104" r="2.1" fill="var(--accent)"/><text x="86" y="139" text-anchor="end" font-size="10.5" font-weight="600" fill="var(--ink)">Relevancy</text><path d="M90 136 H197.0" stroke="var(--accent)" stroke-opacity=".5" stroke-width="1"/><circle cx="197.0" cy="136" r="2.1" fill="var(--accent)"/></g></svg>
+      </figure>
+      <figure class="dblk rv">
+        <figcaption>Distribution funnels<br>worth building</figcaption>
+        <svg class="dg" viewBox="0 0 300 220" role="img" aria-label="Eight distribution funnels, each feeding the others"><g font-family="Inter,system-ui,sans-serif"><circle cx="150" cy="108" r="62" fill="none" stroke="var(--accent)" stroke-opacity=".2" stroke-width="1.1" stroke-dasharray="2 4"/><path d="M150.0 46.0L193.8 64.2" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 46.0L212.0 108.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 46.0L193.8 151.8" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 46.0L150.0 170.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 46.0L106.2 151.8" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 46.0L88.0 108.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 46.0L106.2 64.2" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 64.2L212.0 108.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 64.2L193.8 151.8" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 64.2L150.0 170.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 64.2L106.2 151.8" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 64.2L88.0 108.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 64.2L106.2 64.2" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M212.0 108.0L193.8 151.8" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M212.0 108.0L150.0 170.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M212.0 108.0L106.2 151.8" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M212.0 108.0L88.0 108.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M212.0 108.0L106.2 64.2" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 151.8L150.0 170.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 151.8L106.2 151.8" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 151.8L88.0 108.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M193.8 151.8L106.2 64.2" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 170.0L106.2 151.8" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 170.0L88.0 108.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M150.0 170.0L106.2 64.2" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M106.2 151.8L88.0 108.0" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M106.2 151.8L106.2 64.2" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><path d="M88.0 108.0L106.2 64.2" stroke="var(--accent)" stroke-opacity=".16" stroke-width="1"/><circle cx="150.0" cy="46.0" r="5.2" fill="var(--white)" stroke="var(--accent)" stroke-width="2"/><circle cx="193.8" cy="64.2" r="5.2" fill="var(--white)" stroke="var(--accent)" stroke-width="2"/><circle cx="212.0" cy="108.0" r="5.2" fill="var(--white)" stroke="var(--accent)" stroke-width="2"/><circle cx="193.8" cy="151.8" r="5.2" fill="var(--white)" stroke="var(--accent)" stroke-width="2"/><circle cx="150.0" cy="170.0" r="5.2" fill="var(--white)" stroke="var(--accent)" stroke-width="2"/><circle cx="106.2" cy="151.8" r="5.2" fill="var(--white)" stroke="var(--accent)" stroke-width="2"/><circle cx="88.0" cy="108.0" r="5.2" fill="var(--white)" stroke="var(--accent)" stroke-width="2"/><circle cx="106.2" cy="64.2" r="5.2" fill="var(--white)" stroke="var(--accent)" stroke-width="2"/><text x="150.0" y="33.0" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink)">Content</text><text x="204.8" y="68.2" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--ink)">Cold to warm</text><text x="223.0" y="112.0" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--ink)">Lead magnets</text><text x="204.8" y="155.8" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--ink)">Education</text><text x="150.0" y="191.0" text-anchor="middle" font-size="10.5" font-weight="600" fill="var(--ink)">Community</text><text x="95.2" y="155.8" text-anchor="end" font-size="10.5" font-weight="600" fill="var(--ink)">Product-led</text><text x="77.0" y="112.0" text-anchor="end" font-size="10.5" font-weight="600" fill="var(--ink)">Search intent</text><text x="95.2" y="68.2" text-anchor="end" font-size="10.5" font-weight="600" fill="var(--ink)">Partners</text></g></svg>
+      </figure>
+      <figure class="dblk rv">
+        <figcaption>Underrated ways<br>to reach someone</figcaption>
+        <div class="mgrid"><div class="mt"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><circle cx="9.4" cy="10" r=".9"/><circle cx="14.4" cy="9.4" r=".9"/><circle cx="12.6" cy="14.6" r=".9"/></svg><span>Cookie boxes</span></div><div class="mt"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9.2" y="3.2" width="5.6" height="10" rx="2.8"/><path d="M5.8 11.2a6.2 6.2 0 0 0 12.4 0M12 17.4V21M9 21h6"/></svg><span>Cold voice notes</span></div><div class="mt"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.3"/><path d="M15.3 12v1.9a2.4 2.4 0 0 0 4.8 0V12a8.1 8.1 0 1 0-3.2 6.4"/></svg><span>Post mentions</span></div><div class="mt"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="m3.8 7.2 7.1 5.3a1.8 1.8 0 0 0 2.2 0l7.1-5.3"/></svg><span>Warm emails</span></div><div class="mt"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="3"/><path d="M3.6 19.2a5.6 5.6 0 0 1 10.8 0"/><path d="M16.2 7.1a3 3 0 0 1 0 5.6M18 18.4a5.3 5.3 0 0 0-2-3.8"/></svg><span>Community reachouts</span></div><div class="mt"><svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5.2" r="2.3"/><circle cx="5.4" cy="17" r="2.3"/><circle cx="18.6" cy="17" r="2.3"/><path d="M10.4 7 7 14.8M13.6 7 17 14.8M7.7 17h8.6"/></svg><span>Event networking</span></div></div>
+      </figure>
+    </div>
+    <div class="shead rv" style="margin-top:var(--s8)">
       <span class="snum">Go to market</span>
       <h2>Every portfolio shows outputs. <em>This is the diagnosis.</em></h2>
-      <div class="statline">
-        <div class="st"><div class="n">$1M</div><div class="c">raised on television</div></div>
-        <div class="st"><div class="n">4.5% &rarr; 30%</div><div class="c">brand awareness, one podcast</div></div>
-        <div class="st"><div class="n">2&times;</div><div class="c">returned on paid, every month</div></div>
-      </div>
     </div>
-    <div class="funnel rv">
-      <div class="fstage" style="--w:100%"><span class="fl">Reach</span>
-        <span class="fb"><span class="fv">1M through creators, and a 3,000 member WhatsApp community</span></span></div>
-      <div class="fstage" style="--w:78%"><span class="fl">Capture</span>
-        <span class="fb"><span class="fv">Two lead-gen eBooks at the top of the funnel</span></span></div>
-      <div class="fstage" style="--w:56%"><span class="fl">Trust</span>
-        <span class="fb"><span class="fv">A podcast past 1M views, and clinical conferences</span></span></div>
-      <div class="fstage" style="--w:34%"><span class="fl">Convert</span>
-        <span class="fb"><span class="fv">The FDA-registered Checkup, into hospitals</span></span></div>
-      <p class="fnote">The funnel I built at Ivory. Creators at the top, clinicians at the bottom,
-      and a repositioned product as the thing it all pointed at.</p>
-    </div>
-
     <div class="probs">
 
-      <div class="prob rv"><svg class="story" viewBox="0 0 210 118" role="img" aria-label="A product pitched on television">
-<rect x="34" y="16" width="142" height="78" rx="7" fill="var(--accent-soft)" stroke="none"/>
-<rect x="34" y="16" width="142" height="78" rx="7" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="46" y="27" width="118" height="56" rx="4" fill="#fff" stroke="var(--line)" stroke-width="1.5"/>
-<path d="M58 72 78 58 94 65 122 40" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M112 40h10v10" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="60" y="76" width="30" height="7" rx="3.5" fill="var(--accent)" stroke="none"/>
-<path d="M88 94v10M122 94v10M74 104h62" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M20 34c-6 8-6 22 0 30M190 34c6 8 6 22 0 30" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/>
-<path d="M10 26c-9 13-9 39 0 52M200 26c9 13 9 39 0 52" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".22"/>
-</svg><div class="p">Nobody understood what we were selling</div>
+      <div class="prob rv">
+        <h3 class="r">$1M raised across Shark Tank India and Meet the Drapers.</h3>
+        <figure class="clip"><img loading="lazy" src="case/tv.jpg" alt="A newspaper report of Ivory raising $1 million" width="1400" height="933"></figure>
         <p class="m">Wrote the pitch that turned cognitive neuroscience into a story a television audience could follow.</p>
-        <div class="r">$1M raised across Shark Tank India and Meet the Drapers.</div>
-        <a class="cta" href="systems/case-television.html">Read the case study &rarr;</a></div>
+        <a class="cta" href="systems/case-television.html">Read the case study <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></a></div>
 
-      <div class="prob rv"><svg class="story" viewBox="0 0 210 118" role="img" aria-label="An audience built before launch day">
-<path d="M22 96h166" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M22 90V26" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".35"/>
-<path d="M22 86c22 0 34-30 52-40s34-4 46 2" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round"/>
-<path d="M22 86c22 0 34-30 52-40s34-4 46 2v34H22z" fill="var(--accent-soft)" stroke="none"/>
-<path d="M146 20v76" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>
-<text x="150" y="28" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="var(--accent)">launch</text>
-<circle cx="44" cy="70" r="5.5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="62" r="5.5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="80" cy="56" r="5.5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M36 82c1.5-6 5-8.6 8-8.6s6.5 2.6 8 8.6M54 74c1.5-6 5-8.6 8-8.6s6.5 2.6 8 8.6M72 68c1.5-6 5-8.6 8-8.6s6.5 2.6 8 8.6" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg><div class="p">We were about to launch to nobody</div>
+      <div class="prob rv">
+        <h3 class="r">Launched into a room, not a void.</h3>
+        <figure class="clip"><img loading="lazy" src="case/community.jpg" alt="A WhatsApp group running a brain health game" width="1400" height="933"></figure>
         <p class="m">Built a 3,000 member WhatsApp community of caregivers before the product shipped.</p>
-        <div class="r">Launched into a room, not a void.</div>
-        <a class="cta" href="systems/case-community.html">Read the case study &rarr;</a></div>
+        <a class="cta" href="systems/case-community.html">Read the case study <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></a></div>
 
-      <div class="prob rv"><svg class="story" viewBox="0 0 210 118" role="img" aria-label="One voice cleared across four regulated markets">
-<rect x="78" y="14" width="54" height="32" rx="6" fill="var(--accent-soft)" stroke="none"/>
-<rect x="78" y="14" width="54" height="32" rx="6" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M90 26h30M90 34h20" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M105 46v14M105 60H38v12M105 60h67v12M68 60v12M142 60v12" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>
-<rect x="22" y="72" width="32" height="26" rx="5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="56" y="72" width="32" height="26" rx="5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="122" y="72" width="32" height="26" rx="5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="156" y="72" width="32" height="26" rx="5" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="150" cy="34" r="13" fill="#fff" stroke="var(--accent)" stroke-width="2"/>
-<path d="m159 43 9 9" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="m144 34 4 4 7-8" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg><div class="p">One brand, four regulators, no single voice</div>
+      <div class="prob rv">
+        <h3 class="r">One voice across the UK, US, Malaysia and UAE.</h3>
+        <figure class="clip"><img loading="lazy" src="case/wahed.jpg" alt="A newspaper report of Wahed Invest raising $25 million" width="1400" height="933"></figure>
         <p class="m">Defined the tone of voice through a rebrand, wrote every surface to it, cleared each word through US SEC compliance.</p>
-        <div class="r">One voice across the UK, US, Malaysia and UAE.</div>
-        <a class="cta" href="systems/case-wahed.html">Read the case study &rarr;</a></div>
+        <a class="cta" href="systems/case-wahed.html">Read the case study <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></a></div>
+
+    </div>
+
+  </section>
+
+  <!-- ─ free resources: curated, not authored. Attribution is on every card. ─ -->
+  <section id="free">
+    <div class="shead rv">
+      <span class="snum">Free to take</span>
+      <h2>The GTM shelf. <em>Open, and worth your time.</em></h2>
+    </div>
+    <div class="grid sys">
+
+      <a class="card rv" href="https://github.com/lucaslinares1/gtm-skills" target="_blank" rel="noopener"><div class="meta">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.4 4.2 4 9.6l5.4 5.4M14.6 19.8 20 14.4 14.6 9"/><path d="M11.2 20.5 12.8 3.5"/></svg>
+        <h3>Six Claude skills for GTM</h3>
+        <p>Cold outreach, prospect finding, web scraping, voice training, GTM context capture and a
+        scorecard. Drop them into Claude Code and they run. MIT licensed, built by Lucas Linares.</p>
+        <span class="cta">Open on GitHub <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></span>
+      </div></a>
+
+      <a class="card rv" href="https://github.com/katekruger/awesome-gtm-engineering" target="_blank" rel="noopener"><div class="meta">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h7.2M4 10h7.2M4 14.5h5"/><rect x="14" y="4" width="6" height="6" rx="1.3"/><rect x="14" y="13.5" width="6" height="6" rx="1.3"/></svg>
+        <h3>68 tools, sorted by job</h3>
+        <p>Enrichment, intent signals, outbound, deliverability, CRM hygiene, routing, attribution,
+        MCP servers and scraping. Fifteen categories, public domain, built by Kate Kruger.</p>
+        <span class="cta">Open on GitHub <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></span>
+      </div></a>
 
     </div>
   </section>
 
   <!-- ─────────── 04 brands ─────────── -->
   <section id="brands">
-    <div class="float">
-      <div class="chiprow">
-        <a class="chip fill" style="left:1%;top:12%"    data-sp="-.26" href="https://www.asianpaints.com" target="_blank" rel="noopener" title="Asian Paints"><img src="logos/asianpaints.png" alt="Asian Paints"></a>
-        <a class="chip"      style="left:11%;top:56%"  data-sp=".34"  href="https://www.wahed.com" target="_blank" rel="noopener" title="Wahed"><img src="logos/wahed.png" alt="Wahed"></a>
-        <a class="chip fill" style="left:3%;top:84%"   data-sp="-.19" href="https://drive.google.com/drive/folders/1eDyrwcNb75qUWuG4n5Z_rqqX9adM2IAQ?usp=drive_link" target="_blank" rel="noopener" title="Stratos Technologies"><img src="logos/stratos.png" alt="Stratos Technologies"></a>
-        <span class="chip"   style="left:28%;top:6%"   data-sp=".23"  title="Tata Group"><img src="logos/tata.png" alt="Tata Group"></span>
-        <span class="chip fill" style="right:27%;top:7%" data-sp="-.31" title="Amazon"><img src="logos/amazon.png" alt="Amazon"></span>
-        <span class="chip fill" style="right:9%;top:70%" data-sp="-.22" title="Ivory"><img src="logos/ivory.png" alt="Ivory"></span>
-      </div>
-      <div class="fh rv">
-        <span class="snum">Brands &amp; archive</span>
-        <h2>Shipped for MNCs, <em>startups and everything between.</em></h2>
+    <div class="shead rv">
+      <span class="snum">Brands &amp; archive</span>
+      <h2>Shipped for MNCs, <em>startups and everything between.</em></h2>
+    </div>
+    <!-- One strip, two identical runs. The track slides exactly half its width,
+         so the loop has no seam and the section costs one screen instead of two. -->
+    <div class="logostrip rv">
+      <div class="ltrack">
+        <a class="chip fill" href="https://www.asianpaints.com" target="_blank" rel="noopener" title="Asian Paints"><img src="logos/asianpaints.png" alt="Asian Paints"></a>
+        <a class="chip" href="https://www.wahed.com" target="_blank" rel="noopener" title="Wahed"><img src="logos/wahed.png" alt="Wahed"></a>
+        <a class="chip fill" href="https://drive.google.com/drive/folders/1eDyrwcNb75qUWuG4n5Z_rqqX9adM2IAQ?usp=drive_link" target="_blank" rel="noopener" title="Stratos Technologies"><img src="logos/stratos.png" alt="Stratos Technologies"></a>
+        <span class="chip" title="Tata Group"><img src="logos/tata.png" alt="Tata Group"></span>
+        <span class="chip fill" title="Amazon"><img src="logos/amazon.png" alt="Amazon"></span>
+        <span class="chip fill" title="Ivory"><img src="logos/ivory.png" alt="Ivory"></span>
+        <span class="chip fill" aria-hidden="true" title="Asian Paints"><img src="logos/asianpaints.png" alt="" aria-hidden="true"></span>
+        <span class="chip" aria-hidden="true" title="Wahed"><img src="logos/wahed.png" alt="" aria-hidden="true"></span>
+        <span class="chip fill" aria-hidden="true" title="Stratos Technologies"><img src="logos/stratos.png" alt="" aria-hidden="true"></span>
+        <span class="chip" aria-hidden="true" title="Tata Group"><img src="logos/tata.png" alt="" aria-hidden="true"></span>
+        <span class="chip fill" aria-hidden="true" title="Amazon"><img src="logos/amazon.png" alt="" aria-hidden="true"></span>
+        <span class="chip fill" aria-hidden="true" title="Ivory"><img src="logos/ivory.png" alt="" aria-hidden="true"></span>
       </div>
     </div>
     <div class="tiles">
@@ -683,30 +881,6 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
   setTimeout(showAll, 2500);
 })();
 
-// Brand tiles drift as the section passes. Transform only, rAF-throttled, and
-// it does nothing at all when the viewer has asked for less motion.
-(function () {
-  var field = document.querySelector('.float');
-  if (!field || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var chips = [].slice.call(field.querySelectorAll('.chip'));
-  var queued = false;
-
-  function draw() {
-    queued = false;
-    var r = field.getBoundingClientRect();
-    if (r.bottom < -200 || r.top > innerHeight + 200) return;
-    // -1 when the section is entering, +1 when it is leaving.
-    var t = (innerHeight / 2 - (r.top + r.height / 2)) / innerHeight;
-    chips.forEach(function (c) {
-      c.style.transform = 'translate3d(0,' + (t * parseFloat(c.dataset.sp) * 520).toFixed(2) + 'px,0)';
-    });
-  }
-  function onScroll() { if (!queued) { queued = true; requestAnimationFrame(draw); } }
-  addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
-  draw();
-})();
-
 // The life strip. Buttons nudge it by one photo; touch and trackpad already work.
 (function () {
   var t = document.getElementById('track'); if (!t) return;
@@ -718,6 +892,48 @@ footer{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--line);margin-top
   var p = document.querySelector('.cnav.prev'), n = document.querySelector('.cnav.next');
   if (p) p.addEventListener('click', function () { step(-1); });
   if (n) n.addEventListener('click', function () { step(1); });
+})();
+</script>
+<script>
+(function () {
+  var good  = document.getElementById('hgood'),
+      swap  = document.getElementById('hswap'),
+      decoy = document.getElementById('hdecoy'),
+      real  = document.getElementById('hreal');
+  if (!swap || !decoy || !real) return;
+
+  // The visitor's local hour, not hers.
+  var h = new Date().getHours();
+  var words = ['Morning', 'Afternoon', 'Evening'];
+  var i = h < 5 || h >= 22 ? -1 : h < 12 ? 0 : h < 17 ? 1 : 2;
+
+  // Late night is its own line. Nothing turns into anything.
+  if (i === -1) {
+    if (good) good.textContent = '';
+    decoy.parentNode.removeChild(decoy);
+    real.style.position = 'static';
+    real.style.opacity = 1;
+    real.style.transform = 'none';
+    real.textContent = "you're up late";
+    return;
+  }
+
+  real.textContent = words[i];
+  decoy.textContent = words[(i + 1) % 3];
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { swap.classList.add('go'); return; }
+
+  // Measure only once the handwriting face is in, or both widths are wrong.
+  var start = function () {
+    swap.style.width = decoy.offsetWidth + 'px';
+    setTimeout(function () {
+      swap.style.width = real.offsetWidth + 'px';
+      swap.classList.add('go');
+    }, 1100);
+  };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+  else start();
 })();
 </script>
 </body>
