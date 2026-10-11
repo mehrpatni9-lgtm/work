@@ -24,8 +24,20 @@
     return null;
   }
 
+  var settle;
   roleIn.addEventListener('input', function () {
     typed = this.value.trim();
+    this.classList.toggle('long', typed.length > 18);
+    this.classList.toggle('xlong', typed.length > 28);
+    clearTimeout(settle);
+    $('read').hidden = true;                 // say nothing while they are still typing
+    $('jobstep').hidden = true;
+    sync();
+    settle = setTimeout(decide, 650);        // long enough to finish a job title
+  });
+  roleIn.addEventListener('blur', function () { clearTimeout(settle); decide(); });
+
+  function decide() {
     state.other = typed;
     var hit = typed.length > 1 ? matchRole(typed) : null;
     if (hit !== state.role) {
@@ -46,7 +58,7 @@
       ? 'Who you work for, how you write, anything it would get wrong.'
       : 'One line each. What are the three things you are actually measured on?';
     sync();
-  });
+  }
 
 
   /* ── step two: the tick list, only for roles Promptly can vouch for ─── */
@@ -94,37 +106,20 @@
 'WHAT I OWN',
 owns,
 '',
-'HOW YOU WORK, IN ORDER',
-'1. Read your rules file before anything else. It holds everything I have',
-'   corrected you on: how I write, what I will not claim, which numbers are',
-'   confirmed and which are not. Start from what you already know about me.',
-'2. Research before you write. Read the actual source, not your recollection',
-'   of it. Put a citation beside every claim so I can check the ones that matter.',
-'3. Work from one file of facts. If a number changes, change it there, so it',
-'   changes everywhere at once.',
-'4. Draft, do not decide. Bring me the version you would defend, and say what',
-'   you were unsure about rather than smoothing it over.',
-'5. Check yourself before you hand anything over. Tell me which claims you',
-'   could not verify. An honest gap beats a confident guess every time.',
-'6. Never send, post, publish or schedule anything. Drafts only, every time,',
-'   no matter how certain you are.',
-'',
-'TWO THINGS THAT MATTER MORE THAN THE REST',
-'- Ask before you guess. When two readings of my request would produce',
-'  different work, stop and ask me which one I meant.',
-'- Every correction becomes a rule. Tell me you have written it down, and do',
-'  not make me say it twice.',
+'HOW YOU WORK',
+'1. Read your rules file first: how I write, what I will not claim, and',
+'   which numbers are confirmed.',
+'2. Research before you write, with a source beside every claim.',
+'3. Draft, do not decide. Tell me what you were unsure about.',
+'4. Never send, post or publish. Drafts only, every time.',
+'5. Every correction I give you becomes a rule. Do not make me repeat it.',
 '',
 'WHAT I WILL NOT HAVE',
-'- Invented numbers, percentages or results. If it is not sourced, say so.',
-'- Language that sounds like marketing about marketing.',
+'- Invented numbers. If it is not sourced, say so.',
 refuse,
 '',
-'HOW I WRITE',
-(jobIds.length && ctx ? ctx :
- '(Paste two or three things I have written. Learn the shape of my sentences, not just my vocabulary.)'),
-'',
-'Start by telling me what you would need from me to do this well.'
+(ctx ? 'HOW I WRITE\n' + ctx + '\n' : ''),
+'Start by telling me what you need from me to do this well.'
     ].join('\n');
   }
 

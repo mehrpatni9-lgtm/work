@@ -104,6 +104,9 @@ button.ghost{background:var(--white);color:var(--ink);border:1px solid var(--lin
   padding:0 0 .12em;border-bottom:3px dashed var(--line);outline:0;transition:border-color .2s ease}
 .bigblank input::placeholder{color:var(--faint);opacity:.55;font-weight:400}
 .bigblank input:focus{border-bottom-color:var(--accent);border-bottom-style:solid}
+/* A long job title runs past its own underline, so the type steps down. */
+.bigblank input.long{font-size:clamp(1.2rem,2.6vw,1.9rem)}
+.bigblank input.xlong{font-size:clamp(1.05rem,2.1vw,1.5rem)}
 .read{margin:var(--s4) 0 0;font-family:Caveat,cursive;font-size:1.45rem;color:var(--accent);
   transform:rotate(-1deg);transform-origin:0 50%}
 
@@ -147,8 +150,6 @@ pre.mini{background:#0F1E33;color:#DCE7F5;border-radius:7px;padding:var(--s3);ma
   width:3.6rem;height:3.6rem;border-radius:50%;background:var(--accent);color:#fff;
   font-family:Caveat,cursive;font-size:1.3rem;transform:rotate(-14deg);
   box-shadow:0 .7rem 1.4rem -.6rem rgba(26,111,212,.7)}
-.smallprint{margin:var(--s5) auto 0;max-width:52ch;text-align:center;font-size:var(--t-small);
-  color:var(--muted)}
 @media(max-width:64rem){.tag{display:none}.peek{padding-bottom:var(--s4)}}
 
 /* ── the sheet ───────────────────────────────────────────────────────── */
@@ -228,8 +229,8 @@ footer{padding:var(--s8) 0;margin-top:var(--s8);border-top:1px solid var(--line)
   <header>
     <p class="eyebrow">Free &middot; no sign up &middot; no email</p>
     <h1>Fill in the blank.</h1>
-    <p class="lede">Promptly writes <b>the opening prompt for your AI agent</b>, names the free
-    skills worth installing, and tells you the part of your job to keep for yourself.</p>
+    <p class="lede">Promptly writes <b>the opening prompt for your AI agent</b> and names the
+    free skills worth installing.</p>
   </header>
 
   <section id="blank">
@@ -301,8 +302,6 @@ HOW YOU WORK, IN ORDER
       <span class="sticker">free</span>
     </div>
 
-    <p class="smallprint">Not a marketer? Type anything above. Promptly stops recommending skills
-    it cannot vouch for and hands you the architecture of my own chief of staff instead.</p>
   </section>
 
   <section id="sheet" hidden></section>
@@ -314,10 +313,8 @@ HOW YOU WORK, IN ORDER
   </div>
 
   <div class="ps" id="ps">
-    <b>PS.</b> Promptly knows marketing, so that is the only field it recommends skills for.
-    Type anything else and it stops pretending. Instead of advice it cannot stand behind, it
-    hands you the architecture of my own chief of staff, six layers and two loops, and writes
-    the opening prompt for yours in your own words. The architecture is the part that travels.
+    <b>PS.</b> Not a marketer? Type anything above. Promptly stops recommending skills it cannot
+    vouch for and hands you the architecture of my own chief of staff instead.
   </div>
 
   <footer>

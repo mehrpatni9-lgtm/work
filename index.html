@@ -272,13 +272,26 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .prob .m{flex:1 1 auto}
 
 /* ── brands ─────────────────────────────────────────────────────────────── */
-.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:var(--s2)}
-.tile{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
-  padding:var(--s4) var(--s5);text-decoration:none;display:flex;flex-direction:column;gap:var(--s1);
-  transition:border-color .18s ease,transform .18s ease}
-.tile:hover{border-color:var(--accent);transform:translateY(-2px)}
-.tile .t{font-weight:600;font-size:var(--t-small)}
-.tile .s{font-size:var(--t-small);color:var(--muted);line-height:1.45}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));gap:var(--s3)}
+/* The archive is a long list, so each tile has to be readable at a glance: a
+   serif title doing the naming, the line under it in grey, an arrow on hover. */
+.tile{position:relative;background:var(--white);border:1px solid var(--line);
+  border-radius:var(--r);padding:var(--s5) var(--s5) var(--s6);text-decoration:none;
+  color:inherit;display:flex;flex-direction:column;gap:var(--s2);overflow:hidden;
+  transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease}
+.tile::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--accent);transform:scaleY(0);transform-origin:50% 0;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.tile:hover{border-color:var(--accent);transform:translateY(-2px);
+  box-shadow:0 1rem 2.2rem -1.6rem rgba(15,30,51,.5)}
+.tile:hover::before{transform:scaleY(1)}
+.tile .t{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.08rem;
+  letter-spacing:-.016em;line-height:1.25;color:var(--ink)}
+.tile .s{font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.tile::after{content:"\2197";position:absolute;right:var(--s4);bottom:var(--s3);
+  font-size:.86rem;color:var(--accent);opacity:0;transform:translate(-3px,3px);
+  transition:opacity .2s ease,transform .2s ease}
+.tile:hover::after{opacity:1;transform:none}
 
 /* ── floating brand field ───────────────────────────────────────────────── */
 /* Tiles drift as you scroll. Only transform moves, so it stays on the
@@ -766,7 +779,9 @@ a.chip:hover{border-color:var(--accent)}
         <h3 class="r">Launched into a room, not a void.</h3>
         <figure class="clip"><img loading="lazy" src="case/community-3up.jpg" alt="Three announcements in the Ivory WhatsApp community: a brain health game, a Meet the Drapers vote, and a workshop livestream" width="1400" height="933"></figure>
         <p class="m">Built a 3,000 member WhatsApp community of caregivers before the product shipped.</p>
-        <a class="cta" href="systems/case-community.html">Read the case study <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></a></div>
+        <div class="ctarow">
+          <a class="cta" href="systems/case-community.html">Read the case study <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h13.3M12.3 6.1 18.6 12l-6.3 5.9"/></svg></a>
+        </div></div>
 
       <div class="prob rv">
         <h3 class="r">One voice across the UK, US, Malaysia and UAE.</h3>
