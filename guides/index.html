@@ -52,54 +52,71 @@ h1{font-size:clamp(2.2rem,5.6vw,3.4rem);font-weight:600;letter-spacing:-.035em;l
 .chips button:hover{border-color:var(--accent);color:var(--ink)}
 .chips button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 
-/* ── the deck. Reel-shaped cards, swiped sideways. ────────────────────── */
-.deck{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
-  scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  padding:var(--s2) var(--s5) var(--s6);margin-inline:calc(var(--s5) * -1);
-  scroll-padding-inline:var(--s5)}
-.deck::-webkit-scrollbar{display:none}
-.k{flex:0 0 19rem;width:19rem;aspect-ratio:9/16;scroll-snap-align:start;
-  border-radius:var(--r);padding:var(--s6) var(--s5);display:flex;flex-direction:column;
+/* ── the deck ──────────────────────────────────────────────────────────
+   On a screen with room, cards flow down a grid and size to their own
+   content, so there is no empty half-card. On a phone they become a reel
+   you swipe sideways. ─────────────────────────────────────────────────── */
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(17.5rem,1fr));
+  gap:var(--s4);align-items:start;padding-bottom:var(--s6)}
+.k{border-radius:var(--r);padding:var(--s5);display:flex;flex-direction:column;
   background:var(--white);border:1px solid var(--line);position:relative;overflow:hidden;
-  box-shadow:0 1rem 2.4rem -1.8rem rgba(15,30,51,.5)}
-.k .tag{font-size:.64rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:var(--s4)}
-.k h3{font-size:1.3rem;letter-spacing:-.02em;line-height:1.2;color:var(--ink)}
-.k .num{margin-top:auto;font-size:.64rem;letter-spacing:.14em;color:var(--faint)}
+  transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease,border-color .2s ease}
+.k:hover{transform:translateY(-3px);border-color:var(--accent);
+  box-shadow:0 1.1rem 2.4rem -1.6rem rgba(15,30,51,.55)}
+.k::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);
+  transform:scaleY(0);transform-origin:50% 0;transition:transform .24s cubic-bezier(.2,.8,.2,1)}
+.k:hover::before{transform:scaleY(1)}
+.k .tag{font-size:.62rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:var(--s3)}
+.k h3{font-size:1.16rem;letter-spacing:-.018em;line-height:1.22;color:var(--ink)}
+.k .num{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line);
+  font-size:.62rem;letter-spacing:.14em;color:var(--faint)}
 
-.k.big h3{font-size:1.85rem;line-height:1.12}
-.k.big p{margin:var(--s3) 0 0;font-size:1.05rem;color:var(--muted)}
+.k.big{background:linear-gradient(160deg,var(--accent-soft),var(--white) 72%);
+  border-color:#CFE0F7}
+.k.big h3{font-size:1.5rem;line-height:1.14}
+.k.big p{margin:var(--s3) 0 0;font-size:1rem;color:var(--body)}
 
-.k ul{margin:var(--s5) 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--s3)}
+.k ul{margin:var(--s4) 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--s3)}
 .k li{font-size:.9rem;line-height:1.45;padding-left:.95rem;position:relative}
 .k li::before{content:"";position:absolute;left:0;top:.5rem;width:4px;height:4px;
   border-radius:50%;background:var(--accent)}
 .k li b{color:var(--ink);font-weight:600}
 
-.k.vs .pair{margin-top:var(--s5);display:flex;flex-direction:column;gap:var(--s3)}
-.k.vs .p{border-radius:12px;padding:var(--s4);font-size:.88rem;line-height:1.4}
+.k.vs .pair{margin-top:var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
+.k.vs .p{border-radius:11px;padding:var(--s3) var(--s4);font-size:.88rem;line-height:1.4}
 .k.vs .p.a{background:var(--accent-soft)} .k.vs .p.b{background:var(--warm-soft)}
-.k.vs .p b{display:block;font-size:.64rem;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;margin-bottom:var(--s2)}
+.k.vs .p b{display:block;font-size:.6rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:var(--s1)}
 .k.vs .p.a b{color:var(--accent)} .k.vs .p.b b{color:var(--warm)}
 
 .k.hot{background:var(--ink);border-color:var(--ink)}
-.k.hot .tag{color:var(--accent-2,#74C3F2)}
-.k.hot h3{color:#fff;font-size:1.6rem}
-.k.hot p{margin:var(--s4) 0 0;font-size:.95rem;color:#AFC4DD;line-height:1.5}
-.k.hot .num{color:#52708F}
+.k.hot::before{background:#74C3F2}
+.k.hot .tag{color:#74C3F2}
+.k.hot h3{color:#fff;font-size:1.3rem}
+.k.hot p{margin:var(--s3) 0 0;font-size:.92rem;color:#AFC4DD;line-height:1.5}
+.k.hot .num{color:#52708F;border-top-color:#22354E}
 
-.k.code pre{margin:var(--s4) 0 0;flex:1;overflow:auto;background:var(--paper-2);
-  border-radius:12px;padding:var(--s4);font-family:"JetBrains Mono",ui-monospace,monospace;
-  font-size:.6rem;line-height:1.65;white-space:pre-wrap;color:var(--ink)}
+.k.code pre{margin:var(--s4) 0 0;background:var(--paper-2);border-radius:11px;padding:var(--s4);
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.6rem;line-height:1.65;
+  white-space:pre-wrap;color:var(--ink);max-height:16rem;overflow:auto}
 .k.code .cp{margin-top:var(--s3);appearance:none;cursor:pointer;font:inherit;font-size:.78rem;
   font-weight:600;color:var(--accent);background:none;border:0;padding:0;text-align:left}
 
-.k.check ul{margin-top:var(--s4)}
 .k.check li{padding-left:1.4rem}
 .k.check li::before{content:"";top:.26rem;width:.85rem;height:.85rem;border-radius:3px;
   background:none;border:1.5px solid var(--accent)}
 
+/* Phones get the reel. */
+@media(max-width:52rem){
+  .deck{display:flex;gap:var(--s3);overflow-x:auto;scroll-snap-type:x mandatory;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    padding:var(--s2) var(--s5) var(--s5);margin-inline:calc(var(--s5) * -1);
+    scroll-padding-inline:var(--s5)}
+  .deck::-webkit-scrollbar{display:none}
+  .k{flex:0 0 17rem;width:17rem;scroll-snap-align:start}
+  .k .num{margin-top:auto}
+}
 .hint{margin:0;font-size:.84rem;color:var(--faint);display:flex;align-items:center;gap:var(--s2)}
 .hint svg{width:1rem;height:1rem}
 footer{padding:var(--s7) 0 var(--s8);margin-top:var(--s6);border-top:1px solid var(--line);
@@ -120,7 +137,7 @@ footer{padding:var(--s7) 0 var(--s8);margin-top:var(--s6);border-top:1px solid v
   <header>
     <p class="eyebrow">Free &middot; for the writers I work with</p>
     <h1>Copy guides for junior writers</h1>
-    <p class="lede">Thirty-two cards on writing for a brand. Swipe through, take what works.</p>
+    <p class="lede">Thirty-two cards on writing for a brand. Take what works, argue with the rest.</p>
     <a class="getpdf" href="Mehr Patni - Copy Guides for Junior Writers.pdf" download>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.8 10.6 12 14.8l4.2-4.2M4 17.5v1.6A1.9 1.9 0 0 0 5.9 21h12.2a1.9 1.9 0 0 0 1.9-1.9v-1.6"/></svg>
       <span>Complimentary guide for you!</span></a>
@@ -134,7 +151,7 @@ footer{padding:var(--s7) 0 var(--s8);margin-top:var(--s6);border-top:1px solid v
 <div class="wrap">
   <p class="hint">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14.5 6.5 20 12l-5.5 5.5"/></svg>
-    Swipe or scroll sideways
+    Swipe sideways on a phone, scroll on a screen
   </p>
   <footer>Written for the writers on my team, and free for anyone else who wants it.
     <a href="../index.html">Mehr Patni</a>, Dubai.</footer>
