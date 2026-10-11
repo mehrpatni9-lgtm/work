@@ -127,6 +127,12 @@ pre{margin:0;background:var(--ink);color:#DCE7F5;border-radius:12px;padding:var(
 .check li::before{content:"";position:absolute;left:0;top:.3rem;width:.85rem;height:.85rem;
   border:1.5px solid var(--accent);border-radius:3px}
 
+.getpdf{display:inline-flex;align-items:center;gap:var(--s3);margin-top:var(--s5);
+  background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;
+  font-size:.92rem;padding:.85rem 1.5rem;border-radius:999px;min-height:48px;
+  transition:transform .18s ease,background .18s ease}
+.getpdf:hover{transform:translateY(-1px);background:var(--accent)}
+.getpdf svg{width:1.1rem;height:1.1rem;flex:none}
 footer{padding:var(--s8) 0;margin-top:var(--s8);border-top:1px solid var(--line);
   color:var(--muted);font-size:.9rem}
 
@@ -143,12 +149,39 @@ footer{padding:var(--s8) 0;margin-top:var(--s8);border-top:1px solid var(--line)
   .ddhead span{margin-bottom:var(--s1)}
 }
 @media print{
-  .bar{display:none}
+  /* The page version scrolls; the PDF needs a cover, chapter breaks, and
+     blocks that never split across a page boundary. */
+  .bar,.getpdf{display:none!important}
   body{background:#fff;font-size:10pt}
-  section{page-break-inside:avoid;padding-top:18pt}
-  pre{background:#fff;color:#111;border:1px solid #bbb;font-size:7.5pt}
+  .wrap{max-width:none;padding:0}
+
+  header{height:calc(100vh - 28mm);display:flex;flex-direction:column;
+    justify-content:center;padding:0;break-after:page}
+  header h1{font-size:34pt}
+  header .lede{font-size:13pt;max-width:46ch}
+  header .sign{margin-top:18pt}
+
+  section{padding-top:0;break-before:page;break-inside:auto}
+  section#prompt{break-before:avoid}
+  h2{font-size:19pt}
+  h3{font-size:12.5pt}
+
+  /* Anything that reads as one unit stays on one page. */
+  .card,.line,.vs,.hot,.notthis,.dials,.ddrow,.ddhead,.pwrap,.check>div,pre{
+    break-inside:avoid}
+  .dd,.two,.five,.versus,.check{break-inside:auto}
+  .five{grid-template-columns:repeat(5,1fr);gap:4mm}
+  .line{padding:3mm}
+  .line .n{font-size:10pt}
+  .line p,.ex{font-size:7.6pt}
+  pre{background:#fff;color:#141414;border:1px solid #c8d2e0;font-size:8pt;
+    line-height:1.6;padding:4mm}
+  .card,.hot,.dials{box-shadow:none}
+  .ddcell .line1{font-size:11pt}
+  footer{break-before:avoid;padding:10mm 0 0;margin-top:8mm}
   @page{margin:14mm}
 }
+
 </style>
 </head>
 <body>
@@ -166,6 +199,9 @@ footer{padding:var(--s8) 0;margin-top:var(--s8);border-top:1px solid var(--line)
   <p class="lede">Four short guides to how I write for a brand: the do&rsquo;s, the don&rsquo;ts,
   and prompts you can copy and paste.</p>
   <p class="sign"><b>Mehr Patni</b> &middot; Senior writer &middot; Dubai &middot; mehrpatni.com</p>
+  <a class="getpdf" href="Mehr Patni - Copy Guides for Junior Writers.pdf" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.8 10.6 12 14.8l4.2-4.2M4 17.5v1.6A1.9 1.9 0 0 0 5.9 21h12.2a1.9 1.9 0 0 0 1.9-1.9v-1.6"/></svg>
+    <span>Complimentary guide for you!</span></a>
 </header>
 
 <!-- ─────────────── how to prompt ─────────────── -->
