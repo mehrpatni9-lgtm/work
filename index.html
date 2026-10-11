@@ -314,6 +314,7 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   cursor:pointer;touch-action:manipulation;margin:var(--s6) 0 var(--s7)}
 .hand:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:var(--r)}
 .cue{position:absolute;z-index:40;display:flex;align-items:center;gap:var(--s2);
+  will-change:opacity,transform;
   font-family:Caveat,"Bradley Hand",cursive;font-size:1.7rem;font-weight:600;color:var(--accent);
   transform:translateY(-5.6rem) rotate(-2deg);
   transition:opacity .28s ease,transform .38s cubic-bezier(.2,.8,.2,1);pointer-events:none}
@@ -321,7 +322,10 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .cue b{font-weight:600}
 .cue-t{display:none}
 @media(hover:none){ .cue-h{display:none} .cue-t{display:inline} }
-.hand.open .cue,.hand:hover .cue{opacity:0;transform:translateY(-7rem) rotate(-2deg)}
+.hand.open .cue{opacity:0;transform:translateY(-7rem) rotate(-2deg)}
+@media(hover:hover){
+  .hand:hover .cue{opacity:0;transform:translateY(-7rem) rotate(-2deg)}
+}
 
 .chip{--w:clamp(4.6rem,7vw,6.2rem);
   position:absolute;top:50%;left:50%;width:var(--w);aspect-ratio:3/4;
@@ -335,22 +339,29 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .chip img{width:84%;height:auto;max-height:64%;object-fit:contain}
 .chip.fill{padding:0;overflow:hidden}
 .chip.fill img{width:100%;height:100%;max-height:none;object-fit:cover;border-radius:11px}
-.hand.open .chip,.hand:hover .chip{transform:translateX(var(--x)) translateY(var(--y)) rotate(var(--rot))}
-.hand .chip:hover{z-index:60;border-color:var(--accent);
-  box-shadow:0 1.6rem 3rem -1.2rem rgba(15,30,51,.6)}
+.hand.open .chip{transform:translateX(var(--x)) translateY(var(--y)) rotate(var(--rot))}
+@media(hover:hover){
+  .hand:hover .chip{transform:translateX(var(--x)) translateY(var(--y)) rotate(var(--rot))}
+  .hand .chip:hover{z-index:60;border-color:var(--accent);
+    box-shadow:0 1.6rem 3rem -1.2rem rgba(15,30,51,.6)}
+}
 /* A twelve-card fan needs room. Below 52rem there is none, so the hand
    deals the cards into a grid instead: still hidden until you ask, still
-   not a logo bar, but every mark readable. */
+   not a logo bar, but every mark readable. Closed, the cards take no
+   space at all, so the section does not sit on an empty hole. */
 @media(max-width:52rem){
-  .hand{height:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);
-    padding:var(--s7) 0 var(--s4);place-items:stretch}
-  .cue{position:absolute;top:var(--s4);left:50%;transform:translateX(-50%) rotate(-2deg)}
-  .hand.open .cue{opacity:0;transform:translateX(-50%) translateY(-.6rem) rotate(-2deg)}
-  .chip{position:static;width:auto;margin:0;aspect-ratio:1;padding:var(--s2);
-    opacity:0;transform:translateY(10px) scale(.94);
-    transition:opacity .34s ease,transform .44s cubic-bezier(.2,.8,.2,1);
-    transition-delay:calc(var(--i) * 34ms)}
-  .hand.open .chip{opacity:1;transform:none}
+  .hand{display:block;position:relative;height:auto;min-height:8.5rem;
+    margin:var(--s5) 0 var(--s6)}
+  .cue{top:50%;left:50%;transform:translate(-50%,-50%) rotate(-2deg)}
+  .hand.open .cue{opacity:0;transform:translate(-50%,-50%) translateY(-.8rem) rotate(-2deg)}
+  .chip{position:absolute;top:50%;left:50%;width:4.6rem;aspect-ratio:1;
+    margin:-2.3rem 0 0 -2.3rem;opacity:0;pointer-events:none;
+    transform:translateY(8px) scale(.9);
+    transition:opacity .3s ease,transform .4s cubic-bezier(.2,.8,.2,1)}
+  .hand.open{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);
+    min-height:0;place-items:stretch}
+  .hand.open .chip{position:static;width:auto;margin:0;opacity:1;pointer-events:auto;
+    transform:none;transition-delay:calc(var(--i) * 32ms)}
   .chip img{max-height:72%}
 }
 @media(max-width:24rem){ .hand{grid-template-columns:repeat(3,1fr)} }
@@ -873,7 +884,7 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   <!-- ─────────── 04 brands ─────────── -->
   <section id="brands">
     <div class="shead rv">
-      <span class="snum">Brands &amp; archive</span>
+      <span class="snum">Brands &amp; Archive</span>
       <h2>Shipped for MNCs, <em>startups and everything between.</em></h2>
     </div>
     <!-- A deck, not a logo bar. It opens on hover, or on a tap where there
@@ -1134,7 +1145,11 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   }
   layout();
   addEventListener('resize', layout, { passive: true });
-  hand.addEventListener('click', function () { this.classList.toggle('open'); });
+  hand.addEventListener('click', function (e) {
+    // A tap on a brand opens that brand; only the empty hand toggles.
+    if (e.target.closest('a.chip')) return;
+    this.classList.toggle('open');
+  });
   hand.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.classList.toggle('open'); }
   });
