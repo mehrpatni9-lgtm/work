@@ -411,8 +411,8 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   border-radius:var(--r);border:1px solid var(--line);background:var(--white);
   display:grid;place-items:center;padding:var(--s5);
   box-shadow:0 .8rem 2rem -1.6rem rgba(15,30,51,.5)}
-.front .t{display:block;font-family:Fraunces,Georgia,serif;font-size:clamp(1.15rem,1.7vw,1.4rem);
-  font-weight:600;letter-spacing:-.018em;line-height:1.25;color:var(--ink);max-width:18ch}
+.front .t{display:block;font-family:Inter,system-ui,sans-serif;font-size:1.06rem;
+  font-weight:600;letter-spacing:-.005em;line-height:1.42;color:var(--ink);max-width:19ch}
 .hintrow{position:absolute;left:0;right:0;bottom:var(--s5);display:flex;align-items:center;
   justify-content:center;gap:var(--s2);font-size:var(--t-micro);font-weight:700;
   letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
@@ -981,20 +981,22 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   });
 
   // Three on load, the rest behind a click, per filter.
+  var narrow = matchMedia('(max-width:52rem)');
   var LIMIT = 3, filter = 'shortform', open = false;
   function show(f) {
     filter = f; open = false; paint();
   }
   function paint() {
-    var n = 0, hidden = 0;
+    var n = 0, hidden = 0, all = narrow.matches;   // the strip shows everything
     document.querySelectorAll('#workgrid .card').forEach(function (c) {
       var inFilter = filter === 'all' || c.dataset.cat === filter;
       if (!inFilter) { c.hidden = true; return; }
       n++;
-      var over = !open && n > LIMIT;
+      var over = !all && !open && n > LIMIT;
       c.hidden = over;
       if (over) hidden++;
     });
+    if (all) { var ln = document.querySelector('.moreline'); if (ln) ln.hidden = true; return; }
     var line = document.querySelector('.moreline'), btn = document.getElementById('more');
     if (!line) return;
     line.hidden = hidden === 0 && open === false ? true : false;
@@ -1004,6 +1006,7 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   }
   var mb = document.getElementById('more');
   if (mb) mb.addEventListener('click', function () { open = !open; paint(); });
+  narrow.addEventListener('change', paint);
   show('shortform');
 })();
 
