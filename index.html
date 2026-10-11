@@ -436,16 +436,8 @@ a.chip:hover{border-color:var(--accent)}
 .bi{width:1.05rem;height:1.05rem;flex:0 0 auto}
 .links a.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 
-/* ── the close: one question, one address, three marks, and her, waving ── */
+/* ── the close: one question, one address, three marks ─────────────────── */
 #contact{position:relative}
-/* Same treatment as the hero portrait: a cutout standing on a soft blue ground. */
-.wave{position:absolute;right:0;bottom:0;margin:0;width:clamp(17rem,27vw,23rem);
-  pointer-events:none}
-.wave::before{content:"";position:absolute;inset:14% -8% -6% -8%;border-radius:50%;
-  background:radial-gradient(60% 55% at 50% 72%, #D8E8FA 0%, var(--accent-soft) 48%, rgba(233,239,247,0) 76%)}
-.wave img{position:relative;display:block;width:100%;height:auto;
-  filter:drop-shadow(0 1.1rem 1.8rem rgba(15,30,51,.2))}
-@media(max-width:62rem){.wave{display:none}}
 #contact .ears{margin:var(--s3) 0 0;font-family:Fraunces,Georgia,serif;font-size:1.25rem;
   font-weight:500;color:var(--muted)}
 #contact .links{margin-top:var(--s6);align-items:center;padding-bottom:var(--s8)}
@@ -918,7 +910,6 @@ a.chip:hover{border-color:var(--accent)}
       <em>or talk community?</em></h2>
       <p class="ears">I&rsquo;m all ears.</p>
     </div>
-    <figure class="wave" aria-hidden="true"><img loading="lazy" src="mehr-wave.png" alt="" width="700" height="648"></figure>
     <div class="links rv">
       <a class="primary" href="mailto:mehrpatni9@gmail.com"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.4"/><path d="m3.5 7 7.4 5.6a2 2 0 0 0 2.2 0L20.5 7"/></svg><span>Email me</span></a>
         <a class="sico" href="https://www.linkedin.com/in/mehrpatni/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
