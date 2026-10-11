@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Copy guides for junior writers</title>
+<meta name="description" content="Four short guides to writing for a brand: websites, social, brand voice and your own voice. With the do's, the don'ts, and prompts you can copy and paste.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --paper-2:#E9EFF7; --ink:#0F1E33; --body:#2B3C53;
+  --muted:#5C6E85; --faint:#8295AB;
+  --accent:#1A6FD4; --accent-soft:#E4EEFC; --warm:#B3451F; --warm-soft:#FBEDE7;
+  --line:#DBE3EE; --white:#fff;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem;
+  --s6:2rem; --s7:3rem; --s8:4.5rem; --r:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:1.02rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0}
+a{color:var(--accent)}
+.wrap{max-width:58rem;margin:0 auto;padding:0 var(--s5)}
+
+.bar{position:sticky;top:0;z-index:20;background:rgba(246,248,251,.86);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);min-height:3.4rem}
+.back{display:inline-flex;align-items:center;gap:var(--s2);font-size:.86rem;font-weight:600;
+  text-decoration:none;color:var(--accent)}
+.mark{font-family:Fraunces;font-weight:600;font-size:1rem;letter-spacing:-.02em}
+
+header{padding:var(--s8) 0 var(--s7)}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 var(--s3)}
+h1{font-size:clamp(2.3rem,6vw,3.6rem);font-weight:600;letter-spacing:-.035em;line-height:1.04}
+.lede{font-size:clamp(1.05rem,1.6vw,1.26rem);color:var(--muted);max-width:52ch;margin:var(--s5) 0 0}
+.sign{margin:var(--s5) 0 0;font-size:.9rem;color:var(--faint)}
+.sign b{color:var(--ink);font-weight:600}
+
+section{padding:var(--s8) 0 0;scroll-margin-top:4.5rem}
+.snum{display:block;font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:var(--s3)}
+h2{font-size:clamp(1.6rem,3.2vw,2.3rem);letter-spacing:-.028em;line-height:1.1}
+h2 em{font-style:italic;font-weight:400;color:var(--faint)}
+.prin{margin:var(--s4) 0 0;font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--body);max-width:54ch}
+
+h3{font-size:1.18rem;letter-spacing:-.018em;margin-bottom:var(--s3)}
+h4{font-family:Inter;font-size:.72rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:var(--s3)}
+
+.two{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);margin-top:var(--s6)}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:var(--s5)}
+.card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--s3)}
+.card li{font-size:.94rem;line-height:1.55;padding-left:1rem;position:relative}
+.card li::before{content:"";position:absolute;left:0;top:.56rem;width:5px;height:5px;
+  border-radius:50%;background:var(--accent)}
+.card li b{color:var(--ink);font-weight:600}
+
+/* the five lines of a prompt */
+.five{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4);margin-top:var(--s6)}
+.line{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:var(--s4)}
+.line .n{font-family:Fraunces;font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:var(--s2)}
+.line p{margin:0;font-size:.88rem;line-height:1.5;color:var(--muted)}
+.ex{display:block;margin-top:var(--s3);padding-top:var(--s3);border-top:1px solid var(--line);
+  font-size:.84rem;color:var(--body)}
+.ex b{font-family:Inter;font-size:.68rem;font-weight:700;letter-spacing:.14em;color:var(--accent);
+  display:block;margin-bottom:.25rem}
+
+.versus{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);margin-top:var(--s5)}
+.vs{border-radius:var(--r);padding:var(--s5)}
+.vs.one{background:var(--paper-2)}
+.vs.more{background:var(--accent-soft)}
+.vs .t{font-family:Fraunces;font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:var(--s2)}
+.vs p{margin:0;font-size:.92rem;color:var(--muted)}
+
+/* do and don't */
+.dd{margin-top:var(--s6)}
+.ddhead{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);margin-bottom:var(--s3)}
+.ddhead span{text-align:center;border-radius:999px;padding:.45rem;font-size:.74rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:#fff}
+.ddhead .d{background:var(--accent)} .ddhead .n{background:var(--warm)}
+.ddrow{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);margin-bottom:var(--s3)}
+.ddcell{border-radius:var(--r);padding:var(--s4) var(--s5)}
+.ddcell.d{background:var(--accent-soft)} .ddcell.n{background:var(--warm-soft)}
+.ddcell .src{font-size:.74rem;font-weight:600;letter-spacing:.04em;margin-bottom:var(--s2)}
+.ddcell.d .src{color:var(--accent)} .ddcell.n .src{color:var(--warm)}
+.ddcell .line1{font-family:Fraunces;font-size:1.22rem;font-weight:600;color:var(--ink);line-height:1.25}
+.ddcell small{display:block;margin-top:var(--s2);font-size:.86rem;color:var(--muted);line-height:1.5}
+.ddrow.tight .ddcell{padding:var(--s3) var(--s4)}
+.ddrow.tight .line1{font-family:Inter;font-size:.94rem;font-weight:500}
+
+/* prompts to paste */
+pre{margin:0;background:var(--ink);color:#DCE7F5;border-radius:12px;padding:var(--s5);
+  font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.8rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+.pwrap h3{margin-bottom:var(--s3)}
+
+.hot{margin-top:var(--s6);display:flex;gap:var(--s4);align-items:flex-start;
+  background:var(--white);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 var(--r) var(--r) 0;padding:var(--s5)}
+.hot .tag{flex:none;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);padding-top:.22rem}
+.hot p{margin:0;font-size:.96rem;line-height:1.55;color:var(--body)}
+.notthis{margin-top:var(--s4);font-size:.9rem;color:var(--muted);padding-left:var(--s5);
+  border-left:3px solid var(--line)}
+.notthis b{color:var(--warm);font-weight:600}
+
+/* the dials */
+.dials{margin-top:var(--s5);background:var(--white);border:1px solid var(--line);
+  border-radius:var(--r);padding:var(--s6)}
+.dial{display:grid;grid-template-columns:7.5rem 1fr 7.5rem;align-items:center;gap:var(--s4);
+  margin-bottom:var(--s5)}
+.dial:last-child{margin-bottom:0}
+.dial span{font-size:.9rem;font-weight:600;color:var(--ink)}
+.dial span:last-child{text-align:right}
+.track{position:relative;height:2px;background:var(--line);border-radius:2px}
+.track i{position:absolute;top:50%;transform:translate(-50%,-50%);width:10px;height:10px;
+  border-radius:50%;border:2px solid var(--accent);background:var(--white)}
+.track i.on{background:var(--accent)}
+
+.check{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);margin-top:var(--s6)}
+.check ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--s3)}
+.check li{font-size:.9rem;line-height:1.45;padding-left:1.3rem;position:relative;color:var(--body)}
+.check li::before{content:"";position:absolute;left:0;top:.3rem;width:.85rem;height:.85rem;
+  border:1.5px solid var(--accent);border-radius:3px}
+
+footer{padding:var(--s8) 0;margin-top:var(--s8);border-top:1px solid var(--line);
+  color:var(--muted);font-size:.9rem}
+
+@media(max-width:60rem){
+  .five{grid-template-columns:repeat(2,1fr)}
+  .check{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:46rem){
+  .two,.versus,.ddrow,.ddhead{grid-template-columns:1fr}
+  .five{grid-template-columns:1fr}
+  .check{grid-template-columns:1fr}
+  .dial{grid-template-columns:1fr;gap:var(--s2)}
+  .dial span:last-child{text-align:left}
+  .ddhead span{margin-bottom:var(--s1)}
+}
+@media print{
+  .bar{display:none}
+  body{background:#fff;font-size:10pt}
+  section{page-break-inside:avoid;padding-top:18pt}
+  pre{background:#fff;color:#111;border:1px solid #bbb;font-size:7.5pt}
+  @page{margin:14mm}
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="back" href="../index.html">&larr; Mehr Patni</a>
+  <span class="mark">Copy guides</span>
+</div></div>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Free &middot; for the writers I work with</p>
+  <h1>Copy guides for junior writers</h1>
+  <p class="lede">Four short guides to how I write for a brand: the do&rsquo;s, the don&rsquo;ts,
+  and prompts you can copy and paste.</p>
+  <p class="sign"><b>Mehr Patni</b> &middot; Senior writer &middot; Dubai &middot; mehrpatni.com</p>
+</header>
+
+<!-- ─────────────── how to prompt ─────────────── -->
+<section id="prompt">
+  <span class="snum">How to prompt</span>
+  <h2>Every prompt has <em>five lines.</em></h2>
+
+  <div class="five">
+    <div class="line"><div class="n">Role</div><p>Who the AI should be.</p>
+      <span class="ex"><b>EX:</b> Senior conversion copywriter</span></div>
+    <div class="line"><div class="n">Reader</div><p>Who it is writing for.</p>
+      <span class="ex"><b>EX:</b> A founder worried about price</span></div>
+    <div class="line"><div class="n">Facts</div><p>What it may use. Nothing else.</p>
+      <span class="ex"><b>EX:</b> Your numbers, reviews and notes</span></div>
+    <div class="line"><div class="n">Voice</div><p>How it sounds, and what it never says.</p>
+      <span class="ex"><b>EX:</b> Plain and warm. Never &ldquo;seamless&rdquo;</span></div>
+    <div class="line"><div class="n">Output</div><p>Exactly what to hand back.</p>
+      <span class="ex"><b>EX:</b> 5 headlines and 1 call to action</span></div>
+  </div>
+
+  <div class="versus">
+    <div class="vs one"><div class="t">One line</div>
+      <p>Gets you an average answer, in an average voice.</p></div>
+    <div class="vs more"><div class="t">Five lines</div>
+      <p>Gets you a draft you can actually use.</p></div>
+  </div>
+
+  <div class="hot"><span class="tag">Hot take</span>
+    <p>The prompt is the brief. If a human junior could not write from it, the AI cannot either.</p></div>
+</section>
+
+<!-- ─────────────── website ─────────────── -->
+<section id="website">
+  <span class="snum">Website</span>
+  <h2>Say what changes for the customer. <em>Then prove it.</em></h2>
+
+  <div class="two">
+    <div class="card">
+      <h3>Landing page</h3>
+      <h4>Sells one promise</h4>
+      <ul>
+        <li><b>Headline:</b> the outcome, not the product. The subhead says who it is for.</li>
+        <li><b>Proof:</b> a number, a name or a real review, right beside the claim.</li>
+        <li><b>Benefits:</b> three at most, in your customer&rsquo;s own words.</li>
+        <li><b>One ask:</b> a single button that says what happens next.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Product description</h3>
+      <h4>Answers the last doubt</h4>
+      <ul>
+        <li>Open with the benefit, then back it with the fact.</li>
+        <li>Answer doubts: size, fit, care, delivery, returns.</li>
+        <li>Sensory words beat adjectives. &ldquo;Soft&rdquo; beats &ldquo;premium&rdquo;.</li>
+        <li>Check claims with legal. Even famous lines get challenged.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hot"><span class="tag">Hot take</span>
+    <p>&ldquo;Premium&rdquo;, &ldquo;innovative&rdquo; and &ldquo;seamless&rdquo; are not copy, they
+    are placeholders. When I see one in a draft, I ask what we actually mean.</p></div>
+
+  <div class="dd">
+    <div class="ddhead"><span class="d">Do</span><span class="n">Don&rsquo;t</span></div>
+    <div class="ddrow">
+      <div class="ddcell d"><div class="src">The classic &middot; Apple, 2001</div>
+        <div class="line1">&ldquo;1,000 songs in your pocket.&rdquo;</div>
+        <small>Same product. One lists the spec, the other describes your life.</small></div>
+      <div class="ddcell n"><div class="src">The spec sheet</div>
+        <div class="line1">&ldquo;5GB MP3 player.&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Landing page &middot; Airbnb</div>
+        <div class="line1">&ldquo;Belong anywhere.&rdquo;</div></div>
+      <div class="ddcell n"><div class="src">Landing page</div>
+        <div class="line1">&ldquo;A global marketplace for short-term stays.&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Product page &middot; Apple</div>
+        <div class="line1">&ldquo;Titanium. So strong. So light. So Pro.&rdquo;</div></div>
+      <div class="ddcell n"><div class="src">Product page</div>
+        <div class="line1">&ldquo;A durable, lightweight titanium frame.&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Product line &middot; Oatly</div>
+        <div class="line1">&ldquo;It&rsquo;s like milk, but made for humans.&rdquo;</div></div>
+      <div class="ddcell n"><div class="src">Product line</div>
+        <div class="line1">&ldquo;A plant-based oat beverage alternative.&rdquo;</div></div>
+    </div>
+  </div>
+
+  <div class="two pwrap">
+    <div><h3>Landing page</h3>
+<pre>You are a senior conversion copywriter. Write a landing page for [PRODUCT].
+
+Reader: [WHO THEY ARE], who is worried about [OBJECTION].
+
+Use only these facts: [FACTS, NUMBERS, REVIEWS]. If a claim is not backed
+by them, flag it instead of writing it.
+
+Voice: [3 ADJECTIVES]. Never use: [BANNED WORDS].
+
+Give me: 5 headlines that state an outcome, 1 subhead, 3 benefits with
+proof, and 1 call to action that says what happens next.</pre></div>
+    <div><h3>Product description</h3>
+<pre>You are a senior e-commerce copywriter. Write a product description
+for [PRODUCT].
+
+Customer: [WHO], who is choosing between this and [ALTERNATIVE].
+Their biggest doubt: [DOUBT].
+
+Use only these facts: [SPECS, MATERIALS, SIZES, REVIEWS]. Turn each into
+what it means for the customer. Flag anything you cannot support.
+
+Voice: [3 ADJECTIVES]. Never use: "premium", "high-quality",
+"perfect for any occasion".
+
+Give me: a one-line headline, a 40-word description, 4 bullets (benefit
+first, fact second) and one line that answers the doubt.</pre></div>
+  </div>
+
+  <p class="notthis"><b>Not this:</b> &ldquo;Write a landing page for my product. Make it catchy and
+  professional.&rdquo; It gives the model nothing to work with, so you get clich&eacute;s.</p>
+</section>
+
+<!-- ─────────────── social ─────────────── -->
+<section id="social">
+  <span class="snum">Social media</span>
+  <h2>Win the first line. <em>The rest only has to keep the promise.</em></h2>
+
+  <div class="two">
+    <div class="card">
+      <h3>Instagram</h3>
+      <h4>Three seconds</h4>
+      <ul>
+        <li><b>Reels:</b> put the payoff on screen and out loud, straight away.</li>
+        <li><b>Captions:</b> the point goes in the first line. The feed cuts off the rest.</li>
+        <li><b>Proof:</b> show the real thing. A face, a number, the product.</li>
+        <li>One post, one point. A second takeaway is a second post.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>LinkedIn</h3>
+      <h4>A few lines</h4>
+      <ul>
+        <li><b>Hook:</b> a result, a mistake, a contrarian take or a question.</li>
+        <li><b>Shape:</b> short lines, one idea each, a blank line between.</li>
+        <li><b>Story:</b> the situation, the turn, the lesson.</li>
+        <li><b>Ending:</b> one question your reader can answer in a line.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hot"><span class="tag">Hot take</span>
+    <p>If your hook could open any brand&rsquo;s post, it is not a hook. Make it so specific that
+    only you could have written it.</p></div>
+
+  <div class="dd">
+    <div class="ddhead"><span class="d">Do</span><span class="n">Don&rsquo;t</span></div>
+    <div class="ddrow">
+      <div class="ddcell d"><div class="src">The classic &middot; Oreo, 2013</div>
+        <div class="line1">&ldquo;You can still dunk in the dark.&rdquo;</div>
+        <small>It joined the conversation everyone was already having, in one line.</small></div>
+      <div class="ddcell n"><div class="src">The brand line</div>
+        <div class="line1">&ldquo;Our cookies are perfect for any occasion.&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Instagram &middot; Apple</div>
+        <div class="line1">&ldquo;Shot on iPhone.&rdquo;</div></div>
+      <div class="ddcell n"><div class="src">Instagram</div>
+        <div class="line1">&ldquo;Check out this amazing photo we took with our incredible camera!&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Hook &middot; Spotify</div>
+        <div class="line1">&ldquo;Dear person who played &lsquo;Sorry&rsquo; 42 times on Valentine&rsquo;s Day&hellip;&rdquo;</div></div>
+      <div class="ddcell n"><div class="src">Hook</div>
+        <div class="line1">&ldquo;Millions of songs for every mood and moment.&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">LinkedIn &middot; shape</div>
+        <div class="line1">Short lines. One idea each. A blank line between.</div></div>
+      <div class="ddcell n"><div class="src">LinkedIn &middot; shape</div>
+        <div class="line1">One 200-word block that never breaks.</div></div>
+    </div>
+  </div>
+
+  <div class="two pwrap">
+    <div><h3>Draft the post</h3>
+<pre>You are a social writer for [BRAND] on Instagram and LinkedIn.
+
+Reader: [WHO], who is stuck on [PROBLEM].
+
+Angle: [ONE INSIGHT, STORY OR RESULT]. Use only these notes: [PASTE NOTES].
+
+Voice: [3 ADJECTIVES]. Never use: "excited to share", "game-changer",
+"unlock".
+
+Give me: 5 openers under 12 words, a LinkedIn post (short lines, under
+[180] words, ending on one question) and an Instagram caption (point in
+the first line).</pre></div>
+    <div><h3>Sharpen the hook</h3>
+<pre>Here is my draft post: [PASTE].
+
+Rewrite only the first line 5 ways: a result, a mistake, a contrarian
+take, a question and a specific moment.
+
+Score each from 1 to 5 on: specific, surprising, would I stop scrolling?
+
+Pick the best and say why in one sentence. Do not touch the rest.</pre></div>
+  </div>
+
+  <p class="notthis"><b>Not this:</b> &ldquo;Write a LinkedIn post about our new feature.&rdquo;
+  There is no reader and no angle, so expect &ldquo;Excited to announce&hellip;&rdquo;.</p>
+</section>
+
+<!-- ─────────────── brand voice ─────────────── -->
+<section id="brand">
+  <span class="snum">Brand voice</span>
+  <h2>A voice is not adjectives. <em>It is decisions.</em></h2>
+  <p class="prin">The voice stays the same. The tone shifts with the moment.</p>
+
+  <div class="two">
+    <div class="card">
+      <h3>Ask the founder</h3>
+      <h4>Before you write</h4>
+      <ul>
+        <li><b>Beliefs:</b> start with what they believe and who they serve, not a mood board.</li>
+        <li><b>Nevers:</b> ask what they would never say, and who they hate sounding like.</li>
+        <li><b>Samples:</b> collect five pieces of copy they are proud of.</li>
+        <li><b>Specifics:</b> push past &ldquo;friendly and professional&rdquo;.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Write it down</h3>
+      <h4>While you write</h4>
+      <ul>
+        <li><b>The &ldquo;not&rdquo;:</b> give every trait one. Warm, not chatty.</li>
+        <li><b>Sentences:</b> show each trait in a before-and-after line.</li>
+        <li><b>Hard moments:</b> plan the error, the apology and the refund.</li>
+        <li><b>One page:</b> a new writer should be able to use it today.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hot"><span class="tag">Hot take</span>
+    <p>A brand voice is what you refuse to say. The &ldquo;nots&rdquo; do more work than the
+    adjectives.</p></div>
+
+  <h3 style="margin-top:var(--s7)">The dials</h3>
+  <p class="prin">Circle one dot per line. Filled dots show an example answer.</p>
+  <div class="dials">
+    <div class="dial"><span>Funny</span><div class="track"><i class="on" style="left:28%"></i></div><span>Serious</span></div>
+    <div class="dial"><span>Formal</span><div class="track"><i class="on" style="left:72%"></i></div><span>Casual</span></div>
+    <div class="dial"><span>Respectful</span><div class="track"><i class="on" style="left:34%"></i></div><span>Irreverent</span></div>
+    <div class="dial"><span>Enthusiastic</span><div class="track"><i class="on" style="left:62%"></i></div><span>Matter-of-fact</span></div>
+  </div>
+
+  <div class="two" style="margin-top:var(--s5)">
+    <div class="card">
+      <h4>Then ask about moments</h4>
+      <ul>
+        <li>How should we sound when a customer is angry?</li>
+        <li>When we launch something big?</li>
+        <li>When we make a mistake?</li>
+        <li>When we explain something complicated?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Send this to the founder</h4>
+      <ul>
+        <li>If our brand walked into a room, who would it be? Three words.</li>
+        <li>What do we believe that our category does not?</li>
+        <li>Who do we talk to, and what worries them at 11pm?</li>
+        <li>Which brand&rsquo;s voice do you love, and which would you hate to sound like?</li>
+        <li>Which words would we never say?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hot"><span class="tag">Hot take</span>
+    <p>Never accept &ldquo;somewhere in between&rdquo;. Middle of the road is how a brand ends up
+    sounding like nobody.</p></div>
+
+  <div class="dd">
+    <div class="ddhead"><span class="d">Do</span><span class="n">Don&rsquo;t</span></div>
+    <div class="ddrow">
+      <div class="ddcell d"><div class="src">The classic &middot; Mailchimp&rsquo;s voice guide</div>
+        <div class="line1">&ldquo;We are plainspoken. We are genuine. Our humor is dry.&rdquo;</div>
+        <small>Traits a writer can act on. Each one tells you what to do next.</small></div>
+      <div class="ddcell n"><div class="src">The usual version</div>
+        <div class="line1">&ldquo;We&rsquo;re friendly and professional.&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Personality &middot; Oatly</div>
+        <div class="line1">&ldquo;Yes, we are vegan. So?&rdquo;</div></div>
+      <div class="ddcell n"><div class="src">Personality</div>
+        <div class="line1">&ldquo;We are proud to offer plant-based options for conscious consumers.&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Voice vs tone &middot; Mailchimp</div>
+        <div class="line1">Same voice every day. A different tone for someone who is upset.</div></div>
+      <div class="ddcell n"><div class="src">Voice vs tone</div>
+        <div class="line1">One tone, everywhere, all the time.</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Many markets</div>
+        <div class="line1">Same voice, local words: &ldquo;lift&rdquo; in London, &ldquo;elevator&rdquo; in New York.</div></div>
+      <div class="ddcell n"><div class="src">Many markets</div>
+        <div class="line1">The same copy, translated word for word, in every market.</div></div>
+    </div>
+  </div>
+
+  <div class="pwrap" style="margin-top:var(--s6)">
+    <h3>Turn the answers into a voice guide</h3>
+<pre>You are a brand strategist and senior writer. Here are the founder's
+answers: [PASTE] and five pieces of copy they love: [PASTE].
+
+Find the three traits that show up in both. For each trait write: what it
+sounds like, "we are X, not Y", a before-and-after sentence, three words
+we use and three we avoid.
+
+Then add tone for a launch, an error and an apology.
+
+Quote the founder's own words. Flag any answers that contradict each other.</pre>
+  </div>
+
+  <p class="notthis"><b>Not this:</b> &ldquo;Create a tone of voice guide for our brand. We&rsquo;re
+  friendly and professional.&rdquo; Every brand says that, so nothing tells a writer what to do.</p>
+</section>
+
+<!-- ─────────────── your voice ─────────────── -->
+<section id="yours">
+  <span class="snum">Your voice</span>
+  <h2>You already have a voice. <em>Notice it, then make it deliberate.</em></h2>
+  <p class="prin">Read your own writing like an editor who has never met you.</p>
+
+  <div class="two">
+    <div class="card">
+      <h3>Notice</h3>
+      <h4>Step one</h4>
+      <ul>
+        <li><b>Aloud:</b> read it out. Where you stumble, the sentence is wrong.</li>
+        <li><b>Length:</b> count the words in your last five sentences.</li>
+        <li><b>Tics:</b> list the words you overuse. &ldquo;Just&rdquo;, &ldquo;really&rdquo;, &ldquo;very&rdquo;.</li>
+        <li><b>Signature:</b> find the three lines that sound most like you.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Edit</h3>
+      <h4>Step two</h4>
+      <ul>
+        <li><b>Rhythm:</b> put a short sentence next to a long one.</li>
+        <li><b>Hedges:</b> cut &ldquo;just&rdquo;, &ldquo;I think&rdquo; and the warm-up.</li>
+        <li><b>Plain words:</b> if a short word works, use it.</li>
+        <li><b>Keep:</b> the habits that sound like you. Break the rest.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hot"><span class="tag">Hot take</span>
+    <p>You do not need to &ldquo;find your voice&rdquo;. You need to stop sanding it down.</p></div>
+
+  <div class="dd">
+    <div class="ddhead"><span class="d">Do</span><span class="n">Don&rsquo;t</span></div>
+    <div class="ddrow">
+      <div class="ddcell d"><div class="src">The classic &middot; Avis, 1962</div>
+        <div class="line1">&ldquo;We try harder.&rdquo;</div>
+        <small>Three words, an honest admission and a promise. Cut until it still sounds like you.</small></div>
+      <div class="ddcell n"><div class="src">The usual version</div>
+        <div class="line1">&ldquo;We are committed to continually improving our customer experience.&rdquo;</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Hedges</div>
+        <div class="line1">Can we talk Thursday?</div></div>
+      <div class="ddcell n"><div class="src">Hedges</div>
+        <div class="line1">I just wanted to quickly reach out to see if you might have some time to connect.</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Opener</div>
+        <div class="line1">Hi Sam, loved your talk on pricing.</div></div>
+      <div class="ddcell n"><div class="src">Opener</div>
+        <div class="line1">I hope this email finds you well.</div></div>
+    </div>
+    <div class="ddrow tight">
+      <div class="ddcell d"><div class="src">Bio</div>
+        <div class="line1">I write product pages that sell and onboarding emails people finish.</div></div>
+      <div class="ddcell n"><div class="src">Bio</div>
+        <div class="line1">Passionate marketer with a proven track record of driving results.</div></div>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:var(--s6)">
+    <div class="card">
+      <h4>Answer these first</h4>
+      <ul>
+        <li>Read one piece aloud. Where do you stumble?</li>
+        <li>Count the words in your last five sentences. Short, long or mixed?</li>
+        <li>Do you plan first, or write to find out what you think?</li>
+        <li>Which words do you overuse?</li>
+        <li>What do you always delete in the edit?</li>
+        <li>Whose writing do you copy, on purpose or by accident?</li>
+      </ul>
+    </div>
+    <div class="pwrap">
+      <h3>Let AI read your samples</h3>
+<pre>You are an editor who reads for voice, not grammar. Here are five samples
+of my writing: [PASTE]. Do not rewrite them.
+
+Describe my voice: average sentence length, words and openers I repeat,
+how formal I am, how I use questions.
+
+Quote the 3 lines that sound most like me and the 3 that sound least,
+and say why.
+
+Then give me 5 habits to keep and 3 to break. Evidence over praise.</pre>
+    </div>
+  </div>
+
+  <p class="notthis"><b>Not this:</b> &ldquo;Analyse my writing style.&rdquo; The model guesses, so
+  you get flattery and a list of adjectives.</p>
+</section>
+
+<!-- ─────────────── checklist ─────────────── -->
+<section id="checklist">
+  <span class="snum">Checklist</span>
+  <h2>Before it ships.</h2>
+  <div class="check">
+    <div><h4>Website</h4><ul>
+      <li>Headline states the outcome</li>
+      <li>Every claim has proof</li>
+      <li>One ask, one clear verb</li>
+      <li>Product details match the product</li>
+      <li>Read aloud: sounds human</li>
+    </ul></div>
+    <div><h4>Social media</h4><ul>
+      <li>First line works alone</li>
+      <li>One idea, nothing extra</li>
+      <li>Cut for the platform</li>
+      <li>Ends on a real question</li>
+      <li>Facts and tags checked</li>
+    </ul></div>
+    <div><h4>Brand voice</h4><ul>
+      <li>Every trait has a &ldquo;not&rdquo;</li>
+      <li>Real before-and-after lines</li>
+      <li>Hard moments planned</li>
+      <li>Fits on one page</li>
+      <li>Founder says &ldquo;that&rsquo;s us&rdquo;</li>
+    </ul></div>
+    <div><h4>Your voice</h4><ul>
+      <li>Read aloud, no stumbles</li>
+      <li>Short next to long</li>
+      <li>Hedges and filler cut</li>
+      <li>Still sounds like you</li>
+      <li>Cut the first line: still works?</li>
+    </ul></div>
+  </div>
+
+  <div class="hot"><span class="tag">Hot take</span>
+    <p>AI can draft it. Only a person can check it. Every fact, price and claim gets read by a
+    human.</p></div>
+</section>
+
+<footer>
+  Written for the writers on my team, and free for anyone else who wants it.
+  <a href="../index.html">Mehr Patni</a>, Dubai.
+</footer>
+
+</div>
+</body>
+</html>
