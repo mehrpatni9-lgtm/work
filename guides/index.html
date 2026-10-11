@@ -21,6 +21,7 @@
   --s6:2rem; --s7:3rem; --s8:4.5rem; --r:18px;
 }
 *{box-sizing:border-box}
+html{overflow-x:clip}
 body{margin:0;background:var(--paper);color:var(--body);
   font-family:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
   font-size:1.02rem;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -69,7 +70,7 @@ h1{font-size:clamp(2.2rem,5.6vw,3.4rem);font-weight:600;letter-spacing:-.035em;l
 .k::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);
   transform:scaleY(0);transform-origin:50% 0;transition:transform .24s cubic-bezier(.2,.8,.2,1)}
 .k:hover::before{transform:scaleY(1)}
-.k .tag{font-size:.62rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+.k .tag{font-size:.7rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
   color:var(--accent);margin-bottom:var(--s3)}
 .k h3{font-size:1.16rem;letter-spacing:-.018em;line-height:1.22;color:var(--ink)}
 .k .num{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line);
@@ -112,6 +113,8 @@ h1{font-size:clamp(2.2rem,5.6vw,3.4rem);font-weight:600;letter-spacing:-.035em;l
 
 /* Phones get the reel. */
 @media(max-width:52rem){
+  .k .tag{font-size:.74rem}
+  .k li{font-size:.94rem}
   .deck{display:flex;gap:var(--s3);overflow-x:auto;scroll-snap-type:x mandatory;
     scrollbar-width:none;-webkit-overflow-scrolling:touch;
     padding:var(--s2) var(--s5) var(--s5);margin-inline:calc(var(--s5) * -1);

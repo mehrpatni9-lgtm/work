@@ -23,9 +23,10 @@
   --t-h2:clamp(1.6rem,3.2vw,2.35rem); --t-small:.86rem; --t-micro:.72rem;
 }
 *{box-sizing:border-box}
+html{overflow-x:clip}
 body{margin:0;background:var(--paper);color:var(--ink);
   font-family:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
-  font-size:1.02rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+  font-size:1.02rem;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0}
 a{color:var(--accent)}
 .wrap{max-width:62rem;margin:0 auto;padding:0 var(--s5)}
@@ -110,6 +111,16 @@ button.ghost{background:var(--white);color:var(--ink);border:1px solid var(--lin
 /* A long job title runs past its own underline, so the type steps down. */
 .bigblank input.long{font-size:clamp(1.2rem,2.6vw,1.9rem)}
 .bigblank input.xlong{font-size:clamp(1.05rem,2.1vw,1.5rem)}
+/* On a narrow screen the blank gets its own line and a smaller face, so a
+   long job title still fits between the dashes. */
+@media(max-width:34rem){
+  .bigblank{display:block}
+  .bigblank .pre{font-size:1.5rem;display:block;margin-bottom:.2rem}
+  .bigblank .field{width:100%}
+  .bigblank input{font-size:1.35rem}
+  .bigblank input.long{font-size:1.15rem}
+  .bigblank input.xlong{font-size:1rem}
+}
 .read{margin:var(--s4) 0 0;font-family:Caveat,cursive;font-size:1.45rem;color:var(--accent);
   transform:rotate(-1deg);transform-origin:0 50%}
 
