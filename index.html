@@ -334,6 +334,12 @@ a.chip:hover{border-color:var(--accent)}
 .hintrow svg{width:.95rem;height:.95rem}
 .back{transform:rotateY(180deg)}
 .dg{display:block;width:100%;height:auto;max-height:100%}
+/* The six channels are the third card's drawing, so they live inside a face. */
+.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5) var(--s4);
+  width:100%;align-content:center}
+.mt{display:flex;flex-direction:column;align-items:center;gap:var(--s2);
+  font-size:var(--t-small);font-weight:600;color:var(--ink);line-height:1.25;text-align:center}
+.mi{width:1.5rem;height:1.5rem;flex:none;color:var(--accent)}
 @media(prefers-reduced-motion:reduce){.dblk .inner{transition:none}}
 @media(max-width:52rem){.dgrid{grid-template-columns:1fr;gap:var(--s4)}
   .dblk{height:19rem}.mgrid{max-width:22rem;margin-inline:auto}}
