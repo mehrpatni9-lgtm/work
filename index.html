@@ -308,6 +308,11 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   font-size:.86rem;color:var(--accent);opacity:0;transform:translate(-3px,3px);
   transition:opacity .2s ease,transform .2s ease}
 .tile:hover::after{opacity:1;transform:none}
+/* No cursor, no hover: the affordance has to be visible from the start. */
+@media(hover:none){
+  .tile::before{transform:scaleY(1);opacity:.45}
+  .tile::after{opacity:.75;transform:none}
+}
 
 /* ── floating brand field ───────────────────────────────────────────────── */
 /* Tiles drift as you scroll. Only transform moves, so it stays on the
@@ -325,8 +330,8 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   transition:opacity .28s ease,transform .38s cubic-bezier(.2,.8,.2,1);pointer-events:none}
 .cue svg{width:1.4rem;height:1.4rem}
 .cue b{font-weight:600}
-.cue-t{display:none}
-@media(hover:none){ .cue-h{display:none} .cue-t{display:inline} }
+.cue-t,.cue .ic-t{display:none}
+@media(hover:none){ .cue-h,.cue .ic-h{display:none} .cue-t{display:inline} .cue .ic-t{display:block} }
 .hand.open .cue{opacity:0;transform:translateY(-7rem) rotate(-2deg)}
 @media(hover:hover){
   .hand:hover .cue{opacity:0;transform:translateY(-7rem) rotate(-2deg)}
@@ -371,26 +376,6 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 }
 @media(max-width:24rem){ .hand{grid-template-columns:repeat(3,1fr)} }
 @media(prefers-reduced-motion:reduce){.chip{transition:none}}
-.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));gap:var(--s3)}
-/* The archive is a long list, so each tile has to be readable at a glance: a
-   serif title doing the naming, the line under it in grey, an arrow on hover. */
-.tile{position:relative;background:var(--white);border:1px solid var(--line);
-  border-radius:var(--r);padding:var(--s5) var(--s5) var(--s6);text-decoration:none;
-  color:inherit;display:flex;flex-direction:column;gap:var(--s2);overflow:hidden;
-  transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease}
-.tile::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:var(--accent);transform:scaleY(0);transform-origin:50% 0;
-  transition:transform .22s cubic-bezier(.2,.8,.2,1)}
-.tile:hover{border-color:var(--accent);transform:translateY(-2px);
-  box-shadow:0 1rem 2.2rem -1.6rem rgba(15,30,51,.5)}
-.tile:hover::before{transform:scaleY(1)}
-.tile .t{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.08rem;
-  letter-spacing:-.016em;line-height:1.25;color:var(--ink)}
-.tile .s{font-size:var(--t-small);color:var(--muted);line-height:1.5}
-.tile::after{content:"\2197";position:absolute;right:var(--s4);bottom:var(--s3);
-  font-size:.86rem;color:var(--accent);opacity:0;transform:translate(-3px,3px);
-  transition:opacity .2s ease,transform .2s ease}
-.tile:hover::after{opacity:1;transform:none}
 
 /* ── the playbook: three cards that turn ────────────────────────────────
    The title is the whole front. The diagram is behind it, so the section
@@ -411,8 +396,11 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   border-radius:var(--r);border:1px solid var(--line);background:var(--white);
   display:grid;place-items:center;padding:var(--s5);
   box-shadow:0 .8rem 2rem -1.6rem rgba(15,30,51,.5)}
-.front .t{display:block;font-family:Inter,system-ui,sans-serif;font-size:1.06rem;
-  font-weight:600;letter-spacing:-.005em;line-height:1.42;color:var(--ink);max-width:19ch}
+.front .t{display:block;font-family:Caveat,"Bradley Hand","Segoe Script",cursive;
+  font-weight:600;font-size:clamp(1.6rem,2.2vw,1.95rem);letter-spacing:0;line-height:1.18;
+  color:var(--accent);max-width:17ch}
+.front .t::before{content:"\201C"}
+.front .t::after{content:"\201D"}
 .hintrow{position:absolute;left:0;right:0;bottom:var(--s5);display:flex;align-items:center;
   justify-content:center;gap:var(--s2);font-size:var(--t-micro);font-weight:700;
   letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
@@ -896,7 +884,7 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
          is no cursor, so the brands are a reveal rather than wallpaper. -->
     <div class="hand rv" id="hand" role="button" tabindex="0" aria-label="Show the brands">
       <span class="cue">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.8 17 12.4l-4.6.9 2.5 5.2-2 1-2.5-5.2-3.2 3.4z"/></svg>
+        <svg class="ic-h" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.8 17 12.4l-4.6.9 2.5 5.2-2 1-2.5-5.2-3.2 3.4z"/></svg><svg class="ic-t" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 9.2V4.1a2 2 0 1 1 4 0v7.4"/><path d="M14 11.1v-.9a2 2 0 1 1 4 0v1.3"/><path d="M18 11.9a2 2 0 1 1 4 0v2.6a7.5 7.5 0 0 1-7.5 7.5h-1.3c-2.2 0-3.7-.8-5.1-2.2l-3.4-3.4a2 2 0 0 1 2.8-2.8l2.5 2.3"/></svg>
         <b class="cue-h">Hover</b><b class="cue-t">Tap</b>
       </span>
     </div>
@@ -1119,16 +1107,16 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
   var hand = document.getElementById('hand'); if (!hand) return;
   var L = [['asianpaints','Asian Paints','fill','https://www.asianpaints.com'],
            ['nilkamal','Nilkamal Sleep','','https://nilkamalsleep.com'],
-           ['tata','Tata Group','',null],
+           ['tata','Tata Group','','https://www.tata.com'],
            ['interactiveavenues','Interactive Avenues','','https://www.interactiveavenues.com'],
-           ['royalenfield','Royal Enfield','',null],
-           ['amazon','Amazon','fill',null],
-           ['listerine','Listerine','',null],
-           ['magna','Magna Education','',null],
+           ['royalenfield','Royal Enfield','','https://www.royalenfield.com'],
+           ['amazon','Amazon','fill','https://www.amazon.in'],
+           ['listerine','Listerine','','https://www.listerine.in'],
+           ['magna','Magna Education','','https://www.magna.vip'],
            ['wahed','Wahed','','https://www.wahed.com'],
-           ['bergner','Bergner','',null],
-           ['stratos','Stratos Technologies','fill','https://drive.google.com/drive/folders/1eDyrwcNb75qUWuG4n5Z_rqqX9adM2IAQ?usp=drive_link'],
-           ['ivory','Ivory','fill',null]];
+           ['bergner','Bergner','','https://bergnerhome.in'],
+           ['stratos','Stratos Technologies','fill','https://stratostech.academy'],
+           ['ivory','Ivory','fill','https://www.liveivory.com']];
   var n = L.length;
   L.forEach(function (b, i) {
     var f = b[0], name = b[1], extra = b[2], href = b[3];
