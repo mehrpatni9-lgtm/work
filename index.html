@@ -101,7 +101,7 @@ header{padding:var(--s7) 0 0;position:relative}
 /* A handwritten line that reads the visitor's own clock. The HTML ships "Hey there"
    so the greeting is never blank if the script does not run. */
 .hello{font-family:Caveat,"Bradley Hand","Segoe Script",cursive;font-weight:600;
-  font-size:clamp(1.45rem,2.5vw,1.95rem);line-height:1.15;color:var(--accent);
+  font-size:clamp(1.3rem,2.1vw,1.65rem);line-height:1.15;color:var(--accent);
   margin:0 0 var(--s5);transform:rotate(-1.6deg);transform-origin:0 100%}
 /* "Good" is fixed. The time word turns into the right one: the first fades up and
    out while the real one fades up and in, and the box animates between the two
@@ -121,8 +121,8 @@ header{padding:var(--s7) 0 0;position:relative}
 }
 /* The name signs off the note instead of titling it. It is still the h1, so the
    surname is carried for search and screen readers without being set. */
-.sign{font-size:clamp(1.9rem,3.2vw,2.6rem);font-weight:600;letter-spacing:-.035em;
-  line-height:1;color:var(--ink);margin:var(--s4) 0 0}
+.sign{font-size:1.2rem;font-weight:500;letter-spacing:-.015em;line-height:1;
+  color:var(--faint);margin:var(--s5) 0 0}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
 @media(prefers-reduced-motion:reduce){
@@ -130,8 +130,8 @@ header{padding:var(--s7) 0 0;position:relative}
   .js .real{opacity:1;transform:none}
 }
 .name{font-size:clamp(2.6rem,6vw,4.4rem);font-weight:600;letter-spacing:-.04em;line-height:1}
-.role{font-size:clamp(1.12rem,1.65vw,1.4rem);color:var(--muted);margin:var(--s4) 0 0;line-height:1.45}
-.role b{color:var(--ink);font-weight:600}
+.role{font-size:clamp(1.22rem,1.95vw,1.65rem);color:var(--muted);margin:var(--s5) 0 0;line-height:1.42;max-width:26ch}
+.role b{color:var(--ink);font-weight:600;letter-spacing:-.012em}
 .hfig{position:relative}
 .keys{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s5) 0 0;padding:0;list-style:none}
 .keys li{font-size:var(--t-small);font-weight:600;color:var(--ink);
@@ -568,7 +568,7 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
       <a href="#ai"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>AI</span></a>
       <a href="#content"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>Content &amp; Community</span></a>
       <a href="#gtm"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>GTM</span></a>
-      <a class="try" href="promptly/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4 13.7 8.3 18.6 10 13.7 11.7 12 16.6 10.3 11.7 5.4 10l4.9-1.7z"/><path d="M18.4 15.6l.6 1.8 1.8.6-1.8.6-.6 1.8-.6-1.8-1.8-.6 1.8-.6z"/></svg><span>Try Promptly<i>an AI tool I built</i></span></a>
+      <a class="try" href="promptly/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4 13.7 8.3 18.6 10 13.7 11.7 12 16.6 10.3 11.7 5.4 10l4.9-1.7z"/><path d="M18.4 15.6l.6 1.8 1.8.6-1.8.6-.6 1.8-.6-1.8-1.8-.6 1.8-.6z"/></svg><span>Try Promptly<i>AI tool I built</i></span></a>
     </div>
   </div>
 </nav>
@@ -899,27 +899,27 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
       <a class="tile rv" href="guides/index.html">
         <span class="t">Guides</span><span class="s">For my junior writers. Websites, social, brand voice and your own, with prompts to paste.</span></a>
       <a class="tile rv" href="decks/Fello GTM teardown.pdf" target="_blank" rel="noopener">
-        <span class="t">Pitch deck &middot; Fello</span><span class="s">A GTM teardown of an AI real-estate platform, built unasked.</span></a>
+        <span class="t">Pitch Deck &middot; Fello</span><span class="s">A GTM teardown of an AI real-estate platform, built unasked.</span></a>
       <a class="tile rv" href="decks/Canva Gulf Layer.pdf" target="_blank" rel="noopener">
-        <span class="t">Pitch deck &middot; The Gulf Layer</span><span class="s">A content audit of a design platform's Arabic library, built from its own sitemap.</span></a>
+        <span class="t">Pitch Deck &middot; The Gulf Layer</span><span class="s">A content audit of a design platform's Arabic library, built from its own sitemap.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/1o7cRe7fBhzeNXSJ8paDkvA7reOQVqV7A?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Asian Paints website</span><span class="s">The content repository, built on Adobe Experience Manager.</span></a>
+        <span class="t">Asian Paints Website</span><span class="s">The content repository, built on Adobe Experience Manager.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/1V437bPIIC5VPXYGeZK_FCIIAuf9d1nbK?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Product descriptions</span><span class="s">Product pages written to close the sale.</span></a>
+        <span class="t">Product Descriptions</span><span class="s">Product pages written to close the sale.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/1_1hVtfk0_9Srswh_dcT0y27ddcDzzrZg?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Amazon A+ content</span><span class="s">Everest, Freudenberg Gala and Bergner, on Amazon.</span></a>
+        <span class="t">Amazon A+ Content</span><span class="s">Everest, Freudenberg Gala and Bergner, on Amazon.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/1capZPr-bfMvaomaz__Od7mzBQOY9JnbE?usp=drive_link" target="_blank" rel="noopener">
         <span class="t">Editorial</span><span class="s">Wahed's journal. SEC-compliant financial writing for 400,000+ investors.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/1LJg8VmSeoRy0F6eUHvTB7qHOIAwvjnqg?usp=drive_link" target="_blank" rel="noopener">
         <span class="t">E-books &amp; Playbook</span><span class="s">The Brain Health Playbook and Brain Health Matters, built as lead engines.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/1AZrDqWWB5tC_P-2nm-KRv_N6syAt2ULr?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Health reports</span><span class="s">Clinical cognitive reporting, written for patients and clinicians.</span></a>
+        <span class="t">Health Reports</span><span class="s">Clinical cognitive reporting, written for patients and clinicians.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/1wNaPOTpZj1UMvn6Wb7d6AanKS1BhoW0d?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">YPO founder voice</span><span class="s">Writing in a founder&rsquo;s voice for his YPO network.</span></a>
+        <span class="t">YPO Founder Voice</span><span class="s">Writing in a founder&rsquo;s voice for his YPO network.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/1mfgGviW3W7e4ti4ND6HZrgKyHv3xq94U?usp=drive_link" target="_blank" rel="noopener">
         <span class="t">Brochures</span><span class="s">Print and collateral.</span></a>
       <a class="tile rv" href="https://drive.google.com/drive/folders/12KUUIv7dh-fYopnL2ll5lVv6x9ziS2ub?usp=drive_link" target="_blank" rel="noopener">
-        <span class="t">Brand comic mascot</span><span class="s">Character, illustration and story writing.</span></a>
+        <span class="t">Brand Comic Mascot</span><span class="s">Character, illustration and story writing.</span></a>
     </div>
   </section>
 
