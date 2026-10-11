@@ -909,7 +909,10 @@ a.chip:hover{border-color:var(--accent)}
 // Highlight the nav link for whichever section you're looking at.
 (function () {
   var nav = document.getElementById('nav');
-  var links = [].slice.call(document.querySelectorAll('.nlinks a'));
+  // Hash links only. The Promptly link points at another page, and passing
+  // "promptly/index.html" to querySelector throws, which took the reveal
+  // observer in this same script block down with it.
+  var links = [].slice.call(document.querySelectorAll('.nlinks a[href^="#"]'));
   var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
   if (!('IntersectionObserver' in window)) return;
 
@@ -924,8 +927,10 @@ a.chip:hover{border-color:var(--accent)}
   addEventListener('scroll', function () { nav.classList.toggle('stuck', scrollY > 8); }, { passive: true });
 })();
 
-// Reveal on scroll. Anything still hidden when JS is off stays visible via the
-// reduced-motion rule, so this can only ever add polish, never remove content.
+</script>
+<script>
+// Reveal on scroll, deliberately in its own script tag: an exception anywhere
+// above must never be able to leave the page blank.
 (function () {
   var items = [].slice.call(document.querySelectorAll('.rv'));
   function showAll() { items.forEach(function (i) { i.classList.add('in'); }); }
