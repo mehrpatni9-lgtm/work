@@ -230,6 +230,13 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
 .filters button:hover{border-color:var(--accent);color:var(--ink)}
 .filters button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .card[hidden]{display:none!important}
+/* Three cards on load. The rest are a click away, so the section opens short. */
+.moreline{display:flex;justify-content:center;margin-top:var(--s6)}
+.morebtn{appearance:none;cursor:pointer;font:inherit;font-size:var(--t-small);font-weight:600;
+  color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:999px;
+  padding:.75rem 1.6rem;min-height:44px;transition:border-color .18s ease,transform .18s ease}
+.morebtn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.moreline[hidden]{display:none!important}
 
 /* ── gtm ────────────────────────────────────────────────────────────────── */
 .probs{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:var(--s6);align-items:stretch}
@@ -711,6 +718,7 @@ a.chip:hover{border-color:var(--accent)}
 
 
     </div>
+    <div class="moreline"><button class="morebtn" id="more" type="button">See more</button></div>
   </section>
 
   <!-- ─────────── 03 gtm ─────────── -->
@@ -908,10 +916,34 @@ a.chip:hover{border-color:var(--accent)}
     var b = e.target.closest('button'); if (!b) return;
     var f = b.dataset.f;
     bar.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
-    document.querySelectorAll('#workgrid .card').forEach(function (c) {
-      c.hidden = !(f === 'all' || c.dataset.cat === f);
-    });
+    show(f);
   });
+
+  // Three on load, the rest behind a click, per filter.
+  var LIMIT = 3, filter = 'shortform', open = false;
+  function show(f) {
+    filter = f; open = false; paint();
+  }
+  function paint() {
+    var n = 0, hidden = 0;
+    document.querySelectorAll('#workgrid .card').forEach(function (c) {
+      var inFilter = filter === 'all' || c.dataset.cat === filter;
+      if (!inFilter) { c.hidden = true; return; }
+      n++;
+      var over = !open && n > LIMIT;
+      c.hidden = over;
+      if (over) hidden++;
+    });
+    var line = document.querySelector('.moreline'), btn = document.getElementById('more');
+    if (!line) return;
+    line.hidden = hidden === 0 && open === false ? true : false;
+    if (hidden > 0) { line.hidden = false; btn.textContent = 'See ' + hidden + ' more'; }
+    else if (open) { line.hidden = false; btn.textContent = 'Show less'; }
+    else line.hidden = true;
+  }
+  var mb = document.getElementById('more');
+  if (mb) mb.addEventListener('click', function () { open = !open; paint(); });
+  show('shortform');
 })();
 
 // Highlight the nav link for whichever section you're looking at.

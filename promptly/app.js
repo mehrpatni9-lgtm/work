@@ -143,7 +143,8 @@ refuse,
     var roleLabel = typed;
     var ctx = $('ctx').value.trim();
     var jobs = state.jobs.slice().sort(function (a, b) { return JOBS[b].hours - JOBS[a].hours; });
-    var hours = jobs.reduce(function (n, id) { return n + JOBS[id].hours; }, 0);
+    var top = jobs.slice(0, 3);          // the sheet only ever argues for three
+    var hours = top.reduce(function (n, id) { return n + JOBS[id].hours; }, 0);
 
     var out = '';
     out += '<div class="top"><div><h2>' + (isOther ? 'Build your own chief of staff' : 'Your AI set-up') + '</h2>' +
@@ -165,34 +166,60 @@ refuse,
       out += '<div class="blk"><h3>The two loops that make it trustworthy</h3><ul class="keep">' +
         LOOPS.map(function (l) { return '<li>' + TICK + '<div><b>' + esc(l.n) + '.</b> ' + esc(l.d) + '</div></li>'; }).join('') +
         '</ul></div>';
-      out += '<div class="blk"><h3>Skills worth having in any job</h3><div class="sk">' +
-        GENERIC.map(function (g) { return skillCard(g[0], g[1], g[2]); }).join('') + '</div></div>';
+      out += '<div class="blk"><h3>Install these three</h3><div class="sk">' +
+        GENERIC.slice(0, 3).map(function (g) { return skillCard(g[0], g[1], g[2]); }).join('') + '</div></div>';
+      out += '<div class="blk"><h3>Two worth your time</h3><div class="sk">' +
+        ['wondel', 'corey'].map(function (r) {
+          return '<a href="' + REPOS[r].url + '" target="_blank" rel="noopener">' +
+            '<code>' + esc(REPOS[r].name) + '</code>' +
+            '<div class="d">' + REPOS[r].count + ' free skills, MIT licensed</div>' +
+            '<div class="r">by ' + esc(REPOS[r].by) + '</div></a>';
+        }).join('') + '</div></div>';
       out += '<div class="closer">The architecture is the part that works in any job. ' +
         'Everything above it is detail you know better than I do.</div>';
     } else {
       /* 2. what to hand over, ranked */
-      out += '<div class="blk"><h3>Hand these over first, in this order</h3><ol class="steps">' +
-        jobs.map(function (id) {
+      out += '<div class="blk"><h3>Hand these over first</h3><ol class="steps">' +
+        top.map(function (id) {
           return '<li><div><b>' + esc(JOBS[id].label) + '</b><p>' + esc(JOBS[id].hand) +
                  ' <strong>About ' + JOBS[id].hours + ' hours a week.</strong></p></div></li>';
         }).join('') + '</ol>' +
         '<p class="hint" style="margin-top:var(--s4)">Roughly <b>' + hours +
-        ' hours a week</b> if you set all of it up. Nobody does it all at once. Start at the top.</p></div>';
+        ' hours a week</b> once these three are running. Start at the top, not everywhere.</p></div>';
 
-      /* 3. named skills */
-      var seen = {}, cards = [];
-      jobs.forEach(function (id) {
-        JOBS[id].skills.forEach(function (s) {
-          var k = s[0] + '/' + s[1];
-          if (!seen[k]) { seen[k] = 1; cards.push(skillCard(s[0], s[1], JOBS[id].label)); }
+      /* 3. three skills, never more. A list of twelve is a list nobody installs. */
+      var seen = {}, picked = [];
+      jobs.forEach(function (id) {                 // one from each job first
+        var s0 = JOBS[id].skills[0], k = s0[0] + '/' + s0[1];
+        if (!seen[k] && picked.length < 3) { seen[k] = 1; picked.push([s0, JOBS[id].label]); }
+      });
+      jobs.forEach(function (id) {                 // then fill from the rest
+        JOBS[id].skills.forEach(function (sk) {
+          var k = sk[0] + '/' + sk[1];
+          if (!seen[k] && picked.length < 3) { seen[k] = 1; picked.push([sk, JOBS[id].label]); }
         });
       });
-      out += '<div class="blk"><h3>' + cards.length + ' skills to install, all free</h3>' +
-        '<div class="sk">' + cards.join('') + '</div></div>';
+      out += '<div class="blk"><h3>Install these three</h3><div class="sk">' +
+        picked.map(function (x) { return skillCard(x[0][0], x[0][1], x[1]); }).join('') +
+        '</div></div>';
+
+      /* Two places to go next, chosen from the repos the skills came from. */
+      var repos = [], rseen = {};
+      picked.forEach(function (x) { if (!rseen[x[0][0]]) { rseen[x[0][0]] = 1; repos.push(x[0][0]); } });
+      ['corey', 'wondel', 'notfair', 'lucas'].forEach(function (r) {
+        if (!rseen[r] && repos.length < 2) { rseen[r] = 1; repos.push(r); }
+      });
+      out += '<div class="blk"><h3>Two worth your time</h3><div class="sk">' +
+        repos.slice(0, 2).map(function (r) {
+          return '<a href="' + REPOS[r].url + '" target="_blank" rel="noopener">' +
+            '<code>' + esc(REPOS[r].name) + '</code>' +
+            '<div class="d">' + REPOS[r].count + ' free skills, MIT licensed</div>' +
+            '<div class="r">by ' + esc(REPOS[r].by) + '</div></a>';
+        }).join('') + '</div></div>';
 
       /* 4. the part nobody else writes */
       out += '<div class="blk"><h3>Keep this off the machine</h3><ul class="keep">' +
-        jobs.map(function (id) {
+        top.map(function (id) {
           return '<li>' + TICK + '<div><b>' + esc(JOBS[id].label) + '.</b> ' + esc(JOBS[id].keep) + '</div></li>';
         }).join('') + '</ul></div>';
 
