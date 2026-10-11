@@ -142,20 +142,22 @@ header{padding:var(--s7) 0 0;position:relative}
 .keys li{font-size:var(--t-small);font-weight:600;color:var(--ink);
   background:var(--accent-soft);border:1px solid #D2E2F8;border-radius:999px;
   padding:.42rem .85rem}
-/* On a phone the pills were eating a whole screen, so only the three that carry
-   evidence survive, with the number first. The rest are in the nav or the work. */
+/* On a phone the pills were eating a whole screen, so only the one that carries
+   proof survives. The rest are in the nav or further down in the work itself. */
 @media(max-width:60rem){
-  .keys li:nth-child(-n+5){display:none}
-  .keys li:nth-child(8){order:-1}
+  .keys li:not(:nth-child(8)){display:none}
 }
 /* Above 60rem the pills leave the flow and sit in the four empty corners of the
    portrait panel. The silhouette is contain-fitted to ~74% of the square's width,
    so the corners are blue ground and nothing lands on her face. */
 @media(min-width:60.0625rem){
   .keys{display:block;margin:0}
+  /* Seven of these are claims anyone could type. The eighth is a fact, so it
+     takes the navy and the extra size and the eye goes there first. */
   .keys li{position:absolute;white-space:nowrap;z-index:2;
-    background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-    border-color:rgba(255,255,255,.7);box-shadow:0 .55rem 1.5rem rgba(15,30,51,.12)}
+    font-size:.82rem;font-weight:500;color:var(--body);
+    background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    border-color:rgba(255,255,255,.8);box-shadow:0 .4rem 1.1rem rgba(15,30,51,.08)}
   .keys li:nth-child(1){top:4%;left:2%}
   .keys li:nth-child(2){top:16%;left:-4%}
   .keys li:nth-child(3){top:4%;right:2%}
@@ -165,22 +167,28 @@ header{padding:var(--s7) 0 0;position:relative}
   .keys li:nth-child(7){bottom:16%;left:-4%}
   /* The centred pill uses the standalone translate property, not transform, so
      the float animation below can own transform without fighting the centring. */
-  .keys li:nth-child(8){bottom:2%;left:50%;translate:-50% 0}
+  .keys li:nth-child(8){bottom:2%;left:50%;translate:-50% 0;
+    font-size:.95rem;font-weight:600;color:#fff;padding:.58rem 1.15rem;
+    background:var(--ink);border-color:var(--ink);
+    box-shadow:0 .9rem 2.2rem rgba(15,30,51,.3)}
 
   /* Each pill drifts on its own clock. Different durations and delays, none of
      them whole multiples of each other, so they never fall into step. */
   .keys li{animation:bob var(--dur,6s) var(--del,0s) ease-in-out infinite alternate;
     transition:scale .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease}
   .keys li:hover{scale:1.05;box-shadow:0 .8rem 2rem rgba(15,30,51,.18)}
-  .keys li:nth-child(1){--dur:5.2s;--del:0s;   --bob:-8px}
-  .keys li:nth-child(2){--dur:6.1s;--del:.45s; --bob:-6px}
-  .keys li:nth-child(3){--dur:4.9s;--del:.9s;  --bob:-7px}
-  .keys li:nth-child(4){--dur:6.7s;--del:.2s;  --bob:-9px}
-  .keys li:nth-child(5){--dur:5.6s;--del:1.1s; --bob:-6px}
-  .keys li:nth-child(6){--dur:7.1s;--del:.6s;  --bob:-8px}
-  .keys li:nth-child(7){--dur:5.0s;--del:1.4s; --bob:-7px}
-  .keys li:nth-child(8){--dur:6.9s;--del:1.2s;--bob:-7px}
-  @keyframes bob{from{transform:translateY(0)}to{transform:translateY(var(--bob,-7px))}}
+  .keys li:nth-child(1){--dur:5.2s;--del:0s;   --bob:-15px; --rot:-1.4deg}
+  .keys li:nth-child(2){--dur:6.1s;--del:.45s; --bob:-12px; --rot:1.2deg}
+  .keys li:nth-child(3){--dur:4.9s;--del:.9s;  --bob:-14px; --rot:1.5deg}
+  .keys li:nth-child(4){--dur:6.7s;--del:.2s;  --bob:-17px; --rot:-1.1deg}
+  .keys li:nth-child(5){--dur:5.6s;--del:1.1s; --bob:-12px; --rot:-1.6deg}
+  .keys li:nth-child(6){--dur:7.1s;--del:.6s;  --bob:-15px; --rot:1.3deg}
+  .keys li:nth-child(7){--dur:5.0s;--del:1.4s; --bob:-13px; --rot:1.1deg}
+  .keys li:nth-child(8){--dur:6.9s;--del:1.2s; --bob:-14px; --rot:-1deg}
+  @keyframes bob{
+    from{transform:translateY(0) rotate(0deg)}
+    to{transform:translateY(var(--bob,-14px)) rotate(var(--rot,0deg))}
+  }
   @media(prefers-reduced-motion:reduce){.keys li{animation:none}}
 }
 
@@ -588,14 +596,14 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
         <img src="mehr-cut.png" alt="Mehr Patni" width="644" height="875" fetchpriority="high">
       </figure>
       <ul class="keys">
-        <li>Creative thinking</li>
-        <li>AI systems builder</li>
+        <li>Creative Thinking</li>
+        <li>AI Systems Builder</li>
         <li>Copywriting</li>
-        <li>Performance content</li>
-        <li>UI/UX expert</li>
-        <li>Consumer psychology</li>
-        <li>Campaign analytics</li>
-        <li>$1M raised on television</li>
+        <li>Performance Content</li>
+        <li>UI/UX Expert</li>
+        <li>Consumer Psychology</li>
+        <li>Campaign Analytics</li>
+        <li>$1M Raised on Television</li>
       </ul>
       </div>
     </div>
