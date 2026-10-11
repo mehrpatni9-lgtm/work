@@ -70,6 +70,15 @@ nav::after{content:"";position:absolute;top:100%;left:0;right:0;height:1.75rem;
 .nlinks a:hover .fld{transform:translateY(-1px) scale(1.06)}
 .nlinks a.on .fld .bk{fill:#13529E}
 .nlinks a.on .fld .ft{fill:#4FAEEA}
+/* The tool is the one thing in the bar that leaves this page, so it is the
+   only coloured item in it. */
+.nlinks a.try{background:var(--accent);color:#fff;font-weight:600;border-radius:999px;
+  padding:var(--s2) var(--s4);margin-left:var(--s2)}
+.nlinks a.try:hover{background:#1560BC;color:#fff}
+.nlinks a.try svg{width:1rem;height:1rem;flex:none}
+.nlinks a.try i{font-style:normal;font-weight:500;opacity:.78;margin-left:.42rem}
+.nlinks a.try i::before{content:"\00b7";margin-right:.42rem;opacity:.7}
+@media(max-width:64rem){.nlinks a.try i{display:none}}
 
 /* ── hero: an asymmetric split. The words get the page, the photograph gets
    the edge. Nothing is typeset on top of her face. ───────────────────────── */
@@ -418,6 +427,8 @@ a.chip:hover{border-color:var(--accent)}
      to the three labels, which are the actual navigation. */
   .nme{display:none}
   .nlinks{width:100%;justify-content:space-between;gap:0}
+  .nlinks a.try{order:-1;width:100%;justify-content:center;margin:0 0 var(--s2)}
+  .nlinks a.try i{display:inline}
   .nlinks a{padding:.6rem .5rem;font-size:.76rem;min-height:44px}
   .fld{width:1rem}
   header{padding:var(--s5) 0 0}
@@ -458,6 +469,7 @@ a.chip:hover{border-color:var(--accent)}
       <a href="#ai"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>AI</span></a>
       <a href="#content"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>Content &amp; community</span></a>
       <a href="#gtm"><svg class="fld" viewBox="0 0 28 22" aria-hidden="true"><path class="bk" d="M1 4.6A2.6 2.6 0 013.6 2h6.9l2.3 2.5h11.6A2.6 2.6 0 0127 7.1V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V4.6z"/><path class="ft" d="M1 8.2h26V18a2.6 2.6 0 01-2.6 2.6H3.6A2.6 2.6 0 011 18V8.2z"/></svg><span>GTM</span></a>
+      <a class="try" href="promptly/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4 13.7 8.3 18.6 10 13.7 11.7 12 16.6 10.3 11.7 5.4 10l4.9-1.7z"/><path d="M18.4 15.6l.6 1.8 1.8.6-1.8.6-.6 1.8-.6-1.8-1.8-.6 1.8-.6z"/></svg><span>Try Promptly<i>an AI tool I built</i></span></a>
     </div>
   </div>
 </nav>

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Promptly, by Mehr Patni</title>
+<meta name="description" content="Tell Promptly what you do. It hands back the opening prompt for your AI agent, the free skills worth installing, and the part of your job you should keep off the machine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --paper-2:#E9EFF7; --ink:#0F1E33; --body:#2B3C53;
+  --muted:#5C6E85; --faint:#8295AB;
+  --accent:#1A6FD4; --accent-soft:#E4EEFC;
+  --line:#DBE3EE; --white:#fff;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem;
+  --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --r:14px;
+  --t-h2:clamp(1.6rem,3.2vw,2.35rem); --t-small:.86rem; --t-micro:.72rem;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:1.02rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0}
+a{color:var(--accent)}
+.wrap{max-width:62rem;margin:0 auto;padding:0 var(--s5)}
+
+/* ── bar ─────────────────────────────────────────────────────────────── */
+.bar{position:sticky;top:0;z-index:20;background:rgba(246,248,251,.82);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s4);min-height:3.4rem}
+.back{display:inline-flex;align-items:center;gap:var(--s2);font-size:var(--t-small);
+  font-weight:600;text-decoration:none;color:var(--accent)}
+.mark{font-family:Fraunces;font-weight:600;font-size:1rem;letter-spacing:-.02em}
+.mark span{font-family:Inter;font-weight:500;font-size:.8rem;color:var(--muted)}
+.mark span::before{content:"\00b7";margin:0 .45rem;color:var(--faint)}
+
+/* ── hero ────────────────────────────────────────────────────────────── */
+header{padding:var(--s8) 0 var(--s7)}
+.eyebrow{font-size:var(--t-micro);font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 var(--s3)}
+h1{font-size:clamp(2.6rem,7vw,4.4rem);font-weight:600;letter-spacing:-.04em;line-height:1}
+.lede{font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--muted);max-width:46ch;
+  margin:var(--s5) 0 0;line-height:1.5}
+.lede b{color:var(--ink);font-weight:600}
+
+section{padding:var(--s7) 0 0}
+h2{font-size:var(--t-h2);letter-spacing:-.025em;line-height:1.1}
+h2 em{font-style:italic;font-weight:400;color:var(--faint)}
+.snum{display:block;font-size:var(--t-micro);font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:var(--s3)}
+
+/* ── what's inside ───────────────────────────────────────────────────── */
+.inside{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));
+  gap:var(--s4);margin-top:var(--s6)}
+.ins{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  padding:var(--s5)}
+.ins .ico{width:1.6rem;height:1.6rem;color:var(--accent);margin-bottom:var(--s3)}
+.ins h3{font-size:1.04rem;letter-spacing:-.015em;line-height:1.25}
+.ins p{margin:var(--s2) 0 0;font-size:var(--t-small);color:var(--muted);line-height:1.5}
+
+/* ── the form ────────────────────────────────────────────────────────── */
+.step{margin-top:var(--s6)}
+.step .n{display:inline-flex;align-items:center;gap:var(--s2);font-size:var(--t-micro);
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:var(--s3)}
+.opts{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.opt span{display:inline-block;padding:.6rem 1rem;border-radius:999px;cursor:pointer;
+  background:var(--white);border:1px solid var(--line);font-size:var(--t-small);
+  font-weight:600;transition:all .16s ease;min-height:44px;line-height:1.7}
+.opt input:checked + span{background:var(--accent);border-color:var(--accent);color:#fff}
+.opt input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+.opt span:hover{border-color:var(--accent)}
+.hint{font-size:var(--t-small);color:var(--muted);margin:var(--s2) 0 0}
+textarea{width:100%;min-height:5.5rem;padding:var(--s4);border-radius:var(--r);
+  border:1px solid var(--line);background:var(--white);font:inherit;font-size:var(--t-small);
+  color:var(--ink);resize:vertical}
+textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+input[type=text]{width:100%;max-width:26rem;padding:var(--s3) var(--s4);border-radius:999px;
+  border:1px solid var(--line);background:var(--white);font:inherit;font-size:var(--t-small)}
+input[type=text]:focus{outline:2px solid var(--accent);outline-offset:1px}
+.go{margin:var(--s6) 0 0;display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center}
+button.cta{appearance:none;border:0;cursor:pointer;background:var(--ink);color:var(--paper);
+  font:inherit;font-weight:600;font-size:var(--t-small);padding:.85rem 1.6rem;
+  border-radius:999px;min-height:48px;transition:transform .16s ease,opacity .16s ease}
+button.cta:hover{transform:translateY(-1px)}
+button.cta:disabled{opacity:.4;cursor:not-allowed;transform:none}
+button.ghost{background:var(--white);color:var(--ink);border:1px solid var(--line)}
+[hidden]{display:none!important}
+
+/* ── the sheet ───────────────────────────────────────────────────────── */
+#sheet{margin-top:var(--s8);background:var(--white);border:1px solid var(--line);
+  border-radius:var(--r);padding:var(--s7);scroll-margin-top:5rem}
+#sheet .top{display:flex;justify-content:space-between;align-items:flex-start;
+  gap:var(--s4);flex-wrap:wrap;padding-bottom:var(--s5);border-bottom:2px solid var(--ink)}
+#sheet .top h2{font-size:1.9rem;letter-spacing:-.03em;line-height:1.1}
+#sheet .top .who{font-size:var(--t-small);color:var(--muted);margin-top:var(--s2)}
+#sheet .stamp{font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--faint);text-align:right;line-height:1.6}
+.blk{padding-top:var(--s6)}
+.blk > h3{font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;
+  font-weight:700;color:var(--accent);font-family:Inter;margin-bottom:var(--s4)}
+pre{margin:0;background:#0F1E33;color:#DCE7F5;border-radius:10px;padding:var(--s5);
+  font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.78rem;line-height:1.65;white-space:pre-wrap;word-break:break-word;
+  max-height:30rem;overflow:auto}
+.copy{margin-top:var(--s3)}
+ol.steps,ul.plain{margin:0;padding:0;list-style:none}
+ol.steps{counter-reset:k;display:flex;flex-direction:column;gap:var(--s4)}
+ol.steps li{counter-increment:k;display:grid;grid-template-columns:1.8rem 1fr;gap:var(--s3)}
+ol.steps li::before{content:counter(k);width:1.8rem;height:1.8rem;border-radius:50%;
+  display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);
+  font-size:.74rem;font-weight:700}
+ol.steps b{display:block;font-size:.98rem;letter-spacing:-.01em}
+ol.steps p{margin:.15rem 0 0;font-size:var(--t-small);color:var(--muted);line-height:1.5}
+.sk{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:var(--s3)}
+.sk a{display:block;text-decoration:none;color:inherit;background:var(--paper);
+  border:1px solid var(--line);border-radius:10px;padding:var(--s4);
+  transition:border-color .16s ease}
+.sk a:hover{border-color:var(--accent)}
+.sk code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;
+  font-weight:500;color:var(--accent);word-break:break-all}
+.sk .d{font-size:var(--t-small);color:var(--muted);margin-top:.2rem}
+.sk .r{font-size:var(--t-micro);color:var(--faint);margin-top:var(--s2)}
+ul.keep{display:flex;flex-direction:column;gap:var(--s3)}
+ul.keep li{display:grid;grid-template-columns:1.1rem 1fr;gap:var(--s3);
+  font-size:var(--t-small);line-height:1.5}
+ul.keep svg{width:1.1rem;height:1.1rem;color:var(--accent);margin-top:.18rem}
+ul.keep b{color:var(--ink)}
+.closer{margin-top:var(--s7);padding-top:var(--s5);border-top:1px solid var(--line);
+  font-family:Fraunces;font-size:1.12rem;font-style:italic;color:var(--muted);
+  max-width:52ch;line-height:1.45}
+.after{margin-top:var(--s6);display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center}
+.ps{margin-top:var(--s8);padding:var(--s5) var(--s6);background:var(--accent-soft);
+  border-radius:var(--r);font-size:var(--t-small);color:var(--body);max-width:62ch}
+.ps b{color:var(--ink)}
+footer{padding:var(--s8) 0;margin-top:var(--s8);border-top:1px solid var(--line);
+  color:var(--muted);font-size:var(--t-small)}
+
+@media(max-width:40rem){
+  #sheet{padding:var(--s5)}
+  .wrap{padding:0 var(--s4)}
+}
+/* ── paper ───────────────────────────────────────────────────────────── */
+@media print{
+  .bar,header,#intro,#build,.after,footer,.copy,.noprint{display:none!important}
+  body{background:#fff;font-size:10.5pt}
+  #sheet{margin:0;border:0;border-radius:0;padding:0}
+  pre{background:#fff;color:#111;border:1px solid #bbb;font-size:7.6pt;max-height:none}
+  .sk a{background:#fff}
+  .blk{padding-top:14pt;break-inside:avoid}
+  @page{margin:14mm}
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="back" href="../index.html">&larr; Mehr Patni</a>
+  <span class="mark">Promptly<span>a free tool</span></span>
+</div></div>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Free, no sign up</p>
+    <h1>Promptly</h1>
+    <p class="lede">Tell it what you do. It hands back <b>the opening prompt for your AI
+    agent</b>, the free skills worth installing, and the part of your job you should keep
+    off the machine.</p>
+  </header>
+
+  <section id="intro">
+    <span class="snum">What&rsquo;s inside</span>
+    <h2>One page. <em>Four things you can use today.</em></h2>
+    <div class="inside">
+      <div class="ins">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M4 12h11M4 17.5h7"/><path d="M17.5 15.5l2.2 2.2 3.3-3.6"/></svg>
+        <h3>Your agent&rsquo;s opening prompt</h3>
+        <p>A long, specific brief written around your actual responsibilities. Copy it into
+        Claude, ChatGPT or anything else and start from there instead of from nothing.</p>
+      </div>
+      <div class="ins">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.4 4.2 4 9.6l5.4 5.4M14.6 19.8 20 14.4 14.6 9M11.2 20.5 12.8 3.5"/></svg>
+        <h3>Named skills, not repo links</h3>
+        <p>The exact skills to install for the work you listed, pulled from free, open
+        source, MIT-licensed repositories. Each one named and credited to who wrote it.</p>
+      </div>
+      <div class="ins">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.1 2"/></svg>
+        <h3>What to hand over first</h3>
+        <p>Ranked against what you ticked, with an honest estimate of the hours each one
+        gives back in a week. Start at the top, not everywhere at once.</p>
+      </div>
+      <div class="ins">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 20 6.4v5.2c0 4.5-3.2 7.8-8 9.2-4.8-1.4-8-4.7-8-9.2V6.4z"/><path d="M9.2 12.2l2 2 3.6-4"/></svg>
+        <h3>What to keep off the machine</h3>
+        <p>The part nobody else writes down. Every tool tells you what to automate. This
+        tells you where handing it over costs you the thing you were hired for.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="build">
+    <span class="snum">Build it</span>
+    <h2>Two questions. <em>Then it is yours.</em></h2>
+
+    <div class="step">
+      <div class="n">Step one &middot; what do you do</div>
+      <div class="opts" id="roles"></div>
+      <div id="otherwrap" hidden style="margin-top:var(--s4)">
+        <input type="text" id="otherrole" placeholder="Your role, in your own words" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="step" id="jobstep" hidden>
+      <div class="n">Step two &middot; what you actually own</div>
+      <div class="opts" id="jobs"></div>
+      <p class="hint" id="jobhint">Tick up to five.</p>
+    </div>
+
+    <div class="step" id="ctxstep" hidden>
+      <div class="n" id="ctxlabel">Optional &middot; anything else it should know</div>
+      <textarea id="ctx" placeholder="Who you work for, what you sell, how you write, anything it would get wrong."></textarea>
+    </div>
+
+    <div class="go">
+      <button class="cta" id="run" disabled>Build my one-pager</button>
+      <span class="hint" id="runhint">Pick what you do to begin.</span>
+    </div>
+  </section>
+
+  <section id="sheet" hidden></section>
+
+  <div class="after" id="after" hidden>
+    <button class="cta" onclick="window.print()">Save as PDF</button>
+    <button class="cta ghost" id="restart">Start again</button>
+    <span class="hint">Built it? <a href="mailto:mehrpatni9@gmail.com?subject=My%20Promptly%20one-pager">Send it to me</a> and I will tell you what I would change.</span>
+  </div>
+
+  <div class="ps" id="ps">
+    <b>PS.</b> Promptly knows marketing, so that is all it recommends skills for. Pick
+    <b>Something else</b> and it stops pretending: instead of advice it cannot stand behind,
+    it hands you the architecture of my own chief of staff, six layers and two loops, and
+    writes the opening prompt for yours in your words. The architecture is the part that
+    works in any job.
+  </div>
+
+  <footer>
+    Promptly is free and always will be. Built by
+    <a href="../index.html">Mehr Patni</a>, Dubai. The skills it recommends are other
+    people&rsquo;s open source work and every one is credited on your sheet.
+  </footer>
+
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
