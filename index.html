@@ -130,8 +130,13 @@ header{padding:var(--s7) 0 0;position:relative}
   .js .real{opacity:1;transform:none}
 }
 .name{font-size:clamp(2.6rem,6vw,4.4rem);font-weight:600;letter-spacing:-.04em;line-height:1}
-.role{font-size:clamp(1.22rem,1.95vw,1.65rem);color:var(--muted);margin:var(--s5) 0 0;line-height:1.42;max-width:26ch}
-.role b{color:var(--ink);font-weight:600;letter-spacing:-.012em}
+/* The quote carries the page, so it takes the display face and the size.
+   The line under it explains, the signature closes. Three clear steps. */
+.say{margin:var(--s5) 0 0;font-family:Fraunces,Georgia,serif;font-weight:500;
+  font-size:clamp(1.65rem,3vw,2.4rem);line-height:1.18;letter-spacing:-.028em;
+  color:var(--ink);max-width:19ch}
+.role{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--muted);margin:var(--s5) 0 0;
+  line-height:1.5;max-width:30ch}
 .hfig{position:relative}
 .keys{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s5) 0 0;padding:0;list-style:none}
 .keys li{font-size:var(--t-small);font-weight:600;color:var(--ink);
@@ -579,9 +584,9 @@ h2 em{font-style:italic;font-weight:400;color:var(--faint)}
     <div class="hero2">
       <div class="hcopy">
         <p class="hello">Hey there, <span id="hgood">Good </span><span class="swap" id="hswap"><span class="w" id="hdecoy">Morning</span><span class="w" id="hreal">Evening</span></span>!</p>
-        <p class="role">Selling something once is easy. <b>Getting someone to come back is not.</b>
-        I build content, communities and marketing that earn trust. All of it with AI as my
-        chief of staff.</p>
+        <blockquote class="say">&ldquo;Selling something once is easy.
+        Getting someone to come back is not.&rdquo;</blockquote>
+        <p class="role">I build the content, communities and marketing that earn it.</p>
         <h1 class="sign">- Mehr<span class="vh"> Patni</span></h1>
         <div class="hcta">
           <a class="primary" href="guides/Mehr Patni - Copy Guides for Junior Writers.pdf" download><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.8 10.6 12 14.8l4.2-4.2M4 17.5v1.6A1.9 1.9 0 0 0 5.9 21h12.2a1.9 1.9 0 0 0 1.9-1.9v-1.6"/></svg><span>My Copy Playbook</span></a>
