@@ -134,3 +134,21 @@ const GENERIC = [
   ['corey','analytics',              'Pull a weekly read without a dashboard'],
   ['wondel','technical-documentation','Write the thing down so it survives you'],
 ];
+
+/* Typing beats picking from a wall of chips, so the role is a free field and
+   this decides which door it opens. First match wins, order matters. */
+const MATCH = [
+  [/product\s*market|pmm/i,                                   'pmm'],
+  [/growth|performance|paid|ppc|acquisition|demand\s*gen|crm/i,'growth'],
+  [/community|moderat|forum|discord|slack\s*lead/i,           'community'],
+  [/social\s*media|social$|instagram|tiktok|linkedin\s*lead/i, 'social'],
+  [/brand|communicat|comms|pr\b|public\s*relations/i,         'brand'],
+  [/founder|ceo|co.?founder|solopreneur|owner|freelanc/i,     'founder'],
+  [/content|writer|copywrit|copy\b|editor|blog|seo|journalis/i,'content'],
+  [/market/i,                                                 'content'],
+];
+
+/* The placeholder cycles, so the field reads as an invitation rather than a form. */
+const EXAMPLES = ['content marketer','community manager','growth lead','product marketer',
+  'brand strategist','founder doing my own marketing','hospital operations manager',
+  'secondary school teacher','recruiter','product designer'];

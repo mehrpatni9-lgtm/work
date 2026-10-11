@@ -9,38 +9,47 @@
   var state = { role: null, jobs: [], other: '' };
   var MAX = 5;
 
-  /* ── step one ─────────────────────────────────────────────────────── */
-  var rolesEl = $('roles');
-  Object.keys(ROLES).forEach(function (k) {
-    rolesEl.insertAdjacentHTML('beforeend',
-      '<label class="opt"><input type="radio" name="role" value="' + k + '">' +
-      '<span>' + esc(ROLES[k].label) + '</span></label>');
-  });
-  rolesEl.insertAdjacentHTML('beforeend',
-    '<label class="opt"><input type="radio" name="role" value="__other">' +
-    '<span>Something else</span></label>');
+  /* ── the blank ───────────────────────────────────────────────────── */
+  var roleIn = $('role'), typed = '';
 
-  rolesEl.addEventListener('change', function (e) {
-    state.role = e.target.value;
-    state.jobs = [];
-    var other = state.role === '__other';
-    $('otherwrap').hidden = !other;
-    $('jobstep').hidden = other;
-    $('ctxstep').hidden = false;
-    $('ctxlabel').textContent = other
-      ? 'Step two \u00b7 your three key responsibilities'
-      : 'Optional \u00b7 anything else it should know';
-    $('ctx').placeholder = other
-      ? 'One line each. What are the three things you are actually measured on?'
-      : 'Who you work for, what you sell, how you write, anything it would get wrong.';
-    if (!other) renderJobs(ROLES[state.role].jobs);
+  // The placeholder cycles so the field reads as an invitation, and stops the
+  // moment anyone touches it.
+  var ei = 0, cyc = setInterval(function () {
+    if (document.activeElement === roleIn || roleIn.value) { clearInterval(cyc); return; }
+    ei = (ei + 1) % EXAMPLES.length; roleIn.placeholder = EXAMPLES[ei];
+  }, 2200);
+
+  function matchRole(t) {
+    for (var i = 0; i < MATCH.length; i++) if (MATCH[i][0].test(t)) return MATCH[i][1];
+    return null;
+  }
+
+  roleIn.addEventListener('input', function () {
+    typed = this.value.trim();
+    state.other = typed;
+    var hit = typed.length > 1 ? matchRole(typed) : null;
+    if (hit !== state.role) {
+      state.role = hit; state.jobs = [];
+      if (hit) renderJobs(ROLES[hit].jobs);
+      $('jobhint').textContent = 'Up to five. Fewer is sharper.';
+    }
+    $('jobstep').hidden = !hit;
+    $('ctxstep').hidden = typed.length < 2;
+    $('read').hidden = typed.length < 2;
+    $('read').textContent = typed.length < 2 ? '' : hit
+      ? 'Marketing. I can get specific.'
+      : 'Outside my field, so you get the architecture instead.';
+    $('ctxlabel').textContent = hit
+      ? 'Optional \u00b7 anything else it should know'
+      : 'Your three key responsibilities';
+    $('ctx').placeholder = hit
+      ? 'Who you work for, how you write, anything it would get wrong.'
+      : 'One line each. What are the three things you are actually measured on?';
     sync();
   });
-  $('otherrole').addEventListener('input', function () {
-    state.other = this.value.trim(); sync();
-  });
 
-  /* ── step two ─────────────────────────────────────────────────────── */
+
+  /* ── step two: the tick list, only for roles Promptly can vouch for ─── */
   function renderJobs(ids) {
     $('jobs').innerHTML = ids.map(function (id) {
       return '<label class="opt"><input type="checkbox" value="' + id + '">' +
@@ -57,19 +66,15 @@
       state.jobs = state.jobs.filter(function (x) { return x !== v; });
     }
     $('jobhint').textContent = state.jobs.length
-      ? state.jobs.length + ' of ' + MAX + ' picked.' + (state.jobs.length === MAX ? ' That is the limit, and it is deliberate.' : '')
-      : 'Tick up to five.';
-    sync();
+      ? state.jobs.length + ' of ' + MAX + ' picked.' +
+        (state.jobs.length === MAX ? ' That is the limit, and it is deliberate.' : '')
+      : 'Up to five. Fewer is sharper.';
   });
 
-  function ready() {
-    return state.role === '__other' ? state.other.length > 1 : state.jobs.length > 0;
-  }
+  function ready() { return typed.length > 1; }
   function sync() {
     $('run').disabled = !ready();
-    $('runhint').textContent = ready() ? '' :
-      state.role === '__other' ? 'Type your role to begin.' :
-      state.role ? 'Tick at least one thing you own.' : 'Pick what you do to begin.';
+    $('runhint').textContent = ready() ? '' : 'Type anything. Marketing or not.';
   }
 
   /* ── the prompt. The hero of the sheet, so it is written long. ─────── */
@@ -134,8 +139,8 @@ refuse,
   var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.6 9.6 17 19 7"/></svg>';
 
   function build() {
-    var isOther = state.role === '__other';
-    var roleLabel = isOther ? state.other : ROLES[state.role].label;
+    var isOther = !state.role;                 // nothing matched, so take the other door
+    var roleLabel = typed;
     var ctx = $('ctx').value.trim();
     var jobs = state.jobs.slice().sort(function (a, b) { return JOBS[b].hours - JOBS[a].hours; });
     var hours = jobs.reduce(function (n, id) { return n + JOBS[id].hours; }, 0);
@@ -191,7 +196,7 @@ refuse,
           return '<li>' + TICK + '<div><b>' + esc(JOBS[id].label) + '.</b> ' + esc(JOBS[id].keep) + '</div></li>';
         }).join('') + '</ul></div>';
 
-      out += '<div class="closer">' + esc(CLOSERS[state.role]) + '</div>';
+      out += '<div class="closer">' + esc(CLOSERS[state.role] || '') + '</div>';
     }
 
     $('sheet').innerHTML = out;

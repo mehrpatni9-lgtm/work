@@ -93,6 +93,64 @@ button.cta:disabled{opacity:.4;cursor:not-allowed;transform:none}
 button.ghost{background:var(--white);color:var(--ink);border:1px solid var(--line)}
 [hidden]{display:none!important}
 
+/* ── the blank. The page's whole first move, so it is the biggest thing on it. */
+#blank{padding-top:var(--s6)}
+.bigblank{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 var(--s4)}
+.bigblank .pre{font-family:Fraunces,Georgia,serif;font-size:clamp(1.9rem,4.6vw,3.2rem);
+  font-weight:500;letter-spacing:-.03em;color:var(--ink)}
+.bigblank .field{position:relative;flex:1 1 60%;min-width:12ch}
+.bigblank input{width:100%;border:0;background:none;font-family:Fraunces,Georgia,serif;
+  font-size:clamp(1.5rem,3.6vw,2.6rem);font-weight:600;letter-spacing:-.03em;color:var(--accent);
+  padding:0 0 .12em;border-bottom:3px dashed var(--line);outline:0;transition:border-color .2s ease}
+.bigblank input::placeholder{color:var(--faint);opacity:.55;font-weight:400}
+.bigblank input:focus{border-bottom-color:var(--accent);border-bottom-style:solid}
+.read{margin:var(--s4) 0 0;font-family:Caveat,cursive;font-size:1.45rem;color:var(--accent);
+  transform:rotate(-1deg);transform-origin:0 50%}
+
+/* ── the preview: a real sheet, shrunk, with its parts called out ──────── */
+.peek{position:relative;margin:var(--s6) auto 0;max-width:40rem;padding:0 var(--s4) var(--s6)}
+.paper{background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  padding:var(--s5);transform:rotate(-.7deg);
+  box-shadow:0 2rem 4rem -2rem rgba(15,30,51,.45),0 0 0 .6rem rgba(255,255,255,.55)}
+.ptop{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s3);
+  padding-bottom:var(--s3);border-bottom:2px solid var(--ink)}
+.ptop b{font-family:Fraunces;font-size:1.1rem;font-weight:600;letter-spacing:-.02em;display:block}
+.ptop i{font-style:normal;font-size:.68rem;color:var(--muted)}
+.ptop s{text-decoration:none;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;color:var(--faint)}
+.pb{padding-top:var(--s4)}
+.pb h4{margin:0 0 var(--s2);font-size:.56rem;letter-spacing:.17em;text-transform:uppercase;
+  font-weight:700;color:var(--accent)}
+pre.mini{background:#0F1E33;color:#DCE7F5;border-radius:7px;padding:var(--s3);margin:0;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.5rem;line-height:1.62;
+  white-space:pre-wrap;max-height:none;overflow:hidden}
+.pchips{display:flex;flex-wrap:wrap;gap:.3rem}
+.pchips code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.56rem;color:var(--accent);
+  background:var(--accent-soft);border-radius:4px;padding:.2rem .4rem}
+.cred{display:block;margin-top:.35rem;font-style:normal;font-size:.56rem;color:var(--faint)}
+.prow{display:flex;gap:.45rem;align-items:center;font-size:.64rem;color:var(--body);margin-top:.3rem}
+.prow em{font-style:normal;width:.95rem;height:.95rem;flex:none;border-radius:50%;
+  background:var(--accent-soft);color:var(--accent);font-size:.46rem;font-weight:700;
+  display:grid;place-items:center}
+.pkeep{display:flex;gap:.4rem;font-size:.64rem;color:var(--body);margin-top:.3rem}
+.pkeep::first-letter{color:var(--accent)}
+/* Handwritten tags that point at the parts. They are decoration, so they hide
+   on narrow screens rather than piling on top of the sheet. */
+.tag{position:absolute;font-family:Caveat,cursive;font-size:1.12rem;color:var(--accent);
+  white-space:nowrap;line-height:1}
+.tag::before{content:"";position:absolute;top:50%;width:1.7rem;height:1px;background:var(--accent);opacity:.5}
+.tag.t1{top:7.2rem;right:-9.9rem}                  .tag.t1::before{left:-2.1rem}
+.tag.t2{top:22.3rem;left:-9.1rem;text-align:right} .tag.t2::before{right:-2.1rem}
+.tag.t3{top:28.4rem;right:-8.9rem}                 .tag.t3::before{left:-2.1rem}
+.tag.t4{top:33.6rem;left:-12rem;text-align:right}  .tag.t4::before{right:-2.1rem}
+.sticker{position:absolute;top:-1.1rem;left:-1.4rem;display:grid;place-items:center;
+  width:3.6rem;height:3.6rem;border-radius:50%;background:var(--accent);color:#fff;
+  font-family:Caveat,cursive;font-size:1.3rem;transform:rotate(-14deg);
+  box-shadow:0 .7rem 1.4rem -.6rem rgba(26,111,212,.7)}
+.smallprint{margin:var(--s5) auto 0;max-width:52ch;text-align:center;font-size:var(--t-small);
+  color:var(--muted)}
+@media(max-width:64rem){.tag{display:none}.peek{padding-bottom:var(--s4)}}
+
 /* ── the sheet ───────────────────────────────────────────────────────── */
 #sheet{margin-top:var(--s8);background:var(--white);border:1px solid var(--line);
   border-radius:var(--r);padding:var(--s7);scroll-margin-top:5rem}
@@ -168,71 +226,83 @@ footer{padding:var(--s8) 0;margin-top:var(--s8);border-top:1px solid var(--line)
 <div class="wrap">
 
   <header>
-    <p class="eyebrow">Free, no sign up</p>
-    <h1>Promptly</h1>
-    <p class="lede">Tell it what you do. It hands back <b>the opening prompt for your AI
-    agent</b>, the free skills worth installing, and the part of your job you should keep
-    off the machine.</p>
+    <p class="eyebrow">Free &middot; no sign up &middot; no email</p>
+    <h1>Fill in the blank.</h1>
+    <p class="lede">Promptly writes <b>the opening prompt for your AI agent</b>, names the free
+    skills worth installing, and tells you the part of your job to keep for yourself.</p>
   </header>
 
-  <section id="intro">
-    <span class="snum">What&rsquo;s inside</span>
-    <h2>One page. <em>Four things you can use today.</em></h2>
-    <div class="inside">
-      <div class="ins">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M4 12h11M4 17.5h7"/><path d="M17.5 15.5l2.2 2.2 3.3-3.6"/></svg>
-        <h3>Your agent&rsquo;s opening prompt</h3>
-        <p>A long, specific brief written around your actual responsibilities. Copy it into
-        Claude, ChatGPT or anything else and start from there instead of from nothing.</p>
-      </div>
-      <div class="ins">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.4 4.2 4 9.6l5.4 5.4M14.6 19.8 20 14.4 14.6 9M11.2 20.5 12.8 3.5"/></svg>
-        <h3>Named skills, not repo links</h3>
-        <p>The exact skills to install for the work you listed, pulled from free, open
-        source, MIT-licensed repositories. Each one named and credited to who wrote it.</p>
-      </div>
-      <div class="ins">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.1 2"/></svg>
-        <h3>What to hand over first</h3>
-        <p>Ranked against what you ticked, with an honest estimate of the hours each one
-        gives back in a week. Start at the top, not everywhere at once.</p>
-      </div>
-      <div class="ins">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 20 6.4v5.2c0 4.5-3.2 7.8-8 9.2-4.8-1.4-8-4.7-8-9.2V6.4z"/><path d="M9.2 12.2l2 2 3.6-4"/></svg>
-        <h3>What to keep off the machine</h3>
-        <p>The part nobody else writes down. Every tool tells you what to automate. This
-        tells you where handing it over costs you the thing you were hired for.</p>
-      </div>
+  <section id="blank">
+    <div class="bigblank">
+      <span class="pre">You are a</span>
+      <span class="field">
+        <input type="text" id="role" autocomplete="off" spellcheck="false"
+               aria-label="Your role" placeholder="content marketer">
+      </span>
     </div>
-  </section>
-
-  <section id="build">
-    <span class="snum">Build it</span>
-    <h2>Two questions. <em>Then it is yours.</em></h2>
-
-    <div class="step">
-      <div class="n">Step one &middot; what do you do</div>
-      <div class="opts" id="roles"></div>
-      <div id="otherwrap" hidden style="margin-top:var(--s4)">
-        <input type="text" id="otherrole" placeholder="Your role, in your own words" autocomplete="off">
-      </div>
-    </div>
+    <p class="read" id="read" hidden></p>
 
     <div class="step" id="jobstep" hidden>
-      <div class="n">Step two &middot; what you actually own</div>
+      <div class="n">Now tick what you actually own</div>
       <div class="opts" id="jobs"></div>
-      <p class="hint" id="jobhint">Tick up to five.</p>
+      <p class="hint" id="jobhint">Up to five. Fewer is sharper.</p>
     </div>
 
     <div class="step" id="ctxstep" hidden>
       <div class="n" id="ctxlabel">Optional &middot; anything else it should know</div>
-      <textarea id="ctx" placeholder="Who you work for, what you sell, how you write, anything it would get wrong."></textarea>
+      <textarea id="ctx" placeholder="Who you work for, how you write, anything it would get wrong."></textarea>
     </div>
 
     <div class="go">
-      <button class="cta" id="run" disabled>Build my one-pager</button>
-      <span class="hint" id="runhint">Pick what you do to begin.</span>
+      <button class="cta" id="run" disabled>Build my prompt</button>
+      <span class="hint" id="runhint">Type anything. Marketing or not.</span>
     </div>
+  </section>
+
+  <section id="intro">
+    <span class="snum">What you walk away with</span>
+    <h2>One page. <em>Here is the actual thing.</em></h2>
+
+    <div class="peek">
+      <div class="paper">
+        <div class="ptop"><div><b>Your AI set-up</b><i>Content marketer &middot; 4 responsibilities</i></div><s>Promptly</s></div>
+
+        <div class="pb"><h4>Your agent&rsquo;s opening prompt</h4>
+          <pre class="mini">You are my chief of staff. I am a content marketer.
+
+WHAT I OWN
+- Writing blog posts and long form.
+- SEO and search visibility.
+
+HOW YOU WORK, IN ORDER
+1. Read your rules file before anything else&hellip;
+2. Research before you write. Put a citation beside&hellip;
+4. Draft, do not decide. Bring me the version you&hellip;
+6. Never send, post, publish or schedule anything&hellip;</pre></div>
+
+        <div class="pb"><h4>12 skills to install, all free</h4>
+          <div class="pchips"><code>content-strategy</code><code>copywriting</code><code>keyword-research</code><code>seo-audit</code><code>mom-test</code><code>social</code></div>
+          <i class="cred">Named, with the repo and the person who wrote each one</i></div>
+
+        <div class="pb"><h4>Hand these over first</h4>
+          <div class="prow"><em>1</em><span>Writing blog posts and long form <b>&middot; 6 hrs a week</b></span></div>
+          <div class="prow"><em>2</em><span>Customer and competitor research <b>&middot; 6 hrs a week</b></span></div>
+          <div class="prow"><em>3</em><span>SEO and search visibility <b>&middot; 5 hrs a week</b></span></div></div>
+
+        <div class="pb"><h4>Keep this off the machine</h4>
+          <div class="pkeep">&check; <span>The final read. A draft in your voice still is not your judgement.</span></div>
+          <div class="pkeep">&check; <span>The interviews. Nobody tells a form what they tell a person.</span></div></div>
+      </div>
+
+      <span class="tag t1">the prompt, written long</span>
+      <span class="tag t2">real skills, credited</span>
+      <span class="tag t3">ranked, with hours</span>
+      <span class="tag t4">the part nobody else writes</span>
+      <span class="sticker">free</span>
+    </div>
+
+    <p class="smallprint">Not a marketer? Type anything above. Promptly stops recommending skills
+    it cannot vouch for and hands you the architecture of my own chief of staff instead.</p>
   </section>
 
   <section id="sheet" hidden></section>
@@ -244,11 +314,10 @@ footer{padding:var(--s8) 0;margin-top:var(--s8);border-top:1px solid var(--line)
   </div>
 
   <div class="ps" id="ps">
-    <b>PS.</b> Promptly knows marketing, so that is all it recommends skills for. Pick
-    <b>Something else</b> and it stops pretending: instead of advice it cannot stand behind,
-    it hands you the architecture of my own chief of staff, six layers and two loops, and
-    writes the opening prompt for yours in your words. The architecture is the part that
-    works in any job.
+    <b>PS.</b> Promptly knows marketing, so that is the only field it recommends skills for.
+    Type anything else and it stops pretending. Instead of advice it cannot stand behind, it
+    hands you the architecture of my own chief of staff, six layers and two loops, and writes
+    the opening prompt for yours in your own words. The architecture is the part that travels.
   </div>
 
   <footer>
