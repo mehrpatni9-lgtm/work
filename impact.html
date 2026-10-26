@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Social Impact · Mehr Patni</title>
+<meta name="description" content="Four years building systemic change in education for under-resourced communities with Angel Xpress Foundation, Mumbai: the pedagogy, the numbers, and what it taught me.">
+<meta property="og:title" content="Social Impact · Mehr Patni">
+<meta property="og:description" content="Four years building systemic change in education for under-resourced communities.">
+<meta property="og:image" content="https://mehrpatni.com/impact/hero-poster.jpg">
+<link rel="icon" href="icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --paper-2:#E9EFF7; --ink:#0F1E33; --body:#2B3C53;
+  --muted:#5C6E85; --faint:#8295AB; --accent:#1A6FD4; --accent-soft:#E4EEFC;
+  --line:#DBE3EE; --white:#fff; --warm:#EEF3FA; --warm-line:#D3E0F1; --sun:#13529E; --sky:#74C3F2;
+  --r:16px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:1.05rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0;color:var(--ink)}
+a{color:inherit}
+img,video{display:block;max-width:100%}
+.hand{font-family:Caveat,cursive;font-weight:600}
+.nw{white-space:nowrap}
+.wrap{max-width:62rem;margin:0 auto;padding:0 20px}
+section{padding:80px 0 0}
+.eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin:0 0 12px;color:var(--accent)}
+h2{font-size:clamp(1.7rem,3.8vw,2.4rem);letter-spacing:-.025em;line-height:1.1;margin:0 0 10px}
+.sub{color:var(--muted);margin:0 0 28px;max-width:40rem}
+p{margin:0 0 14px}
+
+/* bar + hero */
+.bar{position:absolute;top:0;left:0;right:0;z-index:3;padding:18px 20px}
+.bar a{color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;
+  background:rgba(15,30,51,.35);backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px}
+.hero{position:relative;min-height:88vh;min-height:88svh;display:flex;align-items:flex-end;overflow:hidden;color:#fff}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(15,30,51,.1) 0%,rgba(15,30,51,.25) 45%,rgba(15,30,51,.85) 100%)}
+.hero .in{position:relative;z-index:2;max-width:62rem;margin:0 auto;padding:0 20px 56px;width:100%}
+.hero .eyebrow{color:#A9DBFA}
+.hero h1{color:#fff;font-size:clamp(2.1rem,5.4vw,3.9rem);line-height:1.06;letter-spacing:-.03em;max-width:19ch}
+.hero .lede{font-size:clamp(1rem,1.6vw,1.2rem);margin:16px 0 0;color:#E9EFF7}
+
+/* journey slide */
+.slide{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;padding:8px 4px;align-items:start}
+.pol{margin:0;background:#fff;padding:10px 10px 14px;border-radius:5px;position:relative;
+  box-shadow:0 12px 30px rgba(15,30,51,.15);transition:transform .35s ease}
+.pol:nth-child(1){transform:rotate(-2.5deg)}.pol:nth-child(2){transform:rotate(1.8deg) translateY(12px)}
+.pol:nth-child(3){transform:rotate(-1.2deg)}.pol:nth-child(4){transform:rotate(2.6deg) translateY(8px)}
+.pol:hover{transform:rotate(0) scale(1.04);z-index:2}
+.pol::before{content:"";position:absolute;top:-11px;left:50%;width:70px;height:22px;margin-left:-35px;
+  background:rgba(116,195,242,.55);transform:rotate(-3deg)}
+.pol img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 18%;border-radius:2px}
+.pol .t{font-family:Caveat,cursive;font-weight:600;font-size:1.65rem;color:var(--ink);text-align:center;line-height:1;margin:10px 0 2px}
+.pol .d{font-size:.8rem;color:var(--muted);text-align:center;line-height:1.35;margin:0}
+.pol .n{position:absolute;top:18px;left:18px;width:28px;height:28px;border-radius:50%;background:var(--sun);
+  color:#fff;font-weight:700;font-size:.8rem;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.num{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.num .k{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.num .from{font-family:Fraunces,Georgia,serif;font-size:1.1rem;color:var(--faint)}
+.num .to{font-family:Fraunces,Georgia,serif;font-size:2rem;font-weight:600;color:var(--ink);letter-spacing:-.02em;line-height:1.1}
+.num .cap{font-size:.82rem;color:var(--muted);margin:6px 0 0}
+.src{font-size:.78rem;color:var(--faint);margin-top:12px}
+.src a{color:var(--faint)}
+
+/* pedagogy */
+.warm{background:var(--warm);border-top:1px solid var(--warm-line);border-bottom:1px solid var(--warm-line);margin-top:80px;padding:72px 0}
+.warm section{padding:0}
+.warm .eyebrow{color:var(--sun)}
+
+
+/* model */
+.pi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:30px}
+.pi-p,.pi-i{border-radius:var(--r);padding:22px 24px}
+.pi-p{background:var(--white);border:1px solid var(--warm-line);display:flex;gap:18px;align-items:center}
+.pi-p .big{font-family:Fraunces,Georgia,serif;font-size:3.4rem;line-height:1;color:var(--sun);letter-spacing:-.03em}
+.pi-i{background:#1E2A4A;color:#fff}
+.pi .k{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sun);margin:0 0 4px}
+.pi-i .k{color:#A9C4EE}
+.pi p{margin:0}
+.pi-i p:last-child{font-weight:600;font-size:1.05rem;line-height:1.45}
+.rule{display:flex;align-items:center;gap:14px;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sun);margin:0 0 14px}
+.rule::after{content:"";flex:1;height:1px;background:var(--warm-line)}
+.loop{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:stretch}
+.arr{align-self:center;color:var(--sun);font-size:1.1rem}
+.lc{background:var(--white);border:1px solid var(--warm-line);border-radius:var(--r);padding:20px}
+.lh{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.dot{flex:none;width:32px;height:32px;border-radius:50%;background:var(--sun);color:#fff;font-weight:700;font-size:.9rem;display:grid;place-items:center}
+.lh h3{font-size:1.2rem;line-height:1.2}
+.lc .lead{color:var(--ink);font-size:.97rem;padding-bottom:12px;margin:0 0 12px;border-bottom:1px solid var(--warm-line)}
+.lc dl{margin:0;font-size:.92rem;color:var(--body)}
+.lc dl div{margin-bottom:6px}
+.lc dt{display:inline;font-weight:600;color:var(--ink)}
+.lc dd{display:inline;margin:0}
+.lc dd a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.back{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--sun);font-size:.92rem;font-weight:500;
+  border:1.5px dashed #9DB4D8;border-top:0;border-radius:0 0 var(--r) var(--r);padding:14px;margin:6px 0 30px}
+.back svg{width:18px;height:18px}
+.fnd{background:var(--white);border:1.5px solid var(--sun);border-radius:var(--r);padding:18px 22px;display:flex;gap:24px;align-items:center;margin-bottom:30px}
+.fnd .lh{margin:0;flex:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{background:var(--paper-2);border-radius:999px;padding:6px 14px;font-size:.92rem;color:var(--body)}
+.chips b{color:var(--ink);font-weight:600}
+.res{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.res div{background:var(--white);border:1px solid var(--warm-line);border-radius:var(--r);padding:18px;text-align:center}
+.res b{display:block;font-family:Fraunces,Georgia,serif;font-size:2.1rem;font-weight:500;color:var(--sun);line-height:1.1}
+.res span{font-size:.88rem;color:var(--body)}
+@media(max-width:56rem){
+  .loop{grid-template-columns:1fr}.arr{transform:rotate(90deg);justify-self:center}
+  .fnd{flex-direction:column;align-items:flex-start;gap:14px}
+  .res{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:36rem){.pi{grid-template-columns:1fr}.pi-p .big{font-size:2.8rem}}
+
+/* lessons */
+.lessons-wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2fr);gap:40px;align-items:start}
+.lhd{position:sticky;top:32px}
+.lhd h2{font-size:clamp(1.8rem,3.4vw,2.5rem)}
+.lgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lz{position:relative;overflow:hidden;background:var(--white);border:1px solid var(--line);border-radius:20px;padding:24px 24px 26px;
+  transition:transform .3s ease,box-shadow .3s ease}
+.lz:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(15,30,51,.10)}
+.lz:nth-child(1),.lz:nth-child(4){background:linear-gradient(160deg,#EAF2FD 0%,#fff 70%)}
+.lz .li{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--accent);color:#fff;margin-bottom:18px;
+  box-shadow:0 6px 14px rgba(26,111,212,.25)}
+.lz .li svg{width:24px;height:24px}
+.lz h3{font-size:1.3rem;line-height:1.2;letter-spacing:-.015em;margin:0 0 8px;max-width:15ch}
+.lz p{margin:0;color:var(--muted);font-size:.98rem;line-height:1.55}
+@media(max-width:56rem){.lessons-wrap{grid-template-columns:1fr;gap:18px}.lhd{position:static}}
+@media(max-width:36rem){.lgrid{grid-template-columns:1fr}}
+
+/* film */
+.film{position:relative;border-radius:var(--r);overflow:hidden;background:#0F1E33;aspect-ratio:16/9;box-shadow:0 18px 40px rgba(15,30,51,.16)}
+.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+.cover{position:absolute;inset:0;border:0;padding:0;cursor:pointer;color:#fff;font:inherit;
+  background:radial-gradient(120% 90% at 20% 10%,#24406B 0%,#0F1E33 70%);display:flex;align-items:center;overflow:hidden}
+.cover .shots{position:absolute;right:4%;top:50%;width:52%;height:80%;transform:translateY(-50%)}
+.cover .shots img{position:absolute;width:56%;height:auto;border:7px solid #fff;border-bottom-width:24px;
+  border-radius:3px;box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.cover .shots img:nth-child(1){left:0;top:4%;transform:rotate(-7deg)}
+.cover .shots img:nth-child(2){right:0;top:0;transform:rotate(5deg)}
+.cover .shots img:nth-child(3){left:22%;bottom:0;transform:rotate(-2deg);z-index:2}
+.cover .txt{position:relative;z-index:3;padding:0 0 0 6%;text-align:left;max-width:46%}
+.cover .k{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#A9DBFA}
+.cover .h{display:block;font-family:Fraunces,Georgia,serif;font-size:clamp(1.25rem,2.6vw,1.9rem);line-height:1.2;letter-spacing:-.015em;margin:0 0 18px}
+.cover .h em{display:block;font-family:Caveat,cursive;font-style:normal;color:#A9DBFA;font-size:1.2em;line-height:1.1;margin-top:8px}
+.play{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--ink);font-weight:600;font-size:.92rem;
+  padding:10px 18px 10px 12px;border-radius:999px;transition:transform .2s ease}
+.play i{width:28px;height:28px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.play i::after{content:"";border-left:9px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
+.cover:hover .play{transform:scale(1.05)}
+
+/* close */
+.close{text-align:center;padding:48px 0 88px}
+.close .hand{font-size:clamp(1.7rem,4vw,2.4rem);color:var(--ink);line-height:1.15;max-width:28rem;margin:0 auto 22px}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;text-decoration:none;font-weight:600;font-size:.95rem;padding:12px 20px;border-radius:999px;
+  border:1px solid var(--line);background:var(--white);color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:56rem){
+  .slide{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 18px}
+  .nums{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+@media(max-width:36rem){
+  section{padding-top:60px}
+      .num .to{font-size:1.6rem}
+  .pol .t{font-size:1.4rem}
+    .cover{align-items:flex-end}
+  .film{aspect-ratio:4/5}
+  .cover .shots{right:6%;left:6%;top:6%;width:auto;height:56%;transform:none}
+  .cover .shots img{border-width:4px;border-bottom-width:14px}
+  .cover .txt{max-width:none;padding:0 18px 18px}
+  .cover .h{font-size:1.15rem;margin:0 0 12px}
+  .hero .in{padding-bottom:40px}
+}
+@media(max-width:36rem){
+  body{font-size:1.06rem}
+  .wrap{padding:0 18px}
+  .hero h1{font-size:2.15rem}
+  .hero .eyebrow{font-size:.68rem;letter-spacing:.14em;line-height:1.7}
+  .sub{font-size:1rem}
+  .pol .d{font-size:.88rem}
+  .pol .t{font-size:1.45rem}
+  .pi-p{flex-direction:column;align-items:flex-start;gap:6px}
+  .pi-p .big{font-size:3rem}
+  .lc{padding:18px}
+  .lc dl{font-size:.95rem}
+  .chips span{font-size:.92rem}
+  .res div{padding:16px 10px}
+  .res b{font-size:1.85rem}
+  .res span{display:block;font-size:.9rem;line-height:1.35}
+  .src{font-size:.85rem}
+  .lz{padding:22px 20px}
+  .lz h3{font-size:1.25rem;max-width:none}
+  .lz p{font-size:1rem}
+  .btn{padding:14px 22px;font-size:1rem}
+}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.hero video{display:none}}
+</style>
+</head>
+<body>
+
+<div class="bar"><a href="index.html">&larr; Mehr Patni</a></div>
+
+<header class="hero">
+  <img class="poster" src="impact/hero-poster.jpg" alt="">
+  <video autoplay muted loop playsinline preload="metadata" poster="impact/hero-poster.jpg" aria-hidden="true">
+    <source src="impact/hero.mp4" type="video/mp4">
+  </video>
+  <div class="in">
+    <p class="eyebrow"><span class="nw">Building systemic change</span> &middot; <span class="nw">Under-resourced communities</span></p>
+    <h1>Helping children in Mumbai&rsquo;s slums stay in school and learn.</h1>
+    <p class="lede"><span class="nw">Angel Xpress Foundation, Mumbai</span> &middot; <span class="nw">2015&ndash;2019</span> &middot; <span class="nw">Centre Head</span></p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="rv">
+    <p class="eyebrow">The journey</p>
+    <h2>Volunteer to core team.</h2>
+    <div class="slide">
+      <figure class="pol"><span class="n">1</span><img src="impact/me-tree.jpg" alt="Mehr decorating a Christmas tree of paper stars in the garden" loading="lazy"><p class="t">Volunteer</p><p class="d">Garden classrooms</p></figure>
+      <figure class="pol"><span class="n">2</span><img src="impact/me-group.jpg" alt="Mehr with her group of children in Angel Xpress t-shirts" loading="lazy"><p class="t">Mentor</p><p class="d">My own group of children</p></figure>
+      <figure class="pol"><span class="n">3</span><img src="impact/me-party.jpg" alt="Mehr celebrating with children at the Juhu centre" loading="lazy"><p class="t">Centre Head</p><p class="d">Ran the Juhu centre</p></figure>
+      <figure class="pol"><span class="n">4</span><img src="impact/team.jpg" alt="The Angel Xpress team at an evening gathering" loading="lazy"><p class="t">Core team</p><p class="d">Frameworks with the founders</p></figure>
+    </div>
+  </section>
+
+  <section class="rv">
+    <p class="eyebrow">2015 &rarr; 2026</p>
+    <h2>The model scaled.</h2>
+    <div class="nums">
+      <div class="num"><div class="k">Children</div><div class="from">~800</div><div class="to">7,200+</div></div>
+      <div class="num"><div class="k">Centres</div><div class="from">8</div><div class="to">36</div></div>
+      <div class="num"><div class="k">Volunteers</div><div class="from">200</div><div class="to">1,564</div></div>
+      <div class="num"><div class="k">Annual funding</div><div class="from">$115K</div><div class="to">$425K</div></div>
+    </div>
+    <p class="src">Sources: Angel Xpress Foundation <a href="https://angelxpress.org/wp-content/uploads/2026/07/AXF-Annual-Report-2025-26.pdf" target="_blank" rel="noopener">annual reports</a> and <a href="https://angelxpress.org/wp-content/uploads/2026/10/AXF-Mid-Year-Progress-Report_26-27.pdf" target="_blank" rel="noopener">2026 progress report</a>; funding via <a href="https://give.do/discover/1AC0/angel-xpress-foundation/" target="_blank" rel="noopener">Give.do</a>, converted at &#8377;85 to US$1.</p>
+  </section>
+
+</main>
+
+<div class="warm">
+  <div class="wrap">
+    <section class="rv">
+      <p class="eyebrow">The model</p>
+      <h2>A teaching model any volunteer can run.</h2>
+      <p class="sub">On the core team, I worked with the founders and fellow centre heads to build the repeatable frameworks Angel Xpress Foundation still runs on.</p>
+      <div class="pi">
+        <div class="pi-p"><span class="big">80%</span><div><p class="k">Problem</p><p>of children joined at or below kindergarten level, whatever their school grade.</p></div></div>
+        <div class="pi-i"><p class="k">Insight</p><p>Teach to level, with a system strong enough for volunteers with no teaching background to deliver.</p></div>
+      </div>
+      <p class="rule">The loop, for every child</p>
+      <div class="loop">
+        <div class="lc"><div class="lh"><span class="dot">1</span><h3>Test and place</h3></div><p class="lead">Tested on entry, placed by ability, not school grade.</p><dl><div><dt>Baseline:</dt> <dd>test on entry</dd></div><div><dt>English:</dt> <dd>levels E0 to E5</dd></div><div><dt>Maths:</dt> <dd>levels A to G</dd></div></dl></div>
+        <span class="arr" aria-hidden="true">&rarr;</span>
+        <div class="lc"><div class="lh"><span class="dot">2</span><h3>Teach in small groups</h3></div><p class="lead">Five children per volunteer, at their own level.</p><dl><div><dt>Ratio:</dt> <dd>1:5 teacher to student</dd></div><div><dt>English:</dt> <dd>CLIL, content and language together</dd></div><div><dt>Maths:</dt> <dd>CRA, concrete to representational to abstract</dd></div><div><dt>Life skills:</dt> <dd><a href="https://iris.who.int/handle/10665/63552" target="_blank" rel="noopener">WHO&rsquo;s 10 core skills</a></dd></div></dl></div>
+        <span class="arr" aria-hidden="true">&rarr;</span>
+        <div class="lc"><div class="lh"><span class="dot">3</span><h3>Measure monthly</h3></div><p class="lead">Progress checked monthly, so no child moves on too early.</p><dl><div><dt>Tests:</dt> <dd>monthly, per child</dd></div><div><dt>Endline:</dt> <dd>against the baseline</dd></div><div><dt>Rule:</dt> <dd>level up only once concepts are secure</dd></div></dl></div>
+      </div>
+      <div class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 01-4 4H3"/></svg>Results feed back into placement</div>
+      <p class="rule">The foundation</p>
+      <div class="fnd"><div class="lh"><span class="dot">4</span><h3>Standardise to scale</h3></div><div class="chips"><span><b>One curriculum</b> across centres</span><span><b>One assessment</b> framework</span><span><b>M&amp;E</b> (monitoring and evaluation) built in</span><span>Later <b>NCERT-aligned</b></span></div></div>
+      <p class="rule">The results</p>
+      <div class="res">
+        <div><b>+30%</b><span>English learning gain</span></div>
+        <div><b>+31%</b><span>Maths learning gain</span></div>
+        <div><b>100%</b><span>Class 10 pass rate</span></div>
+        <div><b>1,000+</b><span>children moved up a level</span></div>
+      </div>
+      <p class="src">Learning gains and pass rate 2025-26, baseline to endline. From Angel Xpress Foundation <a href="https://angelxpress.org/wp-content/uploads/2026/07/AXF-Annual-Report-2025-26.pdf" target="_blank" rel="noopener">annual reports</a>.</p>
+    </section>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="rv">
+    <div class="lessons-wrap">
+      <div class="lhd"><p class="eyebrow">Angel Xpress Foundation</p>
+      <h2>4 big lessons I learnt in 4 years.</h2></div>
+      <div class="lgrid">
+        <article class="lz"><span class="li"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg></span><h3>Confidence moves test scores.</h3><p>Life skills, culture and outdoor days gave children a place to belong, and their assessment results rose with it.</p></article>
+        <article class="lz"><span class="li"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8.5c1.6-2.6 6-2.1 6 1.2 0 2.6-3.6 4.6-6 6.6-2.4-2-6-4-6-6.6 0-3.3 4.4-3.8 6-1.2z"/><path d="M3 20h4l3-2h5"/></svg></span><h3>Paid volunteers stay motivated.</h3><p>A stipend turned goodwill into commitment.</p></article>
+        <article class="lz"><span class="li"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.2c0 1.4 2.5 2.8 5.5 2.8s5.5-1.4 5.5-2.8V11"/><path d="M21.5 9v5"/></svg></span><h3>Your best mentors are your students.</h3><p>Exceptional children became mentors at the centre, and responsibility made them even more driven.</p></article>
+        <article class="lz"><span class="li"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg></span><h3>Systems beat heroics.</h3><p>A standard curriculum let first-time teachers deliver consistent lessons as we grew from 8 to 17 locations.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <p class="eyebrow">My journey through the years</p>
+    <div class="film">
+      <video id="yv" preload="none" playsinline controls hidden><source src="impact/years.mp4" type="video/mp4"></video>
+      <button class="cover" id="cover" aria-label="Play: my journey through the years">
+        <span class="shots"><img src="impact/cards.jpg" alt=""><img src="impact/stage.jpg" alt=""><img src="impact/p5.jpg" alt=""></span>
+        <span class="txt"><span class="h">Someday I would like to teach again. <em>Until then, I build work that creates this kind of value.</em></span><span class="play"><i></i>Watch</span></span>
+      </button>
+    </div>
+  </section>
+
+  <div class="close rv">
+    <div class="btns">
+      <a class="btn primary" href="mailto:mehrpatni9@gmail.com">Let's talk</a>
+      <a class="btn" href="index.html">Back to my work</a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
+    els.forEach(function(e){io.observe(e)});
+  } else els.forEach(function(e){e.classList.add('in')});
+  var c=document.getElementById('cover'),v=document.getElementById('yv');
+  c.addEventListener('click',function(){v.hidden=false;c.remove();v.play()});
+})();
+</script>
+</body>
+</html>
